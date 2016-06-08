@@ -8,10 +8,10 @@ var {
   Navigator
 } = ReactNative;
 var realm = require('./src/class');
-var Home = require('./src/home');
+var Tabbar = require('./src/tabbar');
 var Signup = require('./src/signup');
 var ROUTES = {
-  home: Home,
+  tabbar: Tabbar,
   signup: Signup
 }
 
@@ -22,14 +22,14 @@ var Gains = React.createClass({
     return <Component route={route} navigator={navigator} />;
   },
   render: function() {
-    var route
-    if (realm.objects('User').length > 0) {
-      route = 'home'
-    } else { route = 'signup'}
-
     // realm.write(() => {
     //    realm.delete(realm.objects('User')); // Deletes all users
     // });
+    var route
+    if (realm.objects('User').length > 0) {
+      route = 'tabbar'
+    } else { route = 'signup'}
+
     return (
       <Navigator
         style={styles.container}
