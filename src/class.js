@@ -23,7 +23,7 @@ User.schema = {
   properties: {
     id: 'int',
     name: 'string',
-    password: 'string',
+    password: {type: 'string', optional: true},
     age: {type: 'int', optional: true},
     height: {type: 'int', optional: true},
     weight: {type: 'int', optional: true},

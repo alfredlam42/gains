@@ -8,17 +8,12 @@ var {
 var realm = require('./class');
 
 module.exports = React.createClass({
-  getInitialState: function() {
-    return {
-      name: '',
-      series: ''
-    };
-  },
   render: function(){
+    var currentUser = realm.objects('User')[0]
     return (
       <View style={styles.container}>
         <Text>
-          HOME SCREEN
+          hey {currentUser.name}
         </Text>
       </View>
     )
