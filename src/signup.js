@@ -55,7 +55,7 @@ module.exports = React.createClass({
       realm.create('User', {id: 1, name: this.state.name, password: '12345', age: parseInt(this.state.age), height: parseInt(this.state.height), weight: parseInt(this.state.weight)});
     });
 
-    { this.props.navigator.immediatelyResetRouteStack([{ name: 'home' }]); }
+    { this.props.navigator.immediatelyResetRouteStack([{ name: 'tabbar' }]); }
   }
 });
 
