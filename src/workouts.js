@@ -1,4 +1,4 @@
-//this page is a dummy home page. Bison will be the one creating the real home page. After bison creates said page, require that file on tabbar.js
+//this page is a dummy home page. Alfred will be the one creating the real workouts page. After Alfred creates said page, require that file on tabbar.js
 
 var React = require("react");
 var ReactNative = require("react-native");
@@ -11,16 +11,15 @@ var realm = require('./class');
 
 module.exports = React.createClass({
   render: function(){
-    var currentUser = realm.objects('User')[0]
     return (
       <View style={styles.container}>
         <Text>
-          hey {currentUser.name}
+         This is the workouts page
         </Text>
       </View>
     )
   },
-});
+})
 
 var styles = StyleSheet.create({
   container: {
@@ -28,15 +27,5 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
