@@ -13,9 +13,10 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       name: '',
-      age: '',
-      height: '',
-      weight: ''
+      age: null,
+      height: null,
+      weight: null,
+      errorMessage: ''
     }
   },
   render: function() {
@@ -45,12 +46,20 @@ module.exports = React.createClass({
             onChangeText={(text) => this.setState({weight: text})}
             style={styles.input}/>
 
+          <Text style={[styles.label, styles.errorMessage]}>{this.state.errorMessage}</Text>
           <Button text={'Signup'} onPress={this.onSignupPress} />
 
       </View>
     )
   },
   onSignupPress: function() {
+    if (this.state.name === '') {
+      this.setState({
+        errorMessage: "You have to put your name"
+      })
+      return;
+    };
+
     realm.write(() => {
       realm.create('User', {id: 1, name: this.state.name, password: '12345', age: parseInt(this.state.age), height: parseInt(this.state.height), weight: parseInt(this.state.weight)});
     });
@@ -78,4 +87,7 @@ var styles = StyleSheet.create({
   label: {
     fontSize: 18
   },
+  errorMessage: {
+    color: 'red'
+  }
 })
