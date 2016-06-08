@@ -1,7 +1,6 @@
 var React = require('react-native');
 var {
   AppRegistry,
-  MapView,
   View,
   Text,
   StyleSheet
