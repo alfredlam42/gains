@@ -25,6 +25,8 @@ var Gains = React.createClass({
     // realm.write(() => {
     //    realm.delete(realm.objects('User')); // Deletes all users
     // });
+
+    // realm code above used for testing if I could sign up a user and if there is already a user, skip the sign up page.
     var route
     if (realm.objects('User').length > 0) {
       route = 'tabbar'

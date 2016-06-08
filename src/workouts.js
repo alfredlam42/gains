@@ -1,3 +1,5 @@
+//this page is a dummy home page. Alfred will be the one creating the real workouts page. After Alfred creates said page, require that file on tabbar.js
+
 var React = require("react");
 var ReactNative = require("react-native");
 var {

@@ -1,3 +1,5 @@
+//this page is a dummy home page. Bison will be the one creating the real home page. After bison creates said page, require that file on tabbar.js
+
 var React = require("react");
 var ReactNative = require("react-native");
 var {
@@ -18,7 +20,7 @@ module.exports = React.createClass({
       </View>
     )
   },
-})
+});
 
 var styles = StyleSheet.create({
   container: {

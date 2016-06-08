@@ -1,3 +1,5 @@
+//this page is a dummy home page. Someone will be the one creating the real Logs page. After someone creates said page, require that file on tabbar.js
+
 var React = require("react");
 var ReactNative = require("react-native");
 var {
@@ -17,7 +19,7 @@ module.exports = React.createClass({
       </View>
     )
   },
-})
+});
 
 var styles = StyleSheet.create({
   container: {
