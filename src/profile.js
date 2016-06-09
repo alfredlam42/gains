@@ -83,16 +83,17 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   logo: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 3,
     borderColor: 'blue'
   },
   profile: {
-    flex: 4,
+    flex: 3,
     justifyContent: 'center',
     paddingLeft: 25,
+    // alignItems: 'center',
     borderWidth: 3,
     borderColor: 'green'
   },
@@ -104,16 +105,15 @@ var styles = StyleSheet.create({
     fontSize: 18
   },
   seriesWrapper: {
-    flex: 3,
-    alignItems: 'center',
+    flex: 4,
+    // alignItems: 'center',
+    paddingLeft: 25,
     justifyContent: 'center',
     borderWidth: 3,
     borderColor: 'yellow'
   },
   workoutWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: 'row'
   },
   pic: {
     width: 100,
@@ -127,14 +127,17 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     paddingLeft: 5
   },
+  workoutInfo: {
+    fontSize: 18
+  },
   buttonWrapper: {
-    flex: 2,
+    flex: 1.5,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    paddingBottom: 40,
     borderWidth: 3,
-    borderColor: 'red',
-    paddingBottom: 40
+    borderColor: 'red'
   },
   button: {
     borderWidth: 2,
@@ -142,6 +145,6 @@ var styles = StyleSheet.create({
     width: 100,
     borderRadius: 4,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   }
 });
