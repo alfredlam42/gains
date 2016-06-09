@@ -16,7 +16,7 @@ var {
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      selectedTab: 'home'
+      selectedTab: 'profile'
     }
   },
   render: function() {
@@ -27,12 +27,12 @@ module.exports = React.createClass({
         barTintColor="#000080"
         selectedTab={this.state.selectedTab}>
         <TabBarIOS.Item
-          selected={this.state.selectedTab === 'home'}
+          selected={this.state.selectedTab === 'profile'}
           title="Profile"
           icon={require('./common/icons/home.png')}
           onPress={() => {
             this.setState({
-              selectedTab: 'home',
+              selectedTab: 'profile',
             });
           }}>
           <Profile />
