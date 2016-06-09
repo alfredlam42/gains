@@ -11,6 +11,10 @@ var Realm = require('./class');
 
 // Profile Page Component
 module.exports = React.createClass({
+  renderScene: function(route, navigator) {
+    var Component = ROUTES[route.name];
+    return <Component route={route} navigator={navigator} />;
+  },
   render: function() {
 
     var user = Realm.objects('User')[0];
