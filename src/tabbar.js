@@ -39,12 +39,12 @@ module.exports = React.createClass({
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
-          selected={this.state.selectedTab === 'workouts'}
+          selected={this.state.selectedTab === 'series'}
           title="Series"
           icon={require('./common/icons/workouts.png')}
           onPress={() => {
             this.setState({
-              selectedTab: 'workouts',
+              selectedTab: 'series',
             });
           }}>
           <Series />
