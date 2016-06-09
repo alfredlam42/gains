@@ -30,14 +30,21 @@ module.exports = React.createClass({
           <Text style={styles.userInfo}>Weight: {user.weight}</Text>
         </View>
 
-        <View style={styles.currentWorkout}>
-          <Text style={styles.h2}>Current Workout</Text>
-          <Text>Current workout goes here</Text>
+        <View style={styles.seriesWrapper}>
+          <Text style={styles.h2}>Current Series</Text>
+          <View style={styles.workoutWrapper}>
+            <Text style={styles.pic}></Text>
+            <View style={styles.workoutDetails}>
+              <Text style={styles.workoutInfo}>Name: </Text>
+              <Text style={styles.workoutInfo}>Week: </Text>
+              <Text style={styles.workoutInfo}>Day: </Text>
+            </View>
+          </View>
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Text>Update workout</Text>
-          <Text>Update user info</Text>
+          <Text>New Series</Text>
+          <Text>Edit Profile</Text>
         </View>
 
       </View>
@@ -73,12 +80,31 @@ var styles = StyleSheet.create({
   userInfo: {
     fontSize: 18
   },
-  currentWorkout: {
+  seriesWrapper: {
     flex: 3,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 3,
     borderColor: 'yellow'
+  },
+  workoutWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  pic: {
+    width: 100,
+    height: 100,
+    borderWidth: 3,
+    borderColor: 'green'
+  },
+  workoutDetails: {
+    width: 200,
+    height: 100,
+    justifyContent: 'center',
+    paddingLeft: 2,
+    // borderWidth: 3,
+    // borderColor: 'green'
   },
   buttonWrapper: {
     flex: 3,
