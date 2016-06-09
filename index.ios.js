@@ -7,12 +7,18 @@ var {
   StyleSheet,
   Navigator
 } = ReactNative;
+
 var realm = require('./src/class');
 var Tabbar = require('./src/tabbar');
 var Signup = require('./src/signup');
+var Profile = require('./src/profile');
+var Series = require('./src/series');
+
 var ROUTES = {
   tabbar: Tabbar,
-  signup: Signup
+  signup: Signup,
+  profile: Profile,
+  series: Series
 }
 
 //Component
@@ -23,6 +29,7 @@ var Gains = React.createClass({
   },
   render: function() {
     // realm.write(() => {
+
     //    realm.delete(realm.objects('User')); // Deletes all users
     // });
 
