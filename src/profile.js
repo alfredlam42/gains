@@ -4,6 +4,7 @@ var {
   Text,
   StyleSheet,
   View,
+  TouchableHighlight
 } = ReactNative;
 
 var Realm = require('./class');
@@ -20,7 +21,6 @@ module.exports = React.createClass({
         <View style={styles.logo}>
           <Text>Header / logo goes here</Text>
         </View>
-
 
         <View style={styles.profile}>
           <Text style={styles.h2}>Profile</Text>
@@ -43,12 +43,35 @@ module.exports = React.createClass({
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Text>New Series</Text>
-          <Text>Edit Profile</Text>
+          {this.newSeriesButton()}
+          {this.editProfileButton()}
         </View>
-
       </View>
     );
+  },
+  newSeriesButton: function() {
+    return <TouchableHighlight
+      underlayColor="gray"
+      onPress={this.handleNewSeriesPress}
+      style={styles.button}
+      >
+        <Text>New Series</Text>
+      </TouchableHighlight>
+  },
+  editProfileButton: function() {
+    return <TouchableHighlight
+      underlayColor="gray"
+      onPress={this.handleEditProfilePress}
+      style={styles.button}
+      >
+        <Text>Edit Profile</Text>
+      </TouchableHighlight>
+  },
+  handleNewSeriesPress: function() {
+
+  },
+  handleEditProfilePress: function() {
+
   }
 });
 
@@ -102,16 +125,23 @@ var styles = StyleSheet.create({
     width: 200,
     height: 100,
     justifyContent: 'center',
-    paddingLeft: 2,
-    // borderWidth: 3,
-    // borderColor: 'green'
+    paddingLeft: 5
   },
   buttonWrapper: {
-    flex: 3,
+    flex: 2,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     borderWidth: 3,
-    borderColor: 'red'
+    borderColor: 'red',
+    paddingBottom: 40
+  },
+  button: {
+    borderWidth: 2,
+    height: 50,
+    width: 100,
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
