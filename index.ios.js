@@ -9,15 +9,17 @@ var {
 } = ReactNative;
 var realm = require('./src/class');
 var Home = require('./src/home');
+var SeriesDetail = require('./src/series/seriesdetails')
 var ROUTES = {
   home: Home,
+  seriesdetail: SeriesDetail,
 }
 
 //Component
 var Gains = React.createClass({
   renderScene: function(route, navigator) {
     var Component = ROUTES[route.name]; // ROUTES['signin'] => Signin
-    return <Component route={route} navigator={navigator} />;
+    return <Component route={route} navigator={navigator} passProps = {route.passProps}/>;
   },
   render: function() {
     return (
