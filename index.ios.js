@@ -34,10 +34,7 @@ var Gains = React.createClass({
     // });
 
     // Realm code above used for testing if I could sign up a user and if there is already a user, skip the sign up page.
-    var route
-    if (Realm.objects('User').length > 0) {
-      route = 'profile'
-    } else { route = 'signup'}
+    var route = Realm.objects('User').length > 0 ? 'tabbar' : 'signup';
 
     return (
       <Navigator
