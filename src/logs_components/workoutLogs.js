@@ -4,20 +4,26 @@ var {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView
 } = ReactNative;
 var realm = require('../class');
+
+//dummy data workout exercises
 
 module.exports = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight onPress={this.handlePress} underlayColor="black">
-          <Text>Back</Text>
-        </TouchableHighlight>
-        <View>
-          <Text>This is the current workout Logs</Text>
+        <View style={styles.backButton}>
+          <TouchableHighlight onPress={this.handlePress} underlayColor="black">
+            <Text>Back</Text>
+          </TouchableHighlight>
         </View>
+        <ScrollView style={styles.list}>
+          <Text style={{fontSize: 50}}>This is the current workout Logs</Text>
+          <Text>{realm.objects('Workout').length}</Text>
+        </ScrollView>
       </View>
     )
   },
@@ -32,4 +38,10 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  backButton: {
+
+  },
+  list: {
+
+  }
 });
