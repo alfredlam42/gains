@@ -5,8 +5,10 @@ var ReactNative = require("react-native");
 var {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Navigator,
 } = ReactNative;
+var Button = require('./common/button');
 var realm = require('./class');
 
 module.exports = React.createClass({
@@ -16,6 +18,11 @@ module.exports = React.createClass({
       <View style={styles.container}>
         <Text>
           hey {currentUser.name}
+        </Text>
+        <Text style = {styles.welcome}>
+          User: {currentUser.name}
+          {'\n'} Password: {currentUser.password}
+          {'\n'} Series: {currentUser.series.length}
         </Text>
       </View>
     )

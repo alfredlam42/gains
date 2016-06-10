@@ -24,8 +24,8 @@ var ROUTES = {
 //Component
 var Gains = React.createClass({
   renderScene: function(route, navigator) {
-    var Component = ROUTES[route.name]; // ROUTES['signin'] => Signin
-    return <Component route={route} navigator={navigator} />;
+    var Component = ROUTES[route.name];
+    return <Component route={route} navigator={navigator} passProps = {route.passProps}/>;
   },
   render: function() {
     // Realm.write(() => {

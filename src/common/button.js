@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactNative = require('react-native');
-
 var {
   Text,
   StyleSheet,
@@ -35,4 +34,4 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 20
   }
-})
+});
