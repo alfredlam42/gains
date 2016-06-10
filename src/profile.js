@@ -8,6 +8,8 @@ var {
 } = ReactNative;
 
 var Realm = require('./class');
+var Button = require('./common/button');
+// var Tabbar = require('./tabbar');
 
 // Profile Page Component
 module.exports = React.createClass({
@@ -47,34 +49,21 @@ module.exports = React.createClass({
         </View>
 
         <View style={styles.buttonWrapper}>
-          {this.newSeriesButton()}
-          {this.editProfileButton()}
+          <Button text={'New Series'}
+            onPress={this.onNewSeriesPress} />
+          <Button text={'Edit Profile'}
+            onPress={this.onEditProfilePress} />
         </View>
       </View>
     );
   },
-  newSeriesButton: function() {
-    return <TouchableHighlight
-      underlayColor="gray"
-      onPress={this.handleNewSeriesPress}
-      style={styles.button}
-      >
-        <Text>New Series</Text>
-      </TouchableHighlight>
+  onNewSeriesPress: function() {
+    // { this.props.navigator.immediatelyResetRouteStack([{ name: 'series' }]); }
+    // return this.setState({selectedTab: 'series'});
+    // console.log('test')
   },
-  editProfileButton: function() {
-    return <TouchableHighlight
-      underlayColor="gray"
-      onPress={this.handleEditProfilePress}
-      style={styles.button}
-      >
-        <Text>Edit Profile</Text>
-      </TouchableHighlight>
-  },
-  handleNewSeriesPress: function() {
-    { this.props.navigator.immediatelyResetRouteStack([{ name: 'series' }]); }
-  },
-  handleEditProfilePress: function() {
+  onEditProfilePress: function() {
+    // console.log('test')
 
   }
 });
