@@ -8,7 +8,7 @@ var {
   Navigator
 } = ReactNative;
 
-var Realm = require('./src/class');
+var realm = require('./src/class');
 var Tabbar = require('./src/tabbar');
 var Signup = require('./src/signup');
 var Profile = require('./src/profile');
@@ -28,13 +28,13 @@ var Gains = React.createClass({
     return <Component route={route} navigator={navigator} passProps = {route.passProps}/>;
   },
   render: function() {
-    // Realm.write(() => {
+    // realm.write(() => {
 
-    //    Realm.delete(Realm.objects('User')); // Deletes all users
+    //    realm.delete(realm.objects('User')); // Deletes all users
     // });
 
-    // Realm code above used for testing if I could sign up a user and if there is already a user, skip the sign up page.
-    var route = Realm.objects('User').length > 0 ? 'tabbar' : 'signup';
+    // realm code above used for testing if I could sign up a user and if there is already a user, skip the sign up page.
+    var route = realm.objects('User').length > 0 ? 'tabbar' : 'signup';
 
     return (
       <Navigator
