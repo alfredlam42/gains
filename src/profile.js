@@ -9,7 +9,7 @@ var {
 
 var Realm = require('./class');
 var Button = require('./common/button');
-// var Tabbar = require('./tabbar');
+var Tabbar = require('./tabbar');
 
 // Profile Page Component
 module.exports = React.createClass({
@@ -20,6 +20,7 @@ module.exports = React.createClass({
   render: function() {
 
     var user = Realm.objects('User')[0];
+    var currentSeries = Realm.objects('Series')[0];
 
     return (
       <View style={styles.container}>
@@ -49,21 +50,20 @@ module.exports = React.createClass({
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button text={'New Series'}
+          <Button
+            text={'New Series'}
             onPress={this.onNewSeriesPress} />
-          <Button text={'Edit Profile'}
+          <Button
+            text={'Edit Profile'}
             onPress={this.onEditProfilePress} />
         </View>
       </View>
     );
   },
   onNewSeriesPress: function() {
-    // { this.props.navigator.immediatelyResetRouteStack([{ name: 'series' }]); }
-    // return this.setState({selectedTab: 'series'});
-    // console.log('test')
+
   },
   onEditProfilePress: function() {
-    // console.log('test')
 
   }
 });
