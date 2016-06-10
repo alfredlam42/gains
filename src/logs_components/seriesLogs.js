@@ -27,6 +27,10 @@ module.exports = React.createClass({
     )
   },
   currentWorkoutPress: function() {
+    // realm.write(() => {
+    //   realm.create('Series', {id: 1, name: "test-series"});
+    // })
+    // console.log(realm.objects('Series')[0].name) //how to make dummy data
     { this.props.navigator.push({ name: 'workoutLogs' }); }
   },
   previousWorkoutPress: function() {
@@ -53,5 +57,6 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'stretch',
   }
 });
