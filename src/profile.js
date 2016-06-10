@@ -72,7 +72,7 @@ module.exports = React.createClass({
       </TouchableHighlight>
   },
   handleNewSeriesPress: function() {
-
+    { this.props.navigator.immediatelyResetRouteStack([{ name: 'series' }]); }
   },
   handleEditProfilePress: function() {
 
