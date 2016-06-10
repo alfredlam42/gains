@@ -1,8 +1,10 @@
 var React = require('react');
 var ReactNative = require('react-native');
 var Home = require('./home');
+var Profile = require('./profile');
 var Log = require('./logs');
 var Workouts = require('./workouts');
+var Series = require('./series');
 var {
   Text,
   View,
@@ -14,7 +16,7 @@ var {
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      selectedTab: 'home'
+      selectedTab: 'profile'
     }
   },
   render: function() {
@@ -25,27 +27,27 @@ module.exports = React.createClass({
         barTintColor="#000080"
         selectedTab={this.state.selectedTab}>
         <TabBarIOS.Item
-          selected={this.state.selectedTab === 'home'}
-          title="Home"
+          selected={this.state.selectedTab === 'profile'}
+          title="Profile"
           icon={require('./common/icons/home.png')}
           onPress={() => {
             this.setState({
-              selectedTab: 'home',
+              selectedTab: 'profile',
             });
           }}>
-          <Home />
+          <Profile />
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
-          selected={this.state.selectedTab === 'workouts'}
-          title="Workouts"
+          selected={this.state.selectedTab === 'series'}
+          title="Series"
           icon={require('./common/icons/workouts.png')}
           onPress={() => {
             this.setState({
-              selectedTab: 'workouts',
+              selectedTab: 'series',
             });
           }}>
-          <Workouts />
+          <Series />
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
