@@ -40,7 +40,7 @@ Series.schema = {
     name: 'string',
     maxes: {type: 'list', objectType: 'Max'},
     workouts: {type: 'list', objectType: 'Workout'},
-    completed: 'bool',
+    completed: {type: 'bool', default: false},
   },
 };
 
@@ -86,7 +86,7 @@ Workout.schema = {
     set: {type: 'list', objectType: 'intObject'},
     reps: {type: 'list', objectType: 'intObject'},
     weight: {type: 'list', objectType: 'intObject'},
-    completed: 'bool',
+    completed: {type: 'bool', default: false}
   }
 };
 
