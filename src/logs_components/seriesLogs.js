@@ -8,6 +8,12 @@ var {
 } = ReactNative;
 var realm = require('../class');
 
+// console.log("hello")
+// realm.write(() => {
+//   realm.create('Series', {id: 1, name: "series-previous", completed: true});
+//   realm.create('Series', {id: 2, name: "series-current", completed: false});
+// });
+
 module.exports = React.createClass({
   render: function(){
     return (
@@ -23,9 +29,9 @@ module.exports = React.createClass({
 
         <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.seriesPic}></Text>
+            <Text style={styles.seriesPic}>PIC</Text>
             <View style={styles.seriesDetail}>
-              <Text>Name of Series Goes here</Text>
+              {this.returnCurrentSeries()}
             </View>
           </View>
         </TouchableHighlight>
@@ -36,9 +42,9 @@ module.exports = React.createClass({
 
         <TouchableHighlight style={[styles.seriesWrapper,{marginBottom: 50}]} onPress={this.previousWorkoutPress} underlayColor="black">
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.seriesPic}></Text>
+            <Text style={styles.seriesPic}>PIC</Text>
             <View style={styles.seriesDetail}>
-              <Text>Name of Series Goes here</Text>
+              {this.returnPreviousSeries()}
             </View>
           </View>
          </TouchableHighlight>
@@ -46,15 +52,23 @@ module.exports = React.createClass({
     )
   },
   currentWorkoutPress: function() {
-    // realm.write(() => {
-    //   realm.create('Series', {id: 1, name: "test-series"});
-    // })
-    // console.log(realm.objects('Series')[0].name) //how to make dummy data
     { this.props.navigator.push({ name: 'workoutLogs' }); }
   },
   previousWorkoutPress: function() {
     { this.props.navigator.push({ name: 'previousWorkoutLogs' }); }
-  }
+  },
+  returnCurrentSeries: function() {
+    var mostRecentSeriesInd = realm.objects('Series').length - 1
+    var currentSeries = realm.objects('Series')[mostRecentSeriesInd]
+    return <Text style={styles.seriesNameText}>{currentSeries.name}</Text>
+  },
+  returnPreviousSeries: function() {
+    if (realm.objects('Series').length === 1) { return };
+
+    var mostPreviousSeriesInd = realm.objects('Series').length - 2
+    var previousSeries = realm.objects('Series')[mostPreviousSeriesInd]
+    return <Text style={styles.seriesNameText}>{previousSeries.name}</Text>
+  },
 });
 
 var styles = StyleSheet.create({
@@ -93,10 +107,13 @@ var styles = StyleSheet.create({
     height: 100,
     borderWidth: 3,
     borderColor: 'green',
-    marginRight: 30
+    marginRight: 10
   },
   seriesDetail: {
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  seriesNameText: {
+    fontSize: 30
   }
 });
