@@ -20,11 +20,7 @@ module.exports = React.createClass({
   render: function() {
 
     var user = realm.objects('User')[0];
-    var firstSeries = realm.objects('Series')[0];
-    var currentSeries = user.series.name ? user.series.name : 'Pick a series!';
-
-    console.log(user);
-    console.log(currentSeries);
+    var currentSeries = user.series[0] ? user.series.name : 'Pick a series!';
 
     return (
       <View style={styles.container}>
