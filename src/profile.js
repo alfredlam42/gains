@@ -7,7 +7,7 @@ var {
   TouchableHighlight
 } = ReactNative;
 
-var Realm = require('./class');
+var realm = require('./class');
 var Button = require('./common/button');
 var Tabbar = require('./tabbar');
 
@@ -19,8 +19,12 @@ module.exports = React.createClass({
   },
   render: function() {
 
-    var user = Realm.objects('User')[0];
-    var currentSeries = Realm.objects('Series')[0];
+    var user = realm.objects('User')[0];
+    var firstSeries = realm.objects('Series')[0];
+    var currentSeries = user.series.name ? user.series.name : 'Pick a series!';
+
+    console.log(user);
+    console.log(currentSeries);
 
     return (
       <View style={styles.container}>
@@ -42,7 +46,7 @@ module.exports = React.createClass({
           <View style={styles.workoutWrapper}>
             <Text style={styles.pic}></Text>
             <View style={styles.workoutDetails}>
-              <Text style={styles.workoutInfo}>Name: </Text>
+              <Text style={styles.workoutInfo}>Name: {currentSeries}</Text>
               <Text style={styles.workoutInfo}>Week: </Text>
               <Text style={styles.workoutInfo}>Day: </Text>
             </View>
