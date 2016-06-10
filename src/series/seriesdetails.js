@@ -23,23 +23,22 @@ module.exports = React.createClass({
     )
   },
   onSelectSeries: function(){
-    var squat = search.findExercise('Squat');
-    console.log(squat);
-    var currentUser = realm.objects('User')[0];
+    var newSeries = null;
+    var currentUser = search.findInt('User', 'id', '1');
     realm.write(() => {
-      realm.create('Series', {
-        id: realm.objects('Series').length + 1,
+      newSeries = realm.create('Series', {
+        id: search.findSizeOf('Series') + 1,
         name: 'PH3',
-        maxes: [{id: 1, exercise: squat, maxWeight: 0}],
-        workouts: [{id: 1, day: 0, exercises: [squat], set: [{value: 1}], reps: [{value: 10}], weight: [{value: 100}], completed: false}],
+        maxes: null,
+        workouts: null,
         completed: false,
       })
     });
-    var newSeries = realm.objects('Series')[0];
+    var seriesList = realm.objects('Series');
     realm.write(() =>{
       currentUser.series.push(newSeries);
     })
-    this.props.navigator.pop();
+    this.props.navigator.pop(); //or navigate it to whatever page
   }
 })
 
