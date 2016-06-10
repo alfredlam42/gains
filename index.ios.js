@@ -12,14 +12,14 @@ var Tabbar = require('./src/tabbar');
 var Signup = require('./src/signup');
 var ROUTES = {
   tabbar: Tabbar,
-  signup: Signup
+  signup: Signup,
 }
 
 //Component
 var Gains = React.createClass({
   renderScene: function(route, navigator) {
-    var Component = ROUTES[route.name]; // ROUTES['signin'] => Signin
-    return <Component route={route} navigator={navigator} />;
+    var Component = ROUTES[route.name];
+    return <Component route={route} navigator={navigator} passProps = {route.passProps}/>;
   },
   render: function() {
     // realm.write(() => {
