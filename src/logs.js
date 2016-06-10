@@ -8,8 +8,10 @@ var {
 } = ReactNative;
 var realm = require('./class');
 var SeriesLogs = require('./logs_components/seriesLogs');
+var WorkoutLogs = require('./logs_components/workoutLogs');
 var ROUTES = {
   seriesLogs: SeriesLogs,
+  workoutLogs: WorkoutLogs
 }
 
 module.exports = React.createClass({

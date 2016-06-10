@@ -25,7 +25,7 @@ module.exports = React.createClass({
     )
   },
   handlePress: function() {
-    console.log("I pressed this section");
+    { this.props.navigator.push({ name: 'workoutLogs' }); }
   }
 });
 

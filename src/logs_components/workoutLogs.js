@@ -3,20 +3,27 @@ var ReactNative = require("react-native");
 var {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  TouchableHighlight
 } = ReactNative;
 var realm = require('../class');
 
 module.exports = React.createClass({
-  render: function(){
+  render: function() {
     return (
       <View style={styles.container}>
-        <View style={styles.current}>
+        <TouchableHighlight onPress={this.handlePress} underlayColor="black">
+          <Text>Back</Text>
+        </TouchableHighlight>
+        <View>
           <Text>This is the workout Logs</Text>
         </View>
       </View>
     )
   },
+  handlePress: function() {
+    { this.props.navigator.pop(); }
+  }
 });
 
 var styles = StyleSheet.create({
