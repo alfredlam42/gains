@@ -13,12 +13,14 @@ var Tabbar = require('./src/tabbar');
 var Signup = require('./src/signup');
 var Profile = require('./src/profile');
 var Series = require('./src/series');
+var SeriesDetails = require('./src/series/seriesdetails');
 
 var ROUTES = {
   tabbar: Tabbar,
   signup: Signup,
   profile: Profile,
-  series: Series
+  series: Series,
+  seriesdetails: SeriesDetails,
 }
 
 //Component
@@ -36,7 +38,7 @@ var Gains = React.createClass({
     // Realm code above used for testing if I could sign up a user and if there is already a user, skip the sign up page.
     var route
     if (Realm.objects('User').length > 0) {
-      route = 'profile'
+      route = 'tabbar'
     } else { route = 'signup'}
 
     return (
