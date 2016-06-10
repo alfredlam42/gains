@@ -12,20 +12,25 @@ module.exports = React.createClass({
   render: function(){
     return (
       <View style={styles.container}>
-       <TouchableHighlight style={styles.current} onPress={this.handlePress} underlayColor="black">
+       <TouchableHighlight style={styles.current} onPress={this.currentWorkoutPress} underlayColor="black">
           <View>
             <Text>Your current workout plan</Text>
           </View>
         </TouchableHighlight>
 
-        <View style={styles.previous}>
-          <Text>Your previous workout plan</Text>
-        </View>
+        <TouchableHighlight style={styles.previous} onPress={this.previousWorkoutPress} underlayColor="black">
+           <View>
+             <Text>Your previous workout plans</Text>
+           </View>
+         </TouchableHighlight>
       </View>
     )
   },
-  handlePress: function() {
+  currentWorkoutPress: function() {
     { this.props.navigator.push({ name: 'workoutLogs' }); }
+  },
+  previousWorkoutPress: function() {
+    { this.props.navigator.push({ name: 'previousWorkoutLogs' }); }
   }
 });
 

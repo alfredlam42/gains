@@ -16,7 +16,7 @@ module.exports = React.createClass({
           <Text>Back</Text>
         </TouchableHighlight>
         <View>
-          <Text>This is the current workout Logs</Text>
+          <Text>This is the PREVIOUS workout Logs</Text>
         </View>
       </View>
     )
