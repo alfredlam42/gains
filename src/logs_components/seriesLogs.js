@@ -12,16 +12,35 @@ module.exports = React.createClass({
   render: function(){
     return (
       <View style={styles.container}>
-       <TouchableHighlight style={styles.current} onPress={this.currentWorkoutPress} underlayColor="black">
-          <View>
-            <Text>Your current workout plan</Text>
+
+        <View style={styles.logo}>
+          <Text>Header / logo goes here</Text>
+        </View>
+
+        <View style={styles.header}>
+            <Text style={styles.headerText}>Current</Text>
+        </View>
+
+        <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.seriesPic}></Text>
+            <View style={styles.seriesDetail}>
+              <Text>Name of Series Goes here</Text>
+            </View>
           </View>
         </TouchableHighlight>
 
-        <TouchableHighlight style={styles.previous} onPress={this.previousWorkoutPress} underlayColor="black">
-           <View>
-             <Text>Your previous workout plans</Text>
-           </View>
+        <View style={styles.header}>
+            <Text style={styles.headerText}>Previous</Text>
+        </View>
+
+        <TouchableHighlight style={[styles.seriesWrapper,{marginBottom: 50}]} onPress={this.previousWorkoutPress} underlayColor="black">
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.seriesPic}></Text>
+            <View style={styles.seriesDetail}>
+              <Text>Name of Series Goes here</Text>
+            </View>
+          </View>
          </TouchableHighlight>
       </View>
     )
@@ -45,18 +64,39 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  current: {
-    flex: 1,
+  logo: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 3,
+    borderColor: 'blue',
+    alignSelf: 'stretch'
+  },
+  seriesWrapper: {
+    flex: 7,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
     alignSelf: 'stretch',
-    marginTop: 20
   },
-  previous: {
-    flex: 1,
+  header: {
+    flex: 1.5,
+    borderWidth: 2,
+    alignSelf: 'stretch'
+  },
+  headerText: {
+    fontSize: 40,
+    paddingLeft: 10
+  },
+  seriesPic: {
+    width: 100,
+    height: 100,
+    borderWidth: 3,
+    borderColor: 'green',
+    marginRight: 30
+  },
+  seriesDetail: {
     justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'stretch',
+    alignItems: 'center'
   }
 });
