@@ -8,10 +8,11 @@ var {
   ScrollView
 } = ReactNative;
 var realm = require('../class');
+var Button = require('../common/button');
 
 //dummy data workout exercises
-let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
-let workoutList = currentSeries.workouts;
+// let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
+// let workoutList = currentSeries.workouts;
 
 //write workouts
 // realm.write(() => {
@@ -20,10 +21,10 @@ let workoutList = currentSeries.workouts;
 // });
 
 // write exercies per workout
-let workoutOne = realm.objects('Workout')[realm.objects('Workout').length -1]
-let workoutTwo = realm.objects('Workout')[realm.objects('Workout').length -2]
-let workoutListOne = workoutOne.exercises;
-let workoutListTwo = workoutTwo.exercises;
+// let workoutOne = realm.objects('Workout')[realm.objects('Workout').length -1]
+// let workoutTwo = realm.objects('Workout')[realm.objects('Workout').length -2]
+// let workoutListOne = workoutOne.exercises;
+// let workoutListTwo = workoutTwo.exercises;
 
 // realm.write(() => {
   // workoutListOne.push({id: 1, name: 'workout-1'});
@@ -41,9 +42,9 @@ module.exports = React.createClass({
     return (
       <View style={styles.container}>
         <View style={styles.backButton}>
-          <TouchableHighlight onPress={this.handlePress} underlayColor="black">
-            <Text>Back</Text>
-          </TouchableHighlight>
+          <Button
+            text={'Back'}
+            onPress={this.handlePress} />
         </View>
         <ScrollView style={styles.list}>
           {this.renderWorkoutList()}
@@ -60,9 +61,12 @@ module.exports = React.createClass({
     var that = this;
     return workoutList.map(function(workout, i){
       return <View style={styles.workoutWrapper}>
-        <Text key={i}>Workout day: {workout.day}</Text>
-        <Text>Exercise length: {workout.exercises.length}</Text>
-        {that.renderExerciseList(workout)}
+        <View style={styles.workoutDay}>
+          <Text style={styles.workoutDayText} key={i}>Workout day: {workout.day}</Text>
+        </View>
+        <View style={styles.exerciseList}>
+          {that.renderExerciseList(workout)}
+        </View>
       </View>
     });
   },
@@ -88,6 +92,16 @@ var styles = StyleSheet.create({
     flex: 6
   },
   workoutWrapper: {
-    flex: 1
+    flex: 1,
+  },
+  workoutDay: {
+    borderBottomWidth: 2,
+  },
+  workoutDayText: {
+    fontSize: 50
+  },
+  exerciseList: {
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
