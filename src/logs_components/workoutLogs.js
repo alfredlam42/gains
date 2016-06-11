@@ -57,11 +57,12 @@ module.exports = React.createClass({
   renderWorkoutList: function() {
     let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
     let workoutList = currentSeries.workouts;
+    var that = this;
     return workoutList.map(function(workout, i){
       return <View style={styles.workoutWrapper}>
         <Text key={i}>Workout day: {workout.day}</Text>
         <Text>Exercise length: {workout.exercises.length}</Text>
-        {this.renderExerciseList(workout)}
+        {that.renderExerciseList(workout)}
       </View>
     });
   },
