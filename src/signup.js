@@ -61,7 +61,14 @@ module.exports = React.createClass({
     };
 
     realm.write(() => {
-      realm.create('User', {id: 1, name: this.state.name, password: '12345', age: parseInt(this.state.age), height: parseInt(this.state.height), weight: parseInt(this.state.weight)});
+      realm.create('User', {
+        id: 1,
+        name: this.state.name,
+        password: '12345',
+        age: parseInt(this.state.age),
+        height: parseInt(this.state.height),
+        weight: parseInt(this.state.weight)
+      });
     }); //creating a user on sign up then directing them to the tabbar
 
     { this.props.navigator.immediatelyResetRouteStack([{ name: 'tabbar' }]); }
