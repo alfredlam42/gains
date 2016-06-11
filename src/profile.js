@@ -7,7 +7,9 @@ var {
   TouchableHighlight
 } = ReactNative;
 
-var Realm = require('./class');
+var realm = require('./class');
+var Button = require('./common/button');
+var Tabbar = require('./tabbar');
 
 // Profile Page Component
 module.exports = React.createClass({
@@ -17,7 +19,8 @@ module.exports = React.createClass({
   },
   render: function() {
 
-    var user = Realm.objects('User')[0];
+    var user = realm.objects('User')[0];
+    var currentSeries = user.series[0] ? user.series.name : 'Pick a series!';
 
     return (
       <View style={styles.container}>
@@ -39,7 +42,7 @@ module.exports = React.createClass({
           <View style={styles.workoutWrapper}>
             <Text style={styles.pic}></Text>
             <View style={styles.workoutDetails}>
-              <Text style={styles.workoutInfo}>Name: </Text>
+              <Text style={styles.workoutInfo}>Name: {currentSeries}</Text>
               <Text style={styles.workoutInfo}>Week: </Text>
               <Text style={styles.workoutInfo}>Day: </Text>
             </View>
@@ -47,34 +50,20 @@ module.exports = React.createClass({
         </View>
 
         <View style={styles.buttonWrapper}>
-          {this.newSeriesButton()}
-          {this.editProfileButton()}
+          <Button
+            text={'New Series'}
+            onPress={this.onNewSeriesPress} />
+          <Button
+            text={'Edit Profile'}
+            onPress={this.onEditProfilePress} />
         </View>
       </View>
     );
   },
-  newSeriesButton: function() {
-    return <TouchableHighlight
-      underlayColor="gray"
-      onPress={this.handleNewSeriesPress}
-      style={styles.button}
-      >
-        <Text>New Series</Text>
-      </TouchableHighlight>
+  onNewSeriesPress: function() {
+
   },
-  editProfileButton: function() {
-    return <TouchableHighlight
-      underlayColor="gray"
-      onPress={this.handleEditProfilePress}
-      style={styles.button}
-      >
-        <Text>Edit Profile</Text>
-      </TouchableHighlight>
-  },
-  handleNewSeriesPress: function() {
-    { this.props.navigator.immediatelyResetRouteStack([{ name: 'series' }]); }
-  },
-  handleEditProfilePress: function() {
+  onEditProfilePress: function() {
 
   }
 });
