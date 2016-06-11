@@ -10,7 +10,11 @@ module.exports = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
-        <Text>List of series</Text>
+        <View style={styles.seriesWrapper}>
+          <Text style={styles.seriesDetails}>Name: </Text>
+          <Text style={styles.seriesDetails}>Category: </Text>
+          <Text style={styles.seriesDetails}>Details: </Text>
+        </View>
       </View>
     );
   }
@@ -19,8 +23,17 @@ module.exports = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
     backgroundColor: '#F5FCFF'
+  },
+  seriesWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: 'orange'
+  },
+  seriesDetails: {
+
   }
 });
