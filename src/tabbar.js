@@ -1,10 +1,6 @@
 var React = require('react');
 var ReactNative = require('react-native');
-var Home = require('./home');
-var Profile = require('./profile');
-var Log = require('./logs');
-var Workouts = require('./workouts');
-var Series = require('./series');
+
 var {
   Text,
   View,
@@ -12,6 +8,12 @@ var {
   StyleSheet,
   TabBarIOS
 } = ReactNative;
+
+var Home = require('./home');
+var Profile = require('./profile');
+var Log = require('./logs');
+var Workouts = require('./workouts');
+var Series = require('./series');
 
 module.exports = React.createClass({
   getInitialState: function() {
