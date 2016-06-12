@@ -71,7 +71,7 @@ module.exports = React.createClass({
       });
     }); //creating a user on sign up then directing them to the tabbar
 
-    { this.props.navigator.immediatelyResetRouteStack([{ name: 'profile' }]); }
+    { this.props.navigator.immediatelyResetRouteStack([{ name: 'tabbar' }]); }
   }
 });
 
