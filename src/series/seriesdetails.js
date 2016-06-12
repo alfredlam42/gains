@@ -9,7 +9,7 @@ var {
 var Button = require('../common/button');
 var realm = require('../class');
 var search = require('../common/search');
-var create = require('../common/create');
+// var create = require('../common/create');
 
 module.exports = React.createClass({
   render: function(){
