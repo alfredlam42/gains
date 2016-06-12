@@ -18,7 +18,9 @@ var Series = require('./series');
 module.exports = React.createClass({
   getInitialState: function() {
     return {
+      // tab set to series for dev of series page
       selectedTab: 'profile'
+      // selectedTab: 'series'
     }
   },
   render: function() {
