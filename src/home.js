@@ -1,4 +1,5 @@
-//this page is a dummy home page. Bison will be the one creating the real home page. After bison creates said page, require that file on tabbar.js
+//Dummy page used to test stuff
+//REMOVE BEFORE MERGING TO MASTERS
 
 var React = require("react");
 var ReactNative = require("react-native");
@@ -6,14 +7,17 @@ var {
   View,
   Text,
   StyleSheet,
-  Navigator,
 } = ReactNative;
+
 var Button = require('./common/button');
 var realm = require('./class');
 
 module.exports = React.createClass({
   render: function(){
-    var currentUser = realm.objects('User')[0]
+    realm.write(() => {
+      // realm.delete(realm.objects('Workout'));
+    });
+    var currentUser = realm.objects('User')[0];
     return (
       <View style={styles.container}>
         <Text>
@@ -24,9 +28,32 @@ module.exports = React.createClass({
           {'\n'} Password: {currentUser.password}
           {'\n'} Series: {currentUser.series.length}
         </Text>
+        <Text> style = {styles.welcome}>
+          Workouts Complete: {currentUser.series[0].workouts.length}
+        </Text>
+        <Button text = 'PH3' onPress = {this.onSeriesDetails} />
+        <Button text = 'Day 0' onPress = {this.onWorkoutDetails} />
       </View>
     )
   },
+  onWorkoutDetails: function(){
+    this.props.navigator.push({
+      name: 'dayzero',
+      passProps: {
+        exercises: ['Squat', 'Bench', 'Deadlift'],
+        sets: [1, 1, 1],
+        reps: [1, 1, 1],
+      }
+    });
+  },
+  onSeriesDetails: function(){
+    this.props.navigator.push({
+      name: 'seriesDetails',
+      passProps: {
+        exercises: ['Squat', 'Bench', 'Deadlift']
+      },
+    });
+  }
 });
 
 var styles = StyleSheet.create({
