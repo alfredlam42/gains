@@ -11,6 +11,7 @@ const Realm = require('realm');
 class intObject{}
 intObject.schema = {
   name: 'intObject',
+  primaryKey: 'value',
   properties: {
     value: 'int',
   }
@@ -68,9 +69,8 @@ Max.schema = {
 class Exercise {}
 Exercise.schema = {
   name: 'Exercise',
-  primaryKey: 'id',
+  primaryKey: 'name',
   properties: {
-    id: 'int',
     name: 'string',
   }
 };
@@ -86,13 +86,12 @@ Workout.schema = {
     set: {type: 'list', objectType: 'intObject'},
     reps: {type: 'list', objectType: 'intObject'},
     weight: {type: 'list', objectType: 'intObject'},
-    completed: {type: 'bool', default: false}
   }
 };
 
 var realm = new Realm({
   schema: [intObject, User, Series, Category, Max, Exercise, Workout],
-  schemaVersion: 3,
+  schemaVersion: 4,
 });
 
 module.exports = realm;
