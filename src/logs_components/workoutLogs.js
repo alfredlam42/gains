@@ -11,28 +11,26 @@ var realm = require('../class');
 var Button = require('../common/button');
 
 //dummy data workout exercises
-// let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
-// let workoutList = currentSeries.workouts;
+let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
+let workoutList = currentSeries.workouts;
 
-//write workouts
+// write workouts
 // realm.write(() => {
 //   workoutList.push({id: 1, day: 1});
 //   workoutList.push({id: 2, day: 2});
 // });
 
 // write exercies per workout
-// let workoutOne = realm.objects('Workout')[realm.objects('Workout').length -1]
-// let workoutTwo = realm.objects('Workout')[realm.objects('Workout').length -2]
-// let workoutListOne = workoutOne.exercises;
-// let workoutListTwo = workoutTwo.exercises;
+let workoutOne = realm.objects('Workout')[realm.objects('Workout').length -1]
+let workoutTwo = realm.objects('Workout')[realm.objects('Workout').length -2]
+let workoutListOneSet = workoutOne.set;
+let workoutListOneRep = workoutOne.reps;
+let workoutListOneWeight = workoutOne.weight;
 
 // realm.write(() => {
-  // workoutListOne.push({id: 1, name: 'workout-1'});
-  // workoutListOne.push({id: 2, name: 'workout-2'});
-  // workoutListOne.push({id: 3, name: 'workout-3'});
-  // workoutListTwo.push({id: 4, name: 'workout-4'});
-  // workoutListTwo.push({id: 5, name: 'workout-5'});
-  // workoutListTwo.push({id: 6, name: 'workout-6'});
+//   workoutListOneSet.push({value: 1});
+//   workoutListOneRep.push({value: 2});
+//   workoutListOneWeight.push({value: 3});
 // });
 
 
@@ -58,6 +56,12 @@ module.exports = React.createClass({
   renderWorkoutList: function() {
     let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
     let workoutList = currentSeries.workouts;
+
+    if (workoutList.length === 0) {
+      return <View style={styles.workoutWrapper}>
+        <Text>No History</Text>
+      </View>
+    };
     var that = this;
     return workoutList.map(function(workout, i){
       return <View style={styles.workoutWrapper}>
@@ -66,15 +70,40 @@ module.exports = React.createClass({
         </View>
         <View style={styles.exerciseList}>
           {that.renderExerciseList(workout)}
+          {that.renderSetList(workout)}
+          {that.renderRepsList(workout)}
+          {that.renderWeightList(workout)}
         </View>
       </View>
     });
   },
   renderExerciseList: function(workout) {
+    if (workout.exercises.length === 0) {return};
     return workout.exercises.map(function(exercise, i){
       return <Text key={i}>Exercise: {exercise.name}</Text>
     });
   },
+  renderSetList: function(workout) {
+    if (workout.set.length === 0) {return};
+
+    return workout.set.map(function(set, i){
+      return <Text key={i}>Set: {set.value}</Text>
+    });
+  },
+  renderRepsList: function(workout) {
+    if (workout.reps.length === 0) {return};
+
+    return workout.reps.map(function(rep, i){
+      return <Text key={i}>Rep: {rep.value}</Text>
+    });
+  },
+  renderWeightList: function(workout) {
+    if (workout.weight.length === 0) {return};
+
+    return workout.weight.map(function(weight, i){
+      return <Text key={i}>Weight: {weight.value}</Text>
+    });
+  }
 });
 
 var styles = StyleSheet.create({
