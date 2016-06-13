@@ -11,20 +11,20 @@ var realm = require('../class');
 var Button = require('../common/button');
 
 //dummy data workout exercises
-// let previousSeries = realm.objects('Series')[realm.objects('Series').length -2];
-// let workoutList = previousSeries.workouts;
+let previousSeries = realm.objects('Series')[realm.objects('Series').length -2];
+let workoutList = previousSeries.workouts;
 
-//write workouts
+// write workouts
 // realm.write(() => {
 //   workoutList.push({id: 3, day: 1});
 //   workoutList.push({id: 4, day: 2});
 // });
 
 // write exercies per workout
-// let workoutOne = workoutList[previousSeries.workouts.length-1]
-// let workoutTwo = workoutList[previousSeries.workouts.length-2]
-// let workoutListOne = workoutOne.exercises;
-// let workoutListTwo = workoutTwo.exercises;
+let workoutOne = workoutList[previousSeries.workouts.length-1]
+let workoutTwo = workoutList[previousSeries.workouts.length-2]
+let workoutListOne = workoutOne.exercises;
+let workoutListTwo = workoutTwo.exercises;
 
 // realm.write(() => {
 //   workoutListOne.push({id: 7, name: 'prevexercise-1'});

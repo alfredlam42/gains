@@ -4,7 +4,8 @@ var {
   Text,
   View,
   TouchableHighlight,
-  StyleSheet
+  StyleSheet,
+  TextInput
 } = ReactNative;
 
 var Button = require('../common/button');
@@ -12,9 +13,25 @@ var realm = require('../class');
 var profile = require('../profile');
 
 module.exports = React.createClass({
+  getInitialState: function() {
+    var user = realm.objects('User')[0];
+    return {
+      edit: false,
+      name: user.name,
+      age: user.age,
+      height: user.height,
+      weight: user.weight
+    }
+  },
   render: function() {
     var user = realm.objects('User')[0];
-    var currentSeries = user.series[0] ? user.series.name : 'Pick a series!';
+    var currentSeries = user.series[0] ? user.series.name : 'Pick a series';
+    realm.write(() => {
+      user.name = this.state.name;
+      user.age = parseInt(this.state.age);
+      user.height = parseInt(this.state.height);
+      user.weight = parseInt(this.state.weight);
+    });
 
     return (
       <View style={styles.container}>
@@ -23,13 +40,7 @@ module.exports = React.createClass({
           <Text>Header / logo goes here</Text>
         </View>
 
-        <View style={styles.profile}>
-          <Text style={styles.h2}>Profile</Text>
-          <Text style={styles.userInfo}>Name: {user.name}</Text>
-          <Text style={styles.userInfo}>Age: {user.age}</Text>
-          <Text style={styles.userInfo}>Height: {user.height}</Text>
-          <Text style={styles.userInfo}>Weight: {user.weight}</Text>
-        </View>
+        {this.renderProfile()}
 
         <View style={styles.seriesWrapper}>
           <Text style={styles.h2}>Current Series</Text>
@@ -48,7 +59,7 @@ module.exports = React.createClass({
             text={'New Series'}
             onPress={this.onNewSeriesPress} />
           <Button
-            text={'Edit Profile'}
+            text={this.state.edit? 'Save' : 'Edit Profile'}
             onPress={this.onEditProfilePress} />
         </View>
       </View>
@@ -56,6 +67,59 @@ module.exports = React.createClass({
   },
   onNewSeriesPress: function() {
     { this.props.navigator.immediatelyResetRouteStack([{ name: 'newSeries' }]); }
+  },
+  onEditProfilePress: function() {
+    this.setState({edit: !this.state.edit});
+  },
+  renderProfile: function() {
+    if(this.state.edit) {
+      return <View style={styles.profile}>
+        <Text style={styles.h2}>Edit Profile</Text>
+
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.userInfo}>Name: </Text>
+          <TextInput
+            style={styles.input}
+            value={this.state.name}
+            onChangeText={(text) => this.setState({name: text})}/>
+        </View>
+
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.userInfo}>Age: </Text>
+          <TextInput
+            style={styles.input}
+            value={this.state.age}
+            keyboardType='numeric'
+            onChangeText={(text) => this.setState({age: text})}/>
+        </View>
+
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.userInfo}>Height: </Text>
+          <TextInput
+            style={styles.input}
+            value={this.state.height}
+            keyboardType='numeric'
+            onChangeText={(text) => this.setState({height: text})}/>
+        </View>
+
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.userInfo}>Weight:  </Text>
+          <TextInput
+            style={styles.input}
+            value={this.state.weight}
+            keyboardType='numeric'
+            onChangeText={(text) => this.setState({weight: text})}/>
+        </View>
+      </View>
+    } else {
+      return <View style={styles.profile}>
+        <Text style={styles.h2}>Profile</Text>
+        <Text style={styles.userInfo}>Name: {this.state.name}</Text>
+        <Text style={styles.userInfo}>Age: {this.state.age}</Text>
+        <Text style={styles.userInfo}>Height: {this.state.height}</Text>
+        <Text style={styles.userInfo}>Weight: {this.state.weight}</Text>
+      </View>
+    }
   }
 });
 
@@ -63,7 +127,7 @@ var styles = StyleSheet.create({
   container: {
     flex: 1
   },
-    logo: {
+  logo: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -74,6 +138,7 @@ var styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'center',
     paddingLeft: 25,
+    // alignItems: 'center',
     borderWidth: 3,
     borderColor: 'green'
   },
@@ -86,6 +151,7 @@ var styles = StyleSheet.create({
   },
   seriesWrapper: {
     flex: 4,
+    // alignItems: 'center',
     paddingLeft: 25,
     justifyContent: 'center',
     borderWidth: 3,
@@ -125,5 +191,14 @@ var styles = StyleSheet.create({
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  input: {
+    padding: 5,
+    height: 30,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 5,
+    width: 200,
+    alignSelf: 'center'
   }
 });

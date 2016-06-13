@@ -33,6 +33,9 @@ var Gains = React.createClass({
     // realm.write(() => {
 
     //    realm.delete(realm.objects('User')); // Deletes all users
+    //    realm.delete(realm.objects('Series')); // Deletes all series
+    //    realm.delete(realm.objects('Workout')); // Deletes all workouts
+    //    realm.delete(realm.objects('Exercise')); // Deletes all exercises
     // });
 
     var route = realm.objects('User').length > 0 ? 'tabbar' : 'signup';
