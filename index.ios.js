@@ -13,7 +13,7 @@ var Tabbar = require('./src/tabbar');
 var Signup = require('./src/signup');
 var Profile = require('./src/profile');
 var Series = require('./src/series');
-var SeriesDetails = require('./src/series/seriesdetails');
+var SeriesDetails = require('./src/series_components/seriesdetails');
 
 var ROUTES = {
   tabbar: Tabbar,
