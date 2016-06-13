@@ -94,6 +94,7 @@ module.exports = React.createClass({
           <TextInput
             style={styles.input}
             value={this.state.age}
+            keyboardType='numeric'
             onChangeText={(text) => this.setState({age: text})}/>
         </View>
 
@@ -102,6 +103,7 @@ module.exports = React.createClass({
           <TextInput
             style={styles.input}
             value={this.state.height}
+            keyboardType='numeric'
             onChangeText={(text) => this.setState({height: text})}/>
         </View>
 
@@ -110,6 +112,7 @@ module.exports = React.createClass({
           <TextInput
             style={styles.input}
             value={this.state.weight}
+            keyboardType='numeric'
             onChangeText={(text) => this.setState({weight: text})}/>
         </View>
       </View>
