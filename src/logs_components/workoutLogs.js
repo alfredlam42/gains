@@ -14,7 +14,7 @@ var Button = require('../common/button');
 let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
 let workoutList = currentSeries.workouts;
 
-//write workouts
+// write workouts
 // realm.write(() => {
 //   workoutList.push({id: 1, day: 1});
 //   workoutList.push({id: 2, day: 2});
