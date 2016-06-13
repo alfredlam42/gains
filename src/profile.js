@@ -10,9 +10,11 @@ var {
 
 var realm = require('./class');
 var Profile = require('./profile_components/user-profile');
+var Series = require('./series')
 
 var ROUTES = {
-  profile: Profile
+  profile: Profile,
+  newSeries: Series
 }
 
 module.exports = React.createClass({

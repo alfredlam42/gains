@@ -16,8 +16,14 @@ module.exports = React.createClass({
     return (
       <View style={styles.container}>
         <Text>Profile Page</Text>
+        <Button
+          text={'New Series'}
+          onPress={this.onNewSeriesPress} />
       </View>
     );
+  },
+  onNewSeriesPress: function() {
+    { this.props.navigator.immediatelyResetRouteStack([{ name: 'newSeries' }]); }
   }
 });
 
