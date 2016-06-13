@@ -8,28 +8,27 @@ var {
 } = ReactNative;
 
 var realm = require('../class');
-var Button = require('../common/button')
+var Button = require('../common/button');
 
 module.exports = React.createClass({
   render: function() {
     var seriesList = realm.objects('Series');
     return (
       <View style={styles.container}>
-        <View style={styles.seriesWrapper}>
-          <Text style={styles.seriesDetails}>{seriesList[0].name}</Text>
-          <Text style={styles.seriesDetails}>Short description</Text>
-        </View>
+        {this.series()}
       </View>
     );
   },
   series: function() {
     var seriesList = realm.objects('Series');
     var seriesItems = [];
-    for (var i = 0; i < 7; i++) {
-      var series = seriesList[i];
+    for (var i = 0; i < seriesList.length; i++) {
       seriesItems.push(
-        <Text key={i}>{series.name}</Text>
-      )
+        <View key={i} style={styles.seriesWrapper}>
+          <Text style={styles.seriesDetails}>{seriesList[i].name}</Text>
+          <Text style={styles.seriesDetails}>Short description</Text>
+        </View>
+      );
     }
     return seriesItems;
   }
