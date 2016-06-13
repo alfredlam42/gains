@@ -3,37 +3,34 @@ var React = require('react');
 var {
   StyleSheet,
   View,
-  Text
+  Text,
+  Navigator
 } = ReactNative;
 
+var Series = require('./series_components/series-list');
+
+var ROUTES = {
+  seriesList: Series
+};
+
 module.exports = React.createClass({
+  renderScene: function(route, navigator) {
+    var Component = ROUTES[route.name];
+    return <Component route={route} navigator={navigator} />;
+  },
   render: function() {
     return (
-      <View style={styles.container}>
-        <View style={styles.seriesWrapper}>
-          <Text style={styles.seriesDetails}>Name: </Text>
-          <Text style={styles.seriesDetails}>Category: </Text>
-          <Text style={styles.seriesDetails}>Details: </Text>
-        </View>
-      </View>
+      <Navigator
+        style={styles.container}
+        initialRoute={{name: 'seriesList'}}
+        renderScene={this.renderScene}
+        configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }} />
     );
   }
 });
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    backgroundColor: '#F5FCFF'
-  },
-  seriesWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: 'orange'
-  },
-  seriesDetails: {
-
+    flex: 1
   }
 });
