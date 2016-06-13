@@ -64,6 +64,9 @@ module.exports = React.createClass({
         </View>
         <View style={styles.exerciseList}>
           {that.renderExerciseList(workout)}
+          {that.renderSetList(workout)}
+          {that.renderRepsList(workout)}
+          {that.renderWeightList(workout)}
         </View>
       </View>
     });
@@ -73,6 +76,27 @@ module.exports = React.createClass({
       return <Text key={i}>Exercise: {exercise.name}</Text>
     });
   },
+  renderSetList: function(workout) {
+    if (workout.set.length === 0) {return};
+
+    return workout.set.map(function(set, i){
+      return <Text key={i}>Set: {set.value}</Text>
+    });
+  },
+  renderRepsList: function(workout) {
+    if (workout.reps.length === 0) {return};
+
+    return workout.reps.map(function(rep, i){
+      return <Text key={i}>Rep: {rep.value}</Text>
+    });
+  },
+  renderWeightList: function(workout) {
+    if (workout.weight.length === 0) {return};
+
+    return workout.weight.map(function(weight, i){
+      return <Text key={i}>Weight: {weight.value}</Text>
+    });
+  }
 });
 
 var styles = StyleSheet.create({
