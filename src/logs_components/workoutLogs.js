@@ -11,8 +11,8 @@ var realm = require('../class');
 var Button = require('../common/button');
 
 //dummy data workout exercises
-// let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
-// let workoutList = currentSeries.workouts;
+let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
+let workoutList = currentSeries.workouts;
 
 //write workouts
 // realm.write(() => {
@@ -21,18 +21,18 @@ var Button = require('../common/button');
 // });
 
 // write exercies per workout
-// let workoutOne = realm.objects('Workout')[realm.objects('Workout').length -1]
-// let workoutTwo = realm.objects('Workout')[realm.objects('Workout').length -2]
-// let workoutListOne = workoutOne.exercises;
-// let workoutListTwo = workoutTwo.exercises;
+let workoutOne = realm.objects('Workout')[realm.objects('Workout').length -1]
+let workoutTwo = realm.objects('Workout')[realm.objects('Workout').length -2]
+let workoutListOne = workoutOne.exercises;
+let workoutListTwo = workoutTwo.exercises;
 
 // realm.write(() => {
-  // workoutListOne.push({id: 1, name: 'workout-1'});
-  // workoutListOne.push({id: 2, name: 'workout-2'});
-  // workoutListOne.push({id: 3, name: 'workout-3'});
-  // workoutListTwo.push({id: 4, name: 'workout-4'});
-  // workoutListTwo.push({id: 5, name: 'workout-5'});
-  // workoutListTwo.push({id: 6, name: 'workout-6'});
+//   workoutListOne.push({id: 1, name: 'workout-1'});
+//   workoutListOne.push({id: 2, name: 'workout-2'});
+//   workoutListOne.push({id: 3, name: 'workout-3'});
+//   workoutListTwo.push({id: 4, name: 'workout-4'});
+//   workoutListTwo.push({id: 5, name: 'workout-5'});
+//   workoutListTwo.push({id: 6, name: 'workout-6'});
 // });
 
 
