@@ -91,7 +91,7 @@ Workout.schema = {
 
 var realm = new Realm({
   schema: [intObject, User, Series, Category, Max, Exercise, Workout],
-  schemaVersion: 4,
+  schemaVersion: 5,
 });
 
 module.exports = realm;
