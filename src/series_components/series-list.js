@@ -7,7 +7,7 @@ var {
   TouchableHighlight
 } = ReactNative;
 
-var realm = require('../class');
+var realm = require('../database/class');
 var Button = require('../common/button');
 
 module.exports = React.createClass({
