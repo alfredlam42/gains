@@ -1,6 +1,7 @@
 var ReactNative = require('react-native');
 var React = require('react');
 var {
+  ListView,
   StyleSheet,
   View,
   Text,
@@ -8,46 +9,36 @@ var {
 } = ReactNative;
 
 var realm = require('../database/class');
+var SeriesCell = require('./series-cell');
 var Button = require('../common/button');
 
+var mockedData = [{name: "Series 1"},{name: "Series 2"},{name: "Series 3"},{name: "Series 4"},{name: "Series 5"},{name: "Series 6"},{name: "Series 7"},{name: "Series 8"},{name: "Series 9"},{name: "Series 10"},{name: "Series 11"},{name: "Series 12"},{name: "Series 13"},{name: "Series 14"},{name: "Series 15"},{name: "Series 16"},{name: "Series 17"},{name: "Series 18"},{name: "Series 19"}];
+
 module.exports = React.createClass({
+  getInitialState: function() {
+    return {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }).cloneWithRows(mockedData)
+    };
+  },
+  buildList: function() {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(mockedData)
+    });
+  },
   render: function() {
-    var seriesList = realm.objects('Series');
     return (
-      <View style={styles.container}>
-        {this.series()}
-        {this.fakeData()}
-      </View>
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderSeries}
+        style={styles.listView}/>
     );
   },
-  series: function() {
-    var seriesList = realm.objects('Series');
-    var seriesItems = [];
-    for (var i = 0; i < seriesList.length; i++) {
-      seriesItems.push(
-        <View key={seriesList[i].id} style={styles.seriesWrapper}>
-          <Text style={styles.seriesName}>{seriesList[i].name}</Text>
-          <Button text="View series" onPress={this.onViewSeriesPress()} />
-        </View>
-      );
-    }
-    return seriesItems;
-  },
-  // renders to view for scrolling effect but data does not exist as realm objects
-  fakeData: function() {
-    fakeObjects = []
-    for (var i = 0; i < 50; i++) {
-      fakeObjects.push(
-        <View style={styles.seriesWrapper}>
-          <Text style={styles.seriesName}>Fake Series</Text>
-          <Button text="View series" onPress={this.onViewSeriesPress()} />
-        </View>
-        );
-    }
-    return fakeObjects
-  },
-  onViewSeriesPress: function() {
-    // move to series detailed view
+  renderSeries: function(series) {
+    return (
+      <SeriesCell series={series} />
+    );
   }
 });
 
@@ -56,6 +47,9 @@ var styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'center',
+    backgroundColor: '#F5FCFF'
+  },
+  listView: {
     backgroundColor: '#F5FCFF'
   },
   seriesWrapper: {
