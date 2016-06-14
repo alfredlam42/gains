@@ -16,6 +16,7 @@ module.exports = React.createClass({
     return (
       <View style={styles.container}>
         {this.series()}
+        {this.fakeData()}
       </View>
     );
   },
@@ -24,13 +25,29 @@ module.exports = React.createClass({
     var seriesItems = [];
     for (var i = 0; i < seriesList.length; i++) {
       seriesItems.push(
-        <View key={i} style={styles.seriesWrapper}>
-          <Text style={styles.seriesDetails}>{seriesList[i].name}</Text>
-          <Text style={styles.seriesDetails}>Short description</Text>
+        <View key={seriesList[i].id} style={styles.seriesWrapper}>
+          <Text style={styles.seriesName}>{seriesList[i].name}</Text>
+          <Button text="View series" onPress={this.onViewSeriesPress()} />
         </View>
       );
     }
     return seriesItems;
+  },
+  // renders to view for scrolling effect but data does not exist as realm objects
+  fakeData: function() {
+    fakeObjects = []
+    for (var i = 0; i < 50; i++) {
+      fakeObjects.push(
+        <View style={styles.seriesWrapper}>
+          <Text style={styles.seriesName}>Fake Series</Text>
+          <Button text="View series" onPress={this.onViewSeriesPress()} />
+        </View>
+        );
+    }
+    return fakeObjects
+  },
+  onViewSeriesPress: function() {
+    // move to series detailed view
   }
 });
 
@@ -42,12 +59,14 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   seriesWrapper: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 25,
     borderWidth: 3,
     borderColor: 'orange'
   },
-  seriesDetails: {
+  seriesName: {
     fontSize: 18
   }
 });
