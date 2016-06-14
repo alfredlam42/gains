@@ -8,11 +8,11 @@ var maxes = currentUser.series[currentUser.series.length - 1].maxes;
 
 var workouts = {
   bigThree: ['Squat', 'Bench Press', 'Deadlift'],
-  upperBodyOne: ['Incline Dumbbell Bench Press', 'Weighted Pull-up', 'T-Bar Row', 'Seated Military Press', 'Dumbbell Curl', 'BFR Machine Bicep Curls', 'Dumbbell Skullcrusher', 'BFR Triceps Press-Down'],
-  legsOne: ['Squat', 'Bench Press', 'Leg Extension', 'Leg Curl', 'Calf Raise', 'BFR Calf Raise'],
-  upperBodyTwo: ['Deadlift', 'Bench Press', 'Pec-Deck Fly', 'Wide Grip Lat Pull-down', 'Dumbbell Row', 'Lateral Raise', 'Machine Preacher Curl', 'Cable Triceps Press-Down', 'BFR Cable Triceps Press-Down'],
-  legsTwo: ['Squat', 'BFR Leg Extension', 'BFR Leg Curl', 'Calf Raise', 'BFR Calf Raise'],
-  fullBody: ['Leg Extension', 'Leg Curl', 'Calf Raise', 'Incline Dumbbell Bench Press', 'Weighted Pull-up', 'T-Bar Row', 'Seated Military Press', 'Dumbbell Curl', 'BFR Machine Bicep Curl', 'Dumbbell Skullcrusher', 'BFR Triceps Press-Down'],
+  upperBodyOne: ['Incline Dumbbell Bench Press', 'Weighted Pull-up', 'Bent Over Row', 'Standing Military Press', 'Dumbbell Curl', 'Dumbbell Skullcrusher'],
+  legsOne: ['Squat', 'Bench Press', 'Leg Extension', 'Leg Curl', 'Calf Raise'],
+  upperBodyTwo: ['Deadlift', 'Bench Press', 'Pec-deck Fly', 'Wide Grip Lat Pull-down', 'Dumbbell Row', 'Lateral Raise', 'Machine Preacher Curl', 'Cable Triceps Press-down'],
+  legsTwo: ['Squat', 'Leg Extension', 'Leg Curl', 'Calf Raise'],
+  fullBody: ['Leg Extension', 'Leg Curl', 'Calf Raise', 'Incline Dumbbell Bench Press', 'Weighted Pull-up', 'Bent Over Barbell Row', 'Standing Military Press', 'Dumbbell Curl', 'Dumbbell Skullcrusher'],
   rest: ['Rest']
 };
 
