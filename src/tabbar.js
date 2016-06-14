@@ -9,10 +9,8 @@ var {
   TabBarIOS
 } = ReactNative;
 
-var Home = require('./home');
 var Profile = require('./profile');
 var Log = require('./logs');
-var Workouts = require('./workouts');
 var Series = require('./series');
 
 module.exports = React.createClass({
@@ -39,7 +37,7 @@ module.exports = React.createClass({
               selectedTab: 'profile',
             });
           }}>
-          <Profile />
+          <Profile changeState={this._changeState} />
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
@@ -67,6 +65,11 @@ module.exports = React.createClass({
         </TabBarIOS.Item>
       </TabBarIOS>
     )
+  },
+  _changeState: function() {
+    this.setState({
+     selectedTab: 'series'
+    });
   }
 });
 
