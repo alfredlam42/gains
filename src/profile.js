@@ -25,14 +25,6 @@ module.exports = React.createClass({
   render: function() {
     var user = realm.objects('User')[0];
     var currentSeries = user.series[0] ? user.series.name : 'Pick a series';
-    if (this.state.age !== null) {
-      realm.write(() => {
-        user.name = this.state.name;
-        user.age = parseInt(this.state.age);
-        user.height = parseInt(this.state.height);
-        user.weight = parseInt(this.state.weight);
-      });
-    }
 
     return (
       <View style={styles.container}>
@@ -57,15 +49,32 @@ module.exports = React.createClass({
           <Button
             text={'New Series'}
             onPress={() => this.props.changeState()} />
-          <Button
-            text={this.state.edit? 'Save' : 'Edit Profile'}
-            onPress={this.onEditProfilePress} />
+          {this.state.edit? this.onEditProfilePress() : this.onEditSaveProfilePress()}
         </View>
       </View>
     );
   },
   onEditProfilePress: function() {
-    this.setState({edit: !this.state.edit});
+    if (isNaN(this.state.age) || isNaN(this.state.height)  || isNaN(this.state.weight) || this.state.age === '' || this.state.height === '' || this.state.weight === '' ) {
+
+      return <Text>Check Fields</Text>
+    } else {
+      var user = realm.objects('User')[0];
+      realm.write(() => {
+        user.name = this.state.name;
+        user.age = parseInt(this.state.age);
+        user.height = parseInt(this.state.height);
+        user.weight = parseInt(this.state.weight);
+      });
+    }
+    return  <Button
+            text={'Save'}
+            onPress={() => this.setState({edit: !this.state.edit})} />
+  },
+  onEditSaveProfilePress: function() {
+    return  <Button
+            text={'Edit'}
+            onPress={() => this.setState({edit: !this.state.edit})} />
   },
   renderProfile: function() {
     if(this.state.edit) {
