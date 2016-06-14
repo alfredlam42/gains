@@ -7,33 +7,8 @@ var {
   TouchableHighlight,
   ScrollView
 } = ReactNative;
-var realm = require('../class');
+var realm = require('../database/class');
 var Button = require('../common/button');
-
-//dummy data workout exercises
-let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
-let workoutList = currentSeries.workouts;
-
-// write workouts
-// realm.write(() => {
-//   workoutList.push({id: 1, day: 1});
-//   workoutList.push({id: 2, day: 2});
-// });
-
-// write exercies per workout
-let workoutOne = realm.objects('Workout')[realm.objects('Workout').length -1]
-let workoutTwo = realm.objects('Workout')[realm.objects('Workout').length -2]
-let workoutListOneSet = workoutOne.set;
-let workoutListOneRep = workoutOne.reps;
-let workoutListOneWeight = workoutOne.weight;
-
-// realm.write(() => {
-//   workoutListOneSet.push({value: 1});
-//   workoutListOneRep.push({value: 2});
-//   workoutListOneWeight.push({value: 3});
-// });
-
-
 
 module.exports = React.createClass({
   render: function() {

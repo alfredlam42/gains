@@ -58,10 +58,9 @@ Category.schema = {
 class Max {}
 Max.schema = {
   name: 'Max',
-  primaryKey: 'id',
+  primaryKey: 'exercise',
   properties: {
-    id: 'int',
-    exercise: 'Exercise',
+    exercise: 'string',
     maxWeight: 'int',
   }
 };
@@ -91,7 +90,7 @@ Workout.schema = {
 
 var realm = new Realm({
   schema: [intObject, User, Series, Category, Max, Exercise, Workout],
-  schemaVersion: 5,
+  schemaVersion: 6,
 });
 
 module.exports = realm;

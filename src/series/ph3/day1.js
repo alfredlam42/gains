@@ -8,7 +8,7 @@ var {
 } = ReactNative;
 
 var Button = require('../../common/button');
-var realm = require('../../class');
+var realm = require('../../database/class');
 var search = require('../../common/search');
 var workoutSchedule = require('./workoutSchedule');
 var Template = require('./workoutTemplate');

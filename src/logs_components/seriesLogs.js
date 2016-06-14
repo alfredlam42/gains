@@ -6,13 +6,7 @@ var {
   StyleSheet,
   TouchableHighlight
 } = ReactNative;
-var realm = require('../class');
-
-// console.log("hello")
-// realm.write(() => {
-//   realm.create('Series', {id: 1, name: "series-previous", completed: true});
-//   realm.create('Series', {id: 2, name: "series-current", completed: false});
-// });
+var realm = require('../database/class');
 
 module.exports = React.createClass({
   render: function(){
@@ -29,10 +23,7 @@ module.exports = React.createClass({
 
         <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.seriesPic}>PIC</Text>
-            <View style={styles.seriesDetail}>
-              {this.returnCurrentSeries()}
-            </View>
+            {this.returnCurrentSeries()}
           </View>
         </TouchableHighlight>
 
@@ -42,10 +33,7 @@ module.exports = React.createClass({
 
         <TouchableHighlight style={[styles.seriesWrapper,{marginBottom: 50}]} onPress={this.previousWorkoutPress} underlayColor="black">
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.seriesPic}>PIC</Text>
-            <View style={styles.seriesDetail}>
-              {this.returnPreviousSeries()}
-            </View>
+            {this.returnPreviousSeries()}
           </View>
          </TouchableHighlight>
       </View>
@@ -60,14 +48,34 @@ module.exports = React.createClass({
   returnCurrentSeries: function() {
     var mostRecentSeriesInd = realm.objects('Series').length - 1
     var currentSeries = realm.objects('Series')[mostRecentSeriesInd]
-    return <Text style={styles.seriesNameText}>{currentSeries.name}</Text>
+    if (currentSeries && currentSeries.completed == false){
+      return (
+        <View style={styles.seriesDetail}>
+          <Text style={styles.seriesPic}>PIC</Text>
+          <Text style={styles.seriesNameText}>{currentSeries.name}</Text>
+        </View>
+      )
+    }
+    else{
+      return <Text>You are currently not working on anything.</Text>
+    }
   },
   returnPreviousSeries: function() {
     if (realm.objects('Series').length === 1) { return };
 
     var mostPreviousSeriesInd = realm.objects('Series').length - 2
     var previousSeries = realm.objects('Series')[mostPreviousSeriesInd]
-    return <Text style={styles.seriesNameText}>{previousSeries.name}</Text>
+    if (previousSeries && previousSeries.completed == true){
+      return (
+        <View style={styles.seriesDetail}>
+          <Text style={styles.seriesPic}>PIC</Text>
+          <Text style={styles.seriesNameText}>{previousSeries.name}</Text>
+        </View>
+      )
+    }
+    else{
+      return <Text>You have not completed a series yet</Text>
+    }
   },
 });
 

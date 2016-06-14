@@ -10,7 +10,7 @@ var {
 } = ReactNative;
 
 var Button = require('./common/button');
-var realm = require('./class');
+var realm = require('./database/class');
 
 module.exports = React.createClass({
   render: function(){

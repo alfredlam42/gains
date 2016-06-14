@@ -7,7 +7,7 @@ var {
   StyleSheet,
   TextInput
 } = ReactNative;
-var realm = require('./class');
+var realm = require('./database/class');
 
 module.exports = React.createClass({
   getInitialState: function() {

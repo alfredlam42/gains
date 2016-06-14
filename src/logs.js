@@ -7,7 +7,7 @@ var {
   Navigator
 } = ReactNative;
 
-var realm = require('./class');
+var realm = require('./database/class');
 var SeriesLogs = require('./logs_components/seriesLogs');
 var WorkoutLogs = require('./logs_components/workoutLogs');
 var PreviousWorkoutLogs = require('./logs_components/previousWorkoutLogs');
