@@ -10,6 +10,7 @@ var {
 
 var realm = require('./src/database/class');
 var seed = require('./src/database/seedData');
+var dummy = require('./src/database/dummyData');
 
 var Tabbar = require('./src/tabbar');
 var Signup = require('./src/signup');
@@ -32,6 +33,7 @@ var Gains = React.createClass({
   render: function() {
     var route = realm.objects('User').length > 0 ? 'tabbar' : 'signup';
     seed.seedDatabase();
+    dummy.seedDummyData();
 
     return (
       <Navigator
