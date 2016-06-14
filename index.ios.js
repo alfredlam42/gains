@@ -8,7 +8,7 @@ var {
   Navigator
 } = ReactNative;
 
-var realm = require('./src/class');
+var realm = require('./src/database/class');
 var Tabbar = require('./src/tabbar');
 var Signup = require('./src/signup');
 var Profile = require('./src/profile');

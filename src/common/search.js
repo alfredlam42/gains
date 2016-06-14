@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactNative = require('react-native');
-var realm = require('../class');
+var realm = require('../database/class');
 
 var search = {
   //returns the first object

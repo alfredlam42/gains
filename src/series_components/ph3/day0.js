@@ -4,12 +4,12 @@ var {
   View,
   Text,
   StyleSheet,
-  ListView,
   Navigator,
   TextInput
-} = ReactNative
+} = ReactNative;
+
 var Button = require('../../common/button');
-var realm = require('../../class');
+var realm = require('../../database/class');
 var search = require('../../common/search');
 var exercise = ['Squat', 'Barbell Bench Press', 'Deadlift'];
 var create = require('../../common/create');
