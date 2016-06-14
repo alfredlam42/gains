@@ -9,7 +9,7 @@ var {
 } = ReactNative;
 
 var Button = require('./common/button');
-var realm = require('./class');
+var realm = require('./database/class');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -24,7 +24,7 @@ module.exports = React.createClass({
   },
   render: function() {
     var user = realm.objects('User')[0];
-    var currentSeries = user.series[0] ? user.series.name : 'Pick a series';
+    var currentSeries = user.series[0] ? user.series.name : null;
 
     return (
       <View style={styles.container}>
@@ -35,14 +35,7 @@ module.exports = React.createClass({
 
         <View style={styles.seriesWrapper}>
           <Text style={styles.h2}>Current Series</Text>
-          <View style={styles.workoutWrapper}>
-            <Text style={styles.pic}></Text>
-            <View style={styles.workoutDetails}>
-              <Text style={styles.workoutInfo}>Name: {currentSeries}</Text>
-              <Text style={styles.workoutInfo}>Week: </Text>
-              <Text style={styles.workoutInfo}>Day: </Text>
-            </View>
-          </View>
+          {this.renderCurrentSeries(currentSeries)}
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -125,6 +118,29 @@ module.exports = React.createClass({
         <Text style={styles.userInfo}>Height: {this.state.height}</Text>
         <Text style={styles.userInfo}>Weight: {this.state.weight}</Text>
       </View>
+    }
+  },
+  renderCurrentSeries: function(series){
+    if (series){
+      return(
+        <View style={styles.workoutWrapper}>
+          <Text style={styles.pic}></Text>
+          <View style={styles.workoutDetails}>
+            <Text style={styles.workoutInfo}>Name: {currentSeries}</Text>
+            <Text style={styles.workoutInfo}>Week: </Text>
+            <Text style={styles.workoutInfo}>Day: </Text>
+          </View>
+        </View>
+      )
+    }
+    else{
+      return(
+        <View style={styles.workoutWrapper}>
+          <View style={styles.workoutDetails}>
+            <Text style={styles.workoutInfo}>You are currently not working on anything</Text>
+          </View>
+        </View>
+      )
     }
   }
 });

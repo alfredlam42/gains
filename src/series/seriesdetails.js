@@ -7,7 +7,7 @@ var {
   Navigator
 } = ReactNative;
 var Button = require('../common/button');
-var realm = require('../class');
+var realm = require('../database/class');
 var search = require('../common/search');
 // var create = require('../common/create');
 
