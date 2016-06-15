@@ -73,41 +73,41 @@ module.exports = React.createClass({
     if(this.state.edit) {
       return <View style={styles.profile}>
         <Text style={styles.h2}>Edit Profile</Text>
-
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.userInfo}>Name: </Text>
-          <TextInput
-            style={styles.input}
-            value={this.state.name}
-            onChangeText={(text) => this.setState({name: text})}/>
-        </View>
+          <View>
+            <Text style={styles.userInfo}>Name: </Text>
+            <Text style={styles.userInfo}>Age: </Text>
+            <Text style={styles.userInfo}>Height(inches): </Text>
+            <Text style={styles.userInfo}>Weight:  </Text>
+          </View>
+          <View>
+            <TextInput
+              style={styles.input}
+              value={this.state.name}
+              returnKeyType='done'
+              onChangeText={(text) => this.setState({name: text})}/>
 
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.userInfo}>Age: </Text>
-          <TextInput
-            style={styles.input}
-            value={this.state.age.toString()}
-            keyboardType='numeric'
-            onChangeText={(text) => this.setState({age: text})}/>
+            <TextInput
+              style={styles.input}
+              value={this.state.age.toString()}
+              keyboardType='numeric'
+              returnKeyType='done'
+              onChangeText={(text) => this.setState({age: text})}/>
 
-        </View>
+            <TextInput
+              style={styles.input}
+              value={this.state.height.toString()}
+              keyboardType='numeric'
+              returnKeyType='done'
+              onChangeText={(text) => this.setState({height: text})}/>
 
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.userInfo}>Height(inches): </Text>
-          <TextInput
-            style={styles.input}
-            value={this.state.height.toString()}
-            keyboardType='numeric'
-            onChangeText={(text) => this.setState({height: text})}/>
-        </View>
-
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.userInfo}>Weight:  </Text>
-          <TextInput
-            style={styles.input}
-            value={this.state.weight.toString()}
-            keyboardType='numeric'
-            onChangeText={(text) => this.setState({weight: text})}/>
+            <TextInput
+              style={styles.input}
+              value={this.state.weight.toString()}
+              keyboardType='numeric'
+              returnKeyType='done'
+              onChangeText={(text) => this.setState({weight: text})}/>
+          </View>
         </View>
       </View>
     } else {
@@ -174,7 +174,8 @@ var styles = StyleSheet.create({
     textDecorationLine: 'underline'
   },
   userInfo: {
-    fontSize: 18
+    fontSize: 18,
+    marginBottom: 10
   },
   seriesWrapper: {
     flex: 4,
@@ -226,6 +227,5 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     width: 200,
-    alignSelf: 'center'
   }
 });
