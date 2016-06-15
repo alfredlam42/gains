@@ -37,8 +37,8 @@ var categories = [
 var seed = {
   seedDatabase: function(){
     create.multipleExercises(ph3Exercises);
-    create.multipleCategories(categories)
-    create.seriesDisplay('PH3', ph3Exercises, ['Hypertrophy'])
+    create.multipleCategories(categories);
+    create.seriesDisplay('PH3', ph3Exercises, ['Hypertrophy']);
   }
 }
 
