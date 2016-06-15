@@ -7,10 +7,12 @@ var {
   Navigator
 } = ReactNative;
 
-var Series = require('./series_components/series-list');
+var SeriesList = require('./series_components/series-list');
+var Series = require('./series_components/seriesdetails');
 
 var ROUTES = {
-  seriesList: Series
+  seriesList: SeriesList,
+  seriesDetails: Series
 };
 
 module.exports = React.createClass({
