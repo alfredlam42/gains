@@ -72,7 +72,7 @@ module.exports = React.createClass({
   },
   renderProfile: function() {
     if(this.state.edit) {
-      return <View style={styles.profile}>
+      return <View style={[styles.profile, {paddingLeft: 25}]}>
         <Text style={styles.h2}>Edit Profile</Text>
         <View style={{flexDirection: 'row'}}>
           <View>
@@ -112,7 +112,7 @@ module.exports = React.createClass({
         </View>
       </View>
     } else {
-      return <View style={styles.profile}>
+      return <View style={[styles.profile, {alignItems:'center'}]}>
         <Text style={styles.h2}>Profile</Text>
         <Text style={styles.userInfo}>Name: {this.state.name}</Text>
         <Text style={styles.userInfo}>Age: {this.state.age}</Text>
@@ -165,8 +165,6 @@ var styles = StyleSheet.create({
   profile: {
     flex: 3,
     justifyContent: 'center',
-    paddingLeft: 25,
-    // alignItems: 'center',
     borderWidth: 3,
     borderColor: 'green'
   },
