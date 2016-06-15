@@ -25,10 +25,10 @@ var dummy = {
     realm.write(() => {
       var oneObject = realm.create('intObject', {
         value: 1
-      });
+      }, true);
       var plateObject = realm.create('intObject', {
         value: 135
-      });
+      }, true);
       var dummySeries1 = realm.create('Series', {
         id: search.findSizeOfClass('Series') + 1,
         name: 'PH3',
