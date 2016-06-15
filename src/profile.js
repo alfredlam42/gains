@@ -93,7 +93,7 @@ module.exports = React.createClass({
         </View>
 
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.userInfo}>Height: </Text>
+          <Text style={styles.userInfo}>Height(inches): </Text>
           <TextInput
             style={styles.input}
             value={this.state.height.toString()}
@@ -115,7 +115,7 @@ module.exports = React.createClass({
         <Text style={styles.h2}>Profile</Text>
         <Text style={styles.userInfo}>Name: {this.state.name}</Text>
         <Text style={styles.userInfo}>Age: {this.state.age}</Text>
-        <Text style={styles.userInfo}>Height: {this.state.height}</Text>
+        {this.convertInchesToHeight(this.state.height)}
         <Text style={styles.userInfo}>Weight: {this.state.weight}</Text>
       </View>
     }
@@ -142,6 +142,11 @@ module.exports = React.createClass({
         </View>
       )
     }
+  },
+  convertInchesToHeight: function(height) {
+    var inches = height % 12;
+    var feet = parseInt(height / 12);
+    return <Text style={styles.userInfo}>Height: {feet}'{inches}"</Text>
   }
 });
 
