@@ -25,6 +25,11 @@ var ROUTES = {
   series: Series,
 }
 
+// realm.write(() => {
+//   realm.delete(realm.objects('User'));
+//   }
+// )
+
 //Component
 var Gains = React.createClass({
   renderScene: function(route, navigator) {
@@ -33,8 +38,8 @@ var Gains = React.createClass({
   },
   render: function() {
     var route = realm.objects('User').length > 0 ? 'tabbar' : 'signup';
-    seed.seedDatabase();
-    dummy.seedDummyData();
+    // seed.seedDatabase();
+    // dummy.seedDummyData();
 
     return (
       <Navigator

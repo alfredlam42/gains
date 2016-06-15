@@ -12,7 +12,7 @@ module.exports = React.createClass({
     return (
       <TouchableHighlight
         style={styles.seriesWrapper}
-        underlayColor={'white'}
+        underlayColor={'#56A2F5'}
         onPress={this.onSeriesSelect}>
         <Text style={styles.seriesName}>{this.props.series.name}</Text>
       </TouchableHighlight>
@@ -29,7 +29,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 100,
-    backgroundColor: 'lightblue',
+    backgroundColor: '#B3C4CC',
     marginBottom: 2
   },
   seriesName: {
