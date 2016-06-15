@@ -1,11 +1,4 @@
-var React = require('react-native');
-var {
-  AppRegistry,
-  MapView,
-  View,
-  Text,
-  StyleSheet
-} = React;
+var ReactNative = require('react-native');
 const Realm = require('realm');
 
 class intObject{}
@@ -41,16 +34,27 @@ Series.schema = {
     name: 'string',
     maxes: {type: 'list', objectType: 'Max'},
     workouts: {type: 'list', objectType: 'Workout'},
+    currentDay: 'int',
     completed: {type: 'bool', default: false},
   },
+};
+
+class seriesDisplay {}
+seriesDisplay.schema = {
+  name: 'seriesDisplay',
+  primaryKey: 'name',
+  properties: {
+    name: 'string',
+    exercises: {type: 'list', objectType: 'Exercise'},
+    category: {type: 'list', objectType: 'Category'}
+  }
 };
 
 class Category {}
 Category.schema = {
   name: 'Category',
-  primaryKey: 'id',
+  primaryKey: 'name',
   properties: {
-    id: 'int',
     name: 'string',
   }
 };
@@ -89,8 +93,8 @@ Workout.schema = {
 };
 
 var realm = new Realm({
-  schema: [intObject, User, Series, Category, Max, Exercise, Workout],
-  schemaVersion: 6,
+  schema: [intObject, User, Series, seriesDisplay, Category, Max, Exercise, Workout],
+  schemaVersion: 7,
 });
 
 module.exports = realm;

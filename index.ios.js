@@ -9,6 +9,9 @@ var {
 } = ReactNative;
 
 var realm = require('./src/database/class');
+var seed = require('./src/database/seedData');
+var dummy = require('./src/database/dummyData');
+
 var Tabbar = require('./src/tabbar');
 var Signup = require('./src/signup');
 var Profile = require('./src/profile');
@@ -20,7 +23,6 @@ var ROUTES = {
   signup: Signup,
   profile: Profile,
   series: Series,
-  seriesdetails: SeriesDetails,
 }
 
 //Component
@@ -30,15 +32,9 @@ var Gains = React.createClass({
     return <Component route={route} navigator={navigator} passProps = {route.passProps}/>;
   },
   render: function() {
-    // realm.write(() => {
-
-    //    realm.delete(realm.objects('User')); // Deletes all users
-    //    realm.delete(realm.objects('Series')); // Deletes all series
-    //    realm.delete(realm.objects('Workout')); // Deletes all workouts
-    //    realm.delete(realm.objects('Exercise')); // Deletes all exercises
-    // });
-
     var route = realm.objects('User').length > 0 ? 'tabbar' : 'signup';
+    seed.seedDatabase();
+    dummy.seedDummyData();
 
     return (
       <Navigator

@@ -4,7 +4,7 @@ var realm = require('../database/class');
 var search = require('./search');
 
 var create = {
-  multipleExercise: function(list){
+  multipleExercises: function(list){
     var exercises = realm.objects('Exercise');
     for (var i = 0; i < list.length; i++){
       realm.write(() => {
@@ -13,6 +13,26 @@ var create = {
         }, true)
       })
     }
+  },
+  //A different function should be created for each class because of the properties. It just happens that Category and Exercise has the same properties
+  multipleCategories: function(list){
+    var categories = realm.objects('Category');
+    for (var i = 0; i < list.length; i++){
+      realm.write(() => {
+        realm.create('Category', {
+          name: list[i],
+        }, true)
+      })
+    }
+  },
+  seriesDisplay: function(name, exerciseList, categoryList){
+    realm.write(() => {
+      realm.create('seriesDisplay', {
+        name: name,
+        exercises: search.findObjects('Exercise', 'name', exerciseList),
+        category: search.findObjects('Category', 'name', categoryList),
+      }, true)
+    })
   },
   multipleIntObjects: function(){
     //this creates multiple of 5s because thats common weights
