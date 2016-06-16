@@ -27,11 +27,12 @@ var styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     borderColor: 'black',
-    marginTop: 10
+    marginTop: 10,
+    backgroundColor: '#F0D23C'
   },
   buttonText: {
     flex: 1,
     alignSelf: 'center',
-    fontSize: 20
+    fontSize: 20,
   }
 });

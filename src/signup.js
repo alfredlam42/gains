@@ -22,32 +22,32 @@ module.exports = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
-          <Text style={styles.label}>name:</Text>
+          <Text style={styles.label}>name</Text>
           <TextInput
             value={this.state.name}
             onChangeText={(text) => this.setState({name: text})}
             style={styles.input}/>
 
-          <Text style={styles.label}>age:</Text>
+          <Text style={styles.label}>age</Text>
           <TextInput
             value={this.state.age}
             onChangeText={(text) => this.setState({age: text})}
             style={styles.input}/>
 
-          <Text style={styles.label}>height:</Text>
+          <Text style={styles.label}>height(inches)</Text>
           <TextInput
             value={this.state.height}
             onChangeText={(text) => this.setState({height: text})}
             style={styles.input}/>
 
-          <Text style={styles.label}>weight:</Text>
+          <Text style={styles.label}>weight</Text>
           <TextInput
             value={this.state.weight}
             onChangeText={(text) => this.setState({weight: text})}
             style={styles.input}/>
 
           <Text style={[styles.label, styles.errorMessage]}>{this.state.errorMessage}</Text>
-          <Button text={'Signup'} onPress={this.onSignupPress} />
+          <Button text={'get ready to GAINS'} onPress={this.onSignupPress} />
 
       </View>
     )
@@ -79,7 +79,8 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#29292B'
   },
   input: {
     padding: 4,
@@ -89,10 +90,12 @@ var styles = StyleSheet.create({
     borderRadius: 5,
     margin: 5,
     width: 200,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    backgroundColor: 'white'
   },
   label: {
-    fontSize: 18
+    fontSize: 18,
+    color: '#E0DFE4'
   },
   errorMessage: {
     color: 'red'
