@@ -32,9 +32,11 @@ module.exports = React.createClass({
             <Text style={styles.headerText}>Previous</Text>
         </View>
 
-        <ScrollView style={styles.previousSeries}>
-          {this.renderPreviousWorkouts()}
-        </ScrollView>
+        <TouchableHighlight style={[styles.seriesWrapper,{marginBottom: 50}]} onPress={this.previousWorkoutPress} underlayColor="black">
+          <View style={{flexDirection: 'row'}}>
+            {this.returnPreviousSeries()}
+          </View>
+         </TouchableHighlight>
       </View>
     )
   },
@@ -43,21 +45,6 @@ module.exports = React.createClass({
   },
   previousWorkoutPress: function() {
     { this.props.navigator.push({ name: 'previousWorkoutLogs' }); }
-  },
-  renderPreviousWorkouts: function() {
-    console.log("hey")
-    var user = realm.objects('User')[0]
-    var seriesList = user.series
-    return seriesList.map(function(series, i){
-      return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => null} underlayColor="black">
-          <View>
-            <View style={styles.seriesDetail}>
-              <Text style={styles.seriesPic}>PIC</Text>
-              <Text style={styles.seriesNameText}>{series.name}</Text>
-            </View>
-          </View>
-        </TouchableHighlight>
-    });
   },
   returnCurrentSeries: function() {
     var mostRecentSeriesInd = realm.objects('Series').length - 1
@@ -113,6 +100,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
+    alignSelf: 'stretch',
   },
   header: {
     flex: 1.5,
@@ -136,8 +124,5 @@ var styles = StyleSheet.create({
   },
   seriesNameText: {
     fontSize: 30
-  },
-  previousSeries: {
-    flex: 7
   }
 });
