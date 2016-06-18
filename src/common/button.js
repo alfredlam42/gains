@@ -10,7 +10,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <TouchableHighlight
-        style={styles.button}
+        style={[styles.button,this.props.style]}
         underlayColor={'gray'}
         onPress={this.props.onPress}>
         <Text style={styles.buttonText}>{this.props.text}</Text>

@@ -1,5 +1,6 @@
 var React = require("react");
 var ReactNative = require("react-native");
+var Header = require('../common/header');
 var {
   View,
   Text,
@@ -13,29 +14,28 @@ module.exports = React.createClass({
     return (
       <View style={styles.container}>
 
-        <View style={styles.logo}>
-          <Text>Header / logo goes here</Text>
-        </View>
-
-        <View style={styles.header}>
-            <Text style={styles.headerText}>Current</Text>
-        </View>
-
-        <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
-          <View style={{flexDirection: 'row'}}>
-            {this.returnCurrentSeries()}
+        <Header />
+        <View style={styles.body}>
+          <View style={styles.header}>
+              <Text style={styles.headerText}>Current</Text>
           </View>
-        </TouchableHighlight>
 
-        <View style={styles.header}>
-            <Text style={styles.headerText}>Previous</Text>
-        </View>
+          <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
+            <View>
+              {this.returnCurrentSeries()}
+            </View>
+          </TouchableHighlight>
 
-        <TouchableHighlight style={[styles.seriesWrapper,{marginBottom: 50}]} onPress={this.previousWorkoutPress} underlayColor="black">
-          <View style={{flexDirection: 'row'}}>
-            {this.returnPreviousSeries()}
+          <View style={styles.header}>
+              <Text style={styles.headerText}>Previous</Text>
           </View>
-         </TouchableHighlight>
+
+          <TouchableHighlight style={[styles.seriesWrapper,{marginBottom: 50}]} onPress={this.previousWorkoutPress} underlayColor="black">
+            <View>
+              {this.returnPreviousSeries()}
+            </View>
+           </TouchableHighlight>
+         </View>
       </View>
     )
   },
@@ -51,8 +51,8 @@ module.exports = React.createClass({
     if (currentSeries && currentSeries.completed == false){
       return (
         <View style={styles.seriesDetail}>
-          <Text style={styles.seriesPic}>PIC</Text>
           <Text style={styles.seriesNameText}>{currentSeries.name}</Text>
+          <Text style={styles.seriesPic}>PIC</Text>
         </View>
       )
     }
@@ -68,8 +68,8 @@ module.exports = React.createClass({
     if (previousSeries && previousSeries.completed == true){
       return (
         <View style={styles.seriesDetail}>
-          <Text style={styles.seriesPic}>PIC</Text>
-          <Text style={styles.seriesNameText}>{previousSeries.name}</Text>
+            <Text style={styles.seriesNameText}>{previousSeries.name}</Text>
+            <Text style={styles.seriesPic}>PIC</Text>
         </View>
       )
     }
@@ -84,7 +84,12 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#29292B',
+  },
+  body: {
+    flex: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logo: {
     flex: 2,
@@ -99,16 +104,14 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    alignSelf: 'stretch',
+    alignSelf: 'stretch'
   },
   header: {
-    flex: 1.5,
-    borderWidth: 2,
-    alignSelf: 'stretch'
+    // borderWidth: 2,
   },
   headerText: {
     fontSize: 40,
-    paddingLeft: 10
+    color: '#E0DFE4'
   },
   seriesPic: {
     width: 100,
@@ -119,9 +122,12 @@ var styles = StyleSheet.create({
   },
   seriesDetail: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   seriesNameText: {
-    fontSize: 30
+    fontSize: 20,
+    color: '#E0DFE4',
+    padding: 10
   }
 });
