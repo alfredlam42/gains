@@ -6,7 +6,6 @@ var {
 } = ReactNative;
 
 var SeriesDetail = require('./series_components/seriesdetails');
-var SeriesCell = require('./series_components/series-cell');
 var SeriesList = require('./series_components/series-list');
 
 var ROUTES = {
