@@ -10,7 +10,6 @@ var {
 
 var realm = require('../database/class');
 var SeriesCell = require('./series-cell');
-var Button = require('../common/button');
 
 var allSeries = realm.objects('Series');
 
