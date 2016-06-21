@@ -24,54 +24,7 @@ module.exports = React.createClass({
     );
   },
   onSeriesSelect: function() {
-    // find series by ID
-    var findSeriesById = function(id) {
-      var series;
-      var allSeries = realm.objects('Series');
-      for (var i = 0; i < allSeries.length; i++) {
-        if (allSeries[i].id === id) {
-          series = allSeries[i];
-        }
-      }
-      return series;
-    }
-    var seriesId = this.props.series.id;
-    var series = findSeriesById(seriesId);
-
-    // find user
-    var user = realm.objects('User')[0];
-
-    // add series to user.series list
-    let seriesList = user.series;
-    realm.write(() => {
-        seriesList.push(series);
-    });
-
-    // DEVELOPMENT: delete series from user
-    // realm.write(() => {
-    //   for(var i = 0; i < user.series.length; i++) {
-    //     realm.delete(user.series[i]);
-    //   }
-    // })
-
-    // navigate to series detail page
     { this.props.navigator.push({name: 'seriesDetail'})}
-    // console.log(this.props.route);
-    // console.log(this.props.navigator);
-
-
-    // console.log(typeof(this.props.series));
-    // console.log(typeof(user.series));
-    // console.log(user.series.length);
-    // console.log(user.series.name);
-    // console.log(this.props.series.id);
-    // console.log(series);
-    // console.log(series.name);
-    // console.log(series.id);
-    // console.log(series.maxes);
-    // console.log(series.workouts);
-    // console.log(series.currentDay);
-    // console.log(series.completed);
   }
 });
 
