@@ -37,7 +37,7 @@ module.exports = React.createClass({
   },
   renderSeries: function(series) {
     return (
-      <SeriesCell series={series} key={series.id} />
+      <SeriesCell series={series} />
     );
   }
 });
