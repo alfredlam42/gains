@@ -1,5 +1,6 @@
 var ReactNative = require('react-native');
 var React = require('react');
+var Header = require('./common/header');
 var {
   Text,
   View,
@@ -25,25 +26,22 @@ module.exports = React.createClass({
   },
   render: function() {
     var user = realm.objects('User')[0];
-    var currentSeries = search.findLastElement(user.series) ? search.findLastElement(user.series).name : null;
+    var currentSeries = search.findLastElement(user.series) ? search.findLastElement(user.series) : null;
 
     return (
       <View style={styles.container}>
-        <View style={styles.logo}>
-          <Text>Header / logo goes here</Text>
-        </View>
-        {this.renderProfile()}
+        <Header />
+        <View style={styles.body}>
+          {this.renderProfile()}
 
-        <View style={styles.seriesWrapper}>
-          <Text style={styles.h2}>Current Series</Text>
-          {this.renderCurrentSeries(currentSeries)}
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button
-            text={'New Series'}
-            onPress={() => this.props.changeState()} />
-          {this.state.edit? this.onEditProfilePress() : this.onEditSaveProfilePress()}
+          <View style={styles.seriesWrapper}>
+            <Text style={styles.h2}>Current Series</Text>
+            {this.renderCurrentSeries(currentSeries)}
+            <Button
+              text={'New Series'}
+              style={styles.button}
+              onPress={() => this.props.changeState()} />
+          </View>
         </View>
       </View>
     );
@@ -63,61 +61,65 @@ module.exports = React.createClass({
     }
     return  <Button
             text={'Save'}
+            style={styles.button}
             onPress={() => this.setState({edit: !this.state.edit})} />
   },
   onEditSaveProfilePress: function() {
     return  <Button
             text={'Edit'}
+            style={styles.button}
             onPress={() => this.setState({edit: !this.state.edit})} />
   },
   renderProfile: function() {
     if(this.state.edit) {
       return <View style={styles.profile}>
         <Text style={styles.h2}>Edit Profile</Text>
-
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.userInfo}>Name: </Text>
-          <TextInput
-            style={styles.input}
-            value={this.state.name}
-            onChangeText={(text) => this.setState({name: text})}/>
-        </View>
+          <View>
+            <Text style={styles.userInfo}>Name: </Text>
+            <Text style={styles.userInfo}>Age: </Text>
+            <Text style={styles.userInfo}>Height(inches): </Text>
+            <Text style={styles.userInfo}>Weight(lbs):  </Text>
+          </View>
+          <View>
+            <TextInput
+              style={styles.input}
+              value={this.state.name}
+              returnKeyType='done'
+              onChangeText={(text) => this.setState({name: text})}/>
 
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.userInfo}>Age: </Text>
-          <TextInput
-            style={styles.input}
-            value={this.state.age.toString()}
-            keyboardType='numeric'
-            onChangeText={(text) => this.setState({age: text})}/>
+            <TextInput
+              style={styles.input}
+              value={this.state.age.toString()}
+              keyboardType='numeric'
+              returnKeyType='done'
+              onChangeText={(text) => this.setState({age: text})}/>
 
-        </View>
+            <TextInput
+              style={styles.input}
+              value={this.state.height.toString()}
+              keyboardType='numeric'
+              returnKeyType='done'
+              onChangeText={(text) => this.setState({height: text})}/>
 
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.userInfo}>Height: </Text>
-          <TextInput
-            style={styles.input}
-            value={this.state.height.toString()}
-            keyboardType='numeric'
-            onChangeText={(text) => this.setState({height: text})}/>
+            <TextInput
+              style={styles.input}
+              value={this.state.weight.toString()}
+              keyboardType='numeric'
+              returnKeyType='done'
+              onChangeText={(text) => this.setState({weight: text})}/>
+          </View>
         </View>
-
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.userInfo}>Weight:  </Text>
-          <TextInput
-            style={styles.input}
-            value={this.state.weight.toString()}
-            keyboardType='numeric'
-            onChangeText={(text) => this.setState({weight: text})}/>
-        </View>
+        {this.state.edit? this.onEditProfilePress() : this.onEditSaveProfilePress()}
       </View>
     } else {
       return <View style={styles.profile}>
         <Text style={styles.h2}>Profile</Text>
         <Text style={styles.userInfo}>Name: {this.state.name}</Text>
         <Text style={styles.userInfo}>Age: {this.state.age}</Text>
-        <Text style={styles.userInfo}>Height: {this.state.height}</Text>
-        <Text style={styles.userInfo}>Weight: {this.state.weight}</Text>
+        {this.convertInchesToHeight(this.state.height)}
+        <Text style={styles.userInfo}>Weight(lbs): {this.state.weight}</Text>
+        {this.state.edit? this.onEditProfilePress() : this.onEditSaveProfilePress()}
       </View>
     }
   },
@@ -127,7 +129,7 @@ module.exports = React.createClass({
         <View style={styles.workoutWrapper}>
           <Text style={styles.pic}></Text>
           <View style={styles.workoutDetails}>
-            <Text style={styles.workoutInfo}>Name: {series}</Text>
+            <Text style={styles.workoutInfo}>Name: {series.name}</Text>
             <Text style={styles.workoutInfo}>Week: </Text>
             <Text style={styles.workoutInfo}>Day: </Text>
           </View>
@@ -143,40 +145,48 @@ module.exports = React.createClass({
         </View>
       )
     }
+  },
+  convertInchesToHeight: function(height) {
+    var inches = height % 12;
+    var feet = parseInt(height / 12);
+    return <Text style={styles.userInfo}>Height: {feet}'{inches}"</Text>
   }
 });
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1
-  },
-  logo: {
     flex: 1,
+    backgroundColor: '#29292B'
+  },
+  body: {
+    flex: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: 'blue'
   },
   profile: {
     flex: 3,
     justifyContent: 'center',
-    paddingLeft: 25,
-    // alignItems: 'center',
     borderWidth: 3,
-    borderColor: 'green'
+    borderColor: 'green',
+    alignSelf: 'stretch',
+    paddingLeft: 25
   },
   h2: {
     fontSize: 24,
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    color: '#E0DFE4',
+    marginBottom: 5
   },
   userInfo: {
-    fontSize: 18
+    fontSize: 18,
+    marginBottom: 15,
+    color: '#E0DFE4',
   },
   seriesWrapper: {
     flex: 4,
-    // alignItems: 'center',
+    alignSelf: 'stretch',
     paddingLeft: 25,
-    justifyContent: 'center',
+    paddingTop: 30,
     borderWidth: 3,
     borderColor: 'yellow'
   },
@@ -196,32 +206,26 @@ var styles = StyleSheet.create({
     paddingLeft: 5
   },
   workoutInfo: {
-    fontSize: 18
-  },
-  buttonWrapper: {
-    flex: 1.5,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingBottom: 40,
-    borderWidth: 3,
-    borderColor: 'red'
+    fontSize: 18,
+    color: '#E0DFE4'
   },
   button: {
     borderWidth: 2,
-    height: 50,
-    width: 100,
+    height: 40,
+    width: 200,
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center'
   },
   input: {
     padding: 5,
+    marginBottom: 5,
     height: 30,
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 5,
     width: 200,
-    alignSelf: 'center'
+    color: 'black',
+    backgroundColor: 'white'
   }
 });
