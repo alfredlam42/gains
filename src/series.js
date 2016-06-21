@@ -7,13 +7,13 @@ var {
   Navigator
 } = ReactNative;
 
-var Series = require('./series_components/seriesdetails');
+var SeriesDetail = require('./series_components/seriesdetails');
 var SeriesCell = require('./series_components/series-cell');
 var SeriesList = require('./series_components/series-list');
 
 var ROUTES = {
   seriesList: SeriesList,
-  seriesDetails: SeriesDetails,
+  seriesDetail: SeriesDetail,
   seriesCell: SeriesCell
 };
 
@@ -26,7 +26,7 @@ module.exports = React.createClass({
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{name: 'seriesList'}}
+        initialRoute={{name: 'seriesDetail'}}
         renderScene={this.renderScene}
         configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }} />
     );
