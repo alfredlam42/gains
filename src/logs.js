@@ -21,7 +21,7 @@ var ROUTES = {
 module.exports = React.createClass({
   renderScene: function(route, navigator) {
     var Component = ROUTES[route.name];
-    return <Component route={route} navigator={navigator} />;
+    return <Component route={route} navigator={navigator} index={route.key} />;
   },
   render: function() {
     return (

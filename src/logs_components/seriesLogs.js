@@ -5,7 +5,8 @@ var {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView
 } = ReactNative;
 var realm = require('../database/class');
 
@@ -30,20 +31,34 @@ module.exports = React.createClass({
               <Text style={styles.headerText}>Previous</Text>
           </View>
 
-          <TouchableHighlight style={[styles.seriesWrapper,{marginBottom: 50}]} onPress={this.previousWorkoutPress} underlayColor="black">
-            <View>
-              {this.returnPreviousSeries()}
-            </View>
-           </TouchableHighlight>
-         </View>
+          <ScrollView style={styles.previousSeries}>
+            {this.renderPreviousSeries()}
+          </ScrollView>
+        </View>
       </View>
     )
   },
   currentWorkoutPress: function() {
     { this.props.navigator.push({ name: 'workoutLogs' }); }
   },
-  previousWorkoutPress: function() {
-    { this.props.navigator.push({ name: 'previousWorkoutLogs' }); }
+  previousWorkoutPress: function(key) {
+    {this.props.navigator.push({
+      name: 'previousWorkoutLogs',
+      key: key
+    });}
+  },
+  renderPreviousSeries: function() {
+    var user = realm.objects('User')[0];
+    var seriesList = user.series;
+    var that = this;
+    return seriesList.map(function(series, i){
+      return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => that.previousWorkoutPress(i)} underlayColor="black">
+          <View style={styles.seriesDetail}>
+            <Text style={styles.seriesPic}>PIC</Text>
+            <Text style={styles.seriesNameText}>{series.name}</Text>
+          </View>
+        </TouchableHighlight>
+    });
   },
   returnCurrentSeries: function() {
     var mostRecentSeriesInd = realm.objects('Series').length - 1
@@ -51,30 +66,13 @@ module.exports = React.createClass({
     if (currentSeries && currentSeries.completed == false){
       return (
         <View style={styles.seriesDetail}>
-          <Text style={styles.seriesNameText}>{currentSeries.name}</Text>
           <Text style={styles.seriesPic}>PIC</Text>
+          <Text style={styles.seriesNameText}>{currentSeries.name}</Text>
         </View>
       )
     }
     else{
       return <Text>You are currently not working on anything.</Text>
-    }
-  },
-  returnPreviousSeries: function() {
-    if (realm.objects('Series').length === 1) { return };
-
-    var mostPreviousSeriesInd = realm.objects('Series').length - 2
-    var previousSeries = realm.objects('Series')[mostPreviousSeriesInd]
-    if (previousSeries && previousSeries.completed == true){
-      return (
-        <View style={styles.seriesDetail}>
-            <Text style={styles.seriesNameText}>{previousSeries.name}</Text>
-            <Text style={styles.seriesPic}>PIC</Text>
-        </View>
-      )
-    }
-    else{
-      return <Text>You have not completed a series yet</Text>
     }
   },
 });
@@ -104,10 +102,6 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    alignSelf: 'stretch'
-  },
-  header: {
-    // borderWidth: 2,
   },
   headerText: {
     fontSize: 40,
@@ -123,11 +117,11 @@ var styles = StyleSheet.create({
   seriesDetail: {
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
   },
   seriesNameText: {
-    fontSize: 20,
-    color: '#E0DFE4',
-    padding: 10
+    fontSize: 30
+  },
+  previousSeries: {
+    flex: 7,
   }
 });
