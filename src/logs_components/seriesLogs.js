@@ -1,5 +1,6 @@
 var React = require("react");
 var ReactNative = require("react-native");
+var Header = require('../common/header');
 var {
   View,
   Text,
@@ -14,27 +15,26 @@ module.exports = React.createClass({
     return (
       <View style={styles.container}>
 
-        <View style={styles.logo}>
-          <Text>Header / logo goes here</Text>
-        </View>
-
-        <View style={styles.header}>
-            <Text style={styles.headerText}>Current</Text>
-        </View>
-
-        <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
-          <View style={{flexDirection: 'row'}}>
-            {this.returnCurrentSeries()}
+        <Header />
+        <View style={styles.body}>
+          <View style={styles.header}>
+              <Text style={styles.headerText}>Current</Text>
           </View>
-        </TouchableHighlight>
 
-        <View style={styles.header}>
-            <Text style={styles.headerText}>Previous</Text>
+          <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
+            <View>
+              {this.returnCurrentSeries()}
+            </View>
+          </TouchableHighlight>
+
+          <View style={styles.header}>
+              <Text style={styles.headerText}>Previous</Text>
+          </View>
+
+          <ScrollView style={styles.previousSeries}>
+            {this.renderPreviousSeries()}
+          </ScrollView>
         </View>
-
-        <ScrollView style={styles.previousSeries}>
-          {this.renderPreviousSeries()}
-        </ScrollView>
       </View>
     )
   },
@@ -82,7 +82,12 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#29292B',
+  },
+  body: {
+    flex: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logo: {
     flex: 2,
@@ -98,14 +103,9 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 2,
   },
-  header: {
-    flex: 1.5,
-    borderWidth: 2,
-    alignSelf: 'stretch'
-  },
   headerText: {
     fontSize: 40,
-    paddingLeft: 10
+    color: '#E0DFE4'
   },
   seriesPic: {
     width: 100,
@@ -116,12 +116,12 @@ var styles = StyleSheet.create({
   },
   seriesDetail: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   seriesNameText: {
     fontSize: 30
   },
   previousSeries: {
-    flex: 7
+    flex: 7,
   }
 });

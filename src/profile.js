@@ -1,5 +1,6 @@
 var ReactNative = require('react-native');
 var React = require('react');
+var Header = require('./common/header');
 var {
   Text,
   View,
@@ -29,21 +30,18 @@ module.exports = React.createClass({
 
     return (
       <View style={styles.container}>
-        <View style={styles.logo}>
-          <Text>Header / logo goes here</Text>
-        </View>
-        {this.renderProfile()}
+        <Header />
+        <View style={styles.body}>
+          {this.renderProfile()}
 
-        <View style={styles.seriesWrapper}>
-          <Text style={styles.h2}>Current Series</Text>
-          {this.renderCurrentSeries(currentSeries)}
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button
-            text={'New Series'}
-            onPress={() => this.props.changeState()} />
-          {this.state.edit? this.onEditProfilePress() : this.onEditSaveProfilePress()}
+          <View style={styles.seriesWrapper}>
+            <Text style={styles.h2}>Current Series</Text>
+            {this.renderCurrentSeries(currentSeries)}
+            <Button
+              text={'New Series'}
+              style={styles.button}
+              onPress={() => this.props.changeState()} />
+          </View>
         </View>
       </View>
     );
@@ -63,23 +61,25 @@ module.exports = React.createClass({
     }
     return  <Button
             text={'Save'}
+            style={styles.button}
             onPress={() => this.setState({edit: !this.state.edit})} />
   },
   onEditSaveProfilePress: function() {
     return  <Button
             text={'Edit'}
+            style={styles.button}
             onPress={() => this.setState({edit: !this.state.edit})} />
   },
   renderProfile: function() {
     if(this.state.edit) {
-      return <View style={[styles.profile, {paddingLeft: 25}]}>
+      return <View style={styles.profile}>
         <Text style={styles.h2}>Edit Profile</Text>
         <View style={{flexDirection: 'row'}}>
           <View>
             <Text style={styles.userInfo}>Name: </Text>
             <Text style={styles.userInfo}>Age: </Text>
             <Text style={styles.userInfo}>Height(inches): </Text>
-            <Text style={styles.userInfo}>Weight:  </Text>
+            <Text style={styles.userInfo}>Weight(lbs):  </Text>
           </View>
           <View>
             <TextInput
@@ -110,14 +110,16 @@ module.exports = React.createClass({
               onChangeText={(text) => this.setState({weight: text})}/>
           </View>
         </View>
+        {this.state.edit? this.onEditProfilePress() : this.onEditSaveProfilePress()}
       </View>
     } else {
-      return <View style={[styles.profile, {alignItems:'center'}]}>
+      return <View style={styles.profile}>
         <Text style={styles.h2}>Profile</Text>
         <Text style={styles.userInfo}>Name: {this.state.name}</Text>
         <Text style={styles.userInfo}>Age: {this.state.age}</Text>
         {this.convertInchesToHeight(this.state.height)}
-        <Text style={styles.userInfo}>Weight: {this.state.weight}</Text>
+        <Text style={styles.userInfo}>Weight(lbs): {this.state.weight}</Text>
+        {this.state.edit? this.onEditProfilePress() : this.onEditSaveProfilePress()}
       </View>
     }
   },
@@ -153,34 +155,38 @@ module.exports = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1
-  },
-  logo: {
     flex: 1,
+    backgroundColor: '#29292B'
+  },
+  body: {
+    flex: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: 'blue'
   },
   profile: {
     flex: 3,
     justifyContent: 'center',
     borderWidth: 3,
-    borderColor: 'green'
+    borderColor: 'green',
+    alignSelf: 'stretch',
+    paddingLeft: 25
   },
   h2: {
     fontSize: 24,
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    color: '#E0DFE4',
+    marginBottom: 5
   },
   userInfo: {
     fontSize: 18,
-    marginBottom: 10
+    marginBottom: 15,
+    color: '#E0DFE4',
   },
   seriesWrapper: {
     flex: 4,
-    // alignItems: 'center',
+    alignSelf: 'stretch',
     paddingLeft: 25,
-    justifyContent: 'center',
+    paddingTop: 30,
     borderWidth: 3,
     borderColor: 'yellow'
   },
@@ -200,31 +206,26 @@ var styles = StyleSheet.create({
     paddingLeft: 5
   },
   workoutInfo: {
-    fontSize: 18
-  },
-  buttonWrapper: {
-    flex: 1.5,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingBottom: 40,
-    borderWidth: 3,
-    borderColor: 'red'
+    fontSize: 18,
+    color: '#E0DFE4'
   },
   button: {
     borderWidth: 2,
-    height: 50,
-    width: 100,
+    height: 40,
+    width: 200,
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center'
   },
   input: {
     padding: 5,
+    marginBottom: 5,
     height: 30,
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 5,
     width: 200,
+    color: 'black',
+    backgroundColor: 'white'
   }
 });
