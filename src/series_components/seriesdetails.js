@@ -21,24 +21,21 @@ module.exports = React.createClass({
     )
   },
   onSelectSeries: function(){
-
-
-    // Albert, I think you wrote the code below. I'm working from a new code base because I don't think this will work for the final product, but I didn't want to delete it in case you need it.
-    // var newSeries = null;
-    // var currentUser = search.findInt('User', 'id', '1');
-    // realm.write(() => {
-    //   newSeries = realm.create('Series', {
-    //     id: search.findSizeOfClass('Series') + 1,
-    //     name: 'PH3',
-    //     maxes: null,
-    //     workouts: null,
-    //     completed: false,
-    //   });
-    //   currentUser.series.push(newSeries);
-    // });
-    // create.multipleExercise(this.props.passProps.exercises); //or where the list of exercises come from
-    // create.multipleIntObjects();
-    // this.props.navigator.pop(); //or navigate it to whatever page
+    var newSeries = null;
+    var currentUser = search.findInt('User', 'id', '1');
+    realm.write(() => {
+      newSeries = realm.create('Series', {
+        id: search.findSizeOfClass('Series') + 1,
+        name: 'PH3',
+        maxes: null,
+        workouts: null,
+        completed: false,
+      });
+      currentUser.series.push(newSeries);
+    });
+    create.multipleExercise(this.props.passProps.exercises); //or where the list of exercises come from
+    create.multipleIntObjects();
+    this.props.navigator.pop(); //or navigate it to whatever page
   }
 })
 
