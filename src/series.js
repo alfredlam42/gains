@@ -7,10 +7,12 @@ var {
 
 var SeriesDetail = require('./series_components/seriesdetails');
 var SeriesList = require('./series_components/series-list');
+var Profile = require('./profile');
 
 var ROUTES = {
   seriesList: SeriesList,
-  seriesDetail: SeriesDetail
+  seriesDetail: SeriesDetail,
+  profile: Profile
 };
 
 module.exports = React.createClass({
