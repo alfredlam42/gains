@@ -27,6 +27,8 @@ module.exports = React.createClass({
     });
   },
   render: function() {
+    console.log("route: " + this.props.route);
+    console.log("navigator: " + this.props.navigator);
     return (
       <ListView
         dataSource={this.state.dataSource}
@@ -36,7 +38,7 @@ module.exports = React.createClass({
   },
   renderSeries: function(series) {
     return (
-      <SeriesCell series={series} />
+      <SeriesCell series={series} route={this.props.route} navigator={this.props.navigator} />
     );
   }
 });

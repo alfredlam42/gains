@@ -41,25 +41,23 @@ module.exports = React.createClass({
     // find user
     var user = realm.objects('User')[0];
 
-
-    // edit user property in realm to have that series
+    // add series to user.series list
     let seriesList = user.series;
     realm.write(() => {
-      seriesList.push(series);
-      console.log(seriesList[0]);
-      console.log(seriesList.length);
-      console.log(user.series.length);
+        seriesList.push(series);
     });
 
-    // delete series from user
+    // DEVELOPMENT: delete series from user
     // realm.write(() => {
     //   for(var i = 0; i < user.series.length; i++) {
     //     realm.delete(user.series[i]);
     //   }
     // })
 
-    // navigate to profile
-
+    // navigate to series detail page
+    { this.props.navigator.push({name: 'seriesDetail'})}
+    // console.log(this.props.route);
+    // console.log(this.props.navigator);
 
 
     // console.log(typeof(this.props.series));
