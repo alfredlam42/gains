@@ -13,7 +13,7 @@ var SeriesList = require('./series_components/series-list');
 
 var ROUTES = {
   seriesList: SeriesList,
-  seriesDetails: Series,
+  seriesDetails: SeriesDetails,
   seriesCell: SeriesCell
 };
 
