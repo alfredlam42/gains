@@ -24,7 +24,7 @@ module.exports = React.createClass({
     );
   },
   onSeriesSelect: function() {
-    // find series ID
+    // find series by ID
     var findSeriesById = function(id) {
       var series;
       var allSeries = realm.objects('Series');
@@ -40,33 +40,31 @@ module.exports = React.createClass({
 
     // find user
     var user = realm.objects('User')[0];
-    // edit user in DB to have that series
-    // let seriesList = user.series;
-    // if (user && series) {
-    //   realm.write(() => {
-    //     seriesList.push({ name: series.name,
-    //                       maxes: series.maxes,
-    //                       workouts: series.workouts,
-    //                       currentDay: series.currentDay,
-    //                       completed: series.completed
-    //                     });
-    //   });
-    // }
+
+
+    // edit user property in realm to have that series
+    let seriesList = user.series;
+    realm.write(() => {
+      seriesList.push(series);
+      console.log(seriesList[0]);
+      console.log(seriesList.length);
+      console.log(user.series.length);
+    });
 
     // delete series from user
     // realm.write(() => {
-    //   realm.delete(user.series)
+    //   for(var i = 0; i < user.series.length; i++) {
+    //     realm.delete(user.series[i]);
+    //   }
     // })
 
-    // user.series.push(selectedSeries);
-    // console.log(user.series[0].name);
     // navigate to profile
 
 
 
     // console.log(typeof(this.props.series));
     // console.log(typeof(user.series));
-    // console.log(user.series);
+    // console.log(user.series.length);
     // console.log(user.series.name);
     // console.log(this.props.series.id);
     // console.log(series);
