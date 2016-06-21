@@ -36,6 +36,7 @@ Series.schema = {
     workouts: {type: 'list', objectType: 'Workout'},
     currentDay: 'int',
     completed: {type: 'bool', default: false},
+    active: {type: 'bool', default: false}
   },
 };
 
@@ -94,7 +95,7 @@ Workout.schema = {
 
 var realm = new Realm({
   schema: [intObject, User, Series, seriesDisplay, Category, Max, Exercise, Workout],
-  schemaVersion: 7,
+  schemaVersion: 8
 });
 
 module.exports = realm;
