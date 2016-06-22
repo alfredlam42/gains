@@ -15,6 +15,7 @@ module.exports = React.createClass({
   render: function(){
     return (
       <View style={styles.container}>
+        <Text>Series Description</Text>
         <Button text='Start This Series' onPress = {this.onSelectSeries} />
       </View>
     )
