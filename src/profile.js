@@ -130,8 +130,7 @@ module.exports = React.createClass({
           <Text style={styles.pic}></Text>
           <View style={styles.workoutDetails}>
             <Text style={styles.workoutInfo}>Name: {series.name}</Text>
-            <Text style={styles.workoutInfo}>Week: </Text>
-            <Text style={styles.workoutInfo}>Day: </Text>
+            <Text style={styles.workoutInfo}>Day: {series.currentDay}</Text>
           </View>
         </View>
       )
