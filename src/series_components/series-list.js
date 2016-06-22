@@ -36,7 +36,7 @@ module.exports = React.createClass({
   },
   renderSeries: function(series) {
     return (
-      <SeriesCell series={series} route={this.props.route} navigator={this.props.navigator}} />
+      <SeriesCell series={series} route={this.props.route} navigator={this.props.navigator} />
     );
   }
 });
