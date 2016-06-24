@@ -44,9 +44,9 @@ module.exports = React.createClass({
       });
       currentUser.series.push(newSeries);
     });
-    create.multipleExercise(this.props.passProps.exercises); //or where the list of exercises come from
+    create.multipleExercise(this.props.passProps.exercises); //or where the list of exercises come from   --- this code is breaking not sure what this is for (Gabby)
     create.multipleIntObjects();
-    this.props.navigator.pop(); //or navigate it to whatever page
+    {this.props.navigator.pop()}; //or navigate it to whatever page
   },
   onBackButtonPress: function() {
     {this.props.navigator.pop()}
