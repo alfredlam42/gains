@@ -5,7 +5,8 @@ var {
   Text,
   StyleSheet,
   Navigator,
-  TextInput
+  TextInput,
+  ScrollView
 } = ReactNative;
 
 var Button = require('../../common/button');
@@ -17,61 +18,27 @@ var create = require('../../common/create');
 module.exports = React.createClass({
   getInitialState: function(){
     return {
-      squat: '',
-      barbellBenchPress: '',
-      deadlift: '',
+      exerciseWeight: {},
+      test: 'hi',
     }
   },
   render: function(){
-    create.multipleIntObjects();
     return(
       <View style = {styles.container}>
-        <View style = {styles.instructions}>
-          <Text>
-            Instructions for day 0
-          </Text>
-        </View>
-        <View style = {styles.exerciseBox}>
-          <View style = {styles.column}>
+        <ScrollView>
+          <View style = {styles.instructions}>
             <Text>
-              Exercises
-            </Text>
-            <Text>
-              {this.props.passProps.exercises[0]}
+              Instructions for day 0
             </Text>
           </View>
-          <View style = {styles.column}>
-            <Text>
-              Sets
-            </Text>
-            <Text>
-              {this.props.passProps.sets[0]}
-            </Text>
+          <View style = {styles.exerciseBox}>
+            {this.renderList(this.props.passProps.exercises, [1, 1, 1, 8, null, 8, 7, 8, 8, 10, 10, 8, 15, 15, 15, 15, 15, 15])}
           </View>
-          <View style = {styles.column}>
-            <Text>
-              Reps
-            </Text>
-            <Text>
-              {this.props.passProps.reps[0]}
-            </Text>
-          </View>
-          <View style = {styles.column}>
-            <Text>
-              Weight
-            </Text>
-            <TextInput
-              style = {styles.weight}
-              onChangeText = {(text) => this.setState({squat: text})}
-              value = {this.state.squat}
-              keyboardType = 'numeric'
-            />
-          </View>
-        </View>
-        <View style = {styles.complete}>
-          <Button text = 'Complete Workout' onPress = {this.onWorkoutComplete} />
+          <View style = {styles.complete}>
+            <Button text = 'Complete Workout' onPress = {this.onWorkoutComplete} />
 
-        </View>
+          </View>
+        </ScrollView>
       </View>
     )
   },
@@ -79,10 +46,10 @@ module.exports = React.createClass({
     var currentUser = realm.objects('User')[0];
     var currentSeries = search.findLastElement(currentUser.series);
     //user shouldn't be able to start on more than one workout so the last element in the list is the current series the user is working on
-    var weights = [this.state.squat] //Need to create a function that creates this list. Since the user will input the weight, it will be stored on the states and pulled from there
+    var weights = this.createWeightList();
     var exerciseList = search.findObjects('Exercise', 'name', this.props.passProps.exercises); //or where ever the list comes from
-    var setList = search.findObjects('intObject', 'value', this.props.passProps.sets); //or whereever the number of sets come from
-    var repsList = search.findObjects('intObject', 'value', this.props.passProps.reps); //or whereever the number of reps come from
+    var setList = search.findObjects('intObject', 'value', [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+    var repsList = search.findObjects('intObject', 'value', [1, 1, 1, 8, 4, 8, 7, 8, 8, 10, 10, 8, 15, 15, 15, 15, 15, 15]);
     var weightList = search.findObjects('intObject', 'value', weights);
 
     realm.write(() => {
@@ -98,12 +65,55 @@ module.exports = React.createClass({
     })
     this.props.navigator.pop();
   },
+  renderList: function(exercises, reps){
+    var that = this;
+    var weights = this.state.exerciseWeight;
+    return exercises.map(function(exercise, i){
+      return(
+        <View style = {styles.row} key = {i}>
+          <View style = {styles.exerciseColumn}>
+            <Text>
+              {exercise}
+            </Text>
+          </View>
+          <View style = {styles.numbersColumn}>
+            <Text>
+              1
+            </Text>
+          </View>
+          <View style = {styles.numbersColumn}>
+            <Text>
+              {reps[i]}
+            </Text>
+          </View>
+          <View style = {styles.numbersColumn}>
+            <TextInput
+              style = {styles.weight}
+              onChangeText = {(weight) => {
+                weights[exercise] = weight;
+                that.setState({exerciseWeight: weights});
+              }}
+              keyboardType = 'numeric'
+            />
+          </View>
+        </View>
+      )
+    })
+  },
+  createWeightList: function(){
+    var list = [];
+    var that = this;
+    this.props.passProps.exercises.forEach(function(exercise){
+      list.push(that.state.exerciseWeight[exercise])
+    })
+    return list;
+  }
 });
 
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center'
   },
   input: {
@@ -123,15 +133,13 @@ var styles = StyleSheet.create({
     color: 'red'
   },
   instructions: {
-    flex: 1,
-    justifyContent: 'center',
+    alignItems: 'center',
     alignSelf: 'stretch',
     borderWidth: 3,
     borderColor: 'red',
   },
   exerciseBox: {
     flex: 1,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'stretch',
     borderWidth: 3,
@@ -144,15 +152,36 @@ var styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: 'green',
   },
-  column: {
+  row: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
     justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: 'yellow',
+    // borderWidth: 1,
+    borderColor: 'red',
+  },
+  exerciseColumn: {
+    flex: 5,
+    // borderWidth: 1,
+    borderColor: 'red',
+  },
+  numbersColumn: {
+    flex: 1,
+    // borderWidth: 1,
+    borderColor: 'red',
   },
   weight: {
-    height:40,
+    fontSize: 14,
+    height: 16,
     borderColor: 'gray',
     borderWidth: 1,
-  }
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // borderWidth: 1,
+    borderColor: 'green',
+  },
 })

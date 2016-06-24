@@ -35,7 +35,6 @@ module.exports = React.createClass({
       )
     })
   }
-
 });
 
 var styles = StyleSheet.create({

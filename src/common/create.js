@@ -52,7 +52,7 @@ var create = {
       })
     };
     //creates the numbers used for reps and sets
-    for (varI = 0; i <= 15; i++){
+    for (var i = 0; i <= 15; i++){
       realm.write(() => {
         realm.create('intObject', {
           value: i
