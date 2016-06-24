@@ -27,8 +27,6 @@ module.exports = React.createClass({
     });
   },
   render: function() {
-    console.log("route: " + this.props.route);
-    console.log("navigator: " + this.props.navigator);
     return (
       <ListView
         dataSource={this.state.dataSource}
