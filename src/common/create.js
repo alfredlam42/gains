@@ -59,7 +59,27 @@ var create = {
         }, true)
       })
     };
-  }
+  },
+  multipleMaxes: function(exerciseList, weightList){
+    for(var i = 0; i < exerciseList.length; i++){
+      realm.write(() => {
+        realm.create('Max', {
+          exercise: exerciseList[i],
+          maxWeight: parseInt(weightList[i]),
+        }, true)
+      })
+    }
+  },
+  weightList: function(exerciseList){
+    var list = [];
+    var maxes = search.findObjects('Max', 'exercise', exerciseList);
+
+    maxes.forEach(function(max){
+      list.push(max.maxWeight);
+    })
+
+    return list;
+  },
 }
 
 module.exports = create;

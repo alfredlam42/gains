@@ -12,8 +12,12 @@ var {
 var Button = require('../../common/button');
 var realm = require('../../database/class');
 var search = require('../../common/search');
-var create = require('../../common/create');
 var exerciseList = require('./exerciseList');
+var create = require('../../common/create');
+
+var exerciseSets = [2, 4, 2, 2, 5, 5];
+var exerciseReps = [8, 0, 8, 7, 8, 8];
+var exerciseWeights = create.weightList(exerciseList.upperBodyOne);
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -27,16 +31,16 @@ module.exports = React.createClass({
         <ScrollView>
           <View style = {styles.instructions}>
             <Text>
-              Instructions for day 0
+              Instructions for day 1.
             </Text>
           </View>
 
           <View style = {styles.exerciseBox}>
-            {this.renderList(['Squat', 'Bench Press', 'Deadlift', 'Incline Dumbbell Bench Press', 'Pull-up', 'Bent Over Row', 'Standing Military Press', 'Dumbbell Curl', 'Dumbbell Skullcrusher', 'Leg Extension', 'Leg Curl', 'Calf Raise', 'Pec-deck Fly', 'Wide Grip Lat Pull-down', 'Dumbbell Row', 'Lateral Raise', 'Machine Preacher Curl', 'Cable Triceps Press-down'], [1, 1, 1, 8, null, 8, 7, 8, 8, 10, 10, 8, 15, 15, 15, 15, 15, 15])}
+            {this.renderList(exerciseList.upperBodyOne, exerciseSets, exerciseReps, exerciseWeights)}
           </View>
+
           <View style = {styles.complete}>
             <Button text = 'Complete Workout' onPress = {this.onWorkoutComplete} />
-
           </View>
         </ScrollView>
       </View>
@@ -45,30 +49,26 @@ module.exports = React.createClass({
   onWorkoutComplete: function(){
     var currentUser = realm.objects('User')[0];
     var currentSeries = search.findLastElement(currentUser.series);
-    //user shouldn't be able to start on more than one workout so the last element in the list is the current series the user is working on
-    var weights = this.createWeightList();
-    var exercisesList = search.findObjects('Exercise', 'name', exerciseList.all);
-    var setsList = search.findObjects('intObject', 'value', [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
-    var repsList = search.findObjects('intObject', 'value', [1, 1, 1, 8, 4, 8, 7, 8, 8, 10, 10, 8, 15, 15, 15, 15, 15, 15]);
-    var weightList = search.findObjects('intObject', 'value', weights);
+    var exercisesList = search.findObjects('Exercise', 'name', exerciseList.upperBodyOne);
+    var setsList = search.findObjects('intObject', 'value', exerciseSets);
+    var repsList = search.findObjects('intObject', 'value', exerciseReps);
+    var weightList = search.findObjects('intObject', 'value', exerciseWeights);
 
     realm.write(() => {
       var workout = realm.create('Workout', {
         id: search.findSizeOfClass('Workout') + 1,
-        day: 0,
+        day: this.props.day,
         exercises: exercisesList,
         set: setsList,
         reps: repsList,
         weight: weightList,
       })
       currentSeries.workouts.push(workout)
-    });
-    create.multipleMaxes(exerciseList.all, weights);
+    })
     this.props.navigator.pop();
   },
-  renderList: function(exercises, reps){
+  renderList: function(exercises, sets, reps, weights){
     var that = this;
-    var weights = this.state.exerciseWeight;
     return exercises.map(function(exercise, i){
       return(
         <View style = {styles.row} key = {i}>
@@ -79,7 +79,7 @@ module.exports = React.createClass({
           </View>
           <View style = {styles.numbersColumn}>
             <Text>
-              1
+              {sets[i]}
             </Text>
           </View>
           <View style = {styles.numbersColumn}>
@@ -88,28 +88,15 @@ module.exports = React.createClass({
             </Text>
           </View>
           <View style = {styles.numbersColumn}>
-            <TextInput
-              style = {styles.weight}
-              onChangeText = {(weight) => {
-                weights[exercise] = weight;
-                that.setState({exerciseWeight: weights});
-              }}
-              keyboardType = 'numeric'
-            />
+            <Text>
+              {weights[i]}
+            </Text>
           </View>
         </View>
       )
     })
-  },
-  createWeightList: function(){
-    var list = [];
-    var that = this;
-    exerciseList.all.forEach(function(exercise){
-      list.push(that.state.exerciseWeight[exercise])
-    })
-    return list;
   }
-});
+})
 
 var styles = StyleSheet.create({
   container: {

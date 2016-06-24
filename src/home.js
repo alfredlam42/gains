@@ -11,15 +11,17 @@ var {
 
 var Button = require('./common/button');
 var realm = require('./database/class');
-var exerciseList = require('./series/ph3/workoutSchedule');
+var exerciseList = require('./series/ph3/exerciseList');
 var search = require('./common/search');
 
 module.exports = React.createClass({
   render: function(){
     realm.write(() => {
       // realm.delete(realm.objects('Workout'));
+      // realm.delete(realm.objects('Max'));
     });
     var currentUser = realm.objects('User')[0];
+    var workout = realm.objects('Workout')[realm.objects('Workout').length - 1];
     return (
       <View style={styles.container}>
         <Text>
@@ -33,15 +35,17 @@ module.exports = React.createClass({
         <Text style = {styles.welcome}>
           Workouts Complete: {search.findLastElement(currentUser.series).workouts.length}
         </Text>
+        <Text style = {styles.welcome}>
+          Workouts
+        </Text>
         <Button text = 'PH3' onPress = {this.onSeriesDetails} />
-        <Button text = 'Day 0' onPress = {this.onWorkoutDetails} />
+        <Button text = 'Day 1' onPress = {this.onWorkoutDetails} />
       </View>
     )
   },
   onWorkoutDetails: function(){
     this.props.navigator.push({
-      name: 'dayzero',
-      passProps: {exercises: exerciseList.all}
+      name: 'dayone',
     });
   },
   onSeriesDetails: function(){

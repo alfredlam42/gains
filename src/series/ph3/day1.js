@@ -10,8 +10,8 @@ var {
 var Button = require('../../common/button');
 var realm = require('../../database/class');
 var search = require('../../common/search');
-var workoutSchedule = require('./workoutSchedule');
-var Template = require('./workoutTemplate');
+var exerciseList = require('./exerciseList');
+var UpperBodyOne = require('./upperBodyOne');
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -23,9 +23,7 @@ module.exports = React.createClass({
   },
   render: function(){
     return(
-      <View style = {styles.container}>
-        <Template workout = {workoutSchedule[1]} />
-      </View>
+      <UpperBodyOne day = {1} navigator = {this.props.navigator}/>
     )
   }
 })
