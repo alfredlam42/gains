@@ -32,7 +32,7 @@ module.exports = React.createClass({
           </View>
 
           <View style = {styles.exerciseBox}>
-            {this.renderList(['Squat', 'Bench Press', 'Deadlift', 'Incline Dumbbell Bench Press', 'Pull-up', 'Bent Over Row', 'Standing Military Press', 'Dumbbell Curl', 'Dumbbell Skullcrusher', 'Leg Extension', 'Leg Curl', 'Calf Raise', 'Pec-deck Fly', 'Wide Grip Lat Pull-down', 'Dumbbell Row', 'Lateral Raise', 'Machine Preacher Curl', 'Cable Triceps Press-down'], [1, 1, 1, 8, null, 8, 7, 8, 8, 10, 10, 8, 15, 15, 15, 15, 15, 15])}
+            {this.renderList(exerciseList.all, [1, 1, 1, 8, null, 8, 7, 8, 8, 10, 10, 8, 15, 15, 15, 15, 15, 15])}
           </View>
           <View style = {styles.complete}>
             <Button text = 'Complete Workout' onPress = {this.onWorkoutComplete} />
