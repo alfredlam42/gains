@@ -24,7 +24,7 @@ module.exports = React.createClass({
     );
   },
   onSeriesSelect: function() {
-    { this.props.navigator.push({name: 'seriesDetail'})}
+    { this.props.navigator.push({name: 'seriesDetail', seriesDetail: this.props.series})}
   }
 });
 
