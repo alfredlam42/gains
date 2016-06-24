@@ -39,9 +39,9 @@ var search = {
   findObjects: function(className, property, valueList){
     var list = [];
     var objects = realm.objects(className);
-    for (var i = 0; i < this.findSizeOfClass(className); i++){
-      if(valueList.indexOf(objects[i][property]) > -1){
-        list.push(objects[i]);
+    for (var i = 0; i < valueList.length; i++){
+      if(this.find(className, property, valueList[i])){
+        list.push(this.find(className, property, valueList[i]));
       }
     }
     return list;
