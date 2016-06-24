@@ -29,7 +29,7 @@ module.exports = React.createClass({
     { this.props.navigator.pop(); }
   },
   renderWorkoutList: function() {
-    let previousSeries = realm.objects('Series')[realm.objects('Series').length -2];
+    let previousSeries = realm.objects('Series')[this.props.index + 1];
     let workoutList = previousSeries.workouts;
     var that = this;
     return workoutList.map(function(workout, i){
