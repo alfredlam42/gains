@@ -9,11 +9,15 @@ var {
   ScrollView
 } = ReactNative;
 
-var Button = require('../../common/button');
-var realm = require('../../database/class');
-var search = require('../../common/search');
-var create = require('../../common/create');
-var exerciseList = require('./exerciseList');
+var Button = require('../../../common/button');
+var realm = require('../../../database/class');
+var search = require('../../../common/search');
+var create = require('../../../common/create');
+var exerciseList = require('../exerciseList');
+
+var exerciseNames = exerciseList.all;
+var exerciseSets = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+var exerciseReps = [1, 1, 1, 8, 0, 8, 7, 8, 8, 10, 10, 8, 15, 15, 15, 15, 15, 15]
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -32,7 +36,7 @@ module.exports = React.createClass({
           </View>
 
           <View style = {styles.exerciseBox}>
-            {this.renderList(['Squat', 'Bench Press', 'Deadlift', 'Incline Dumbbell Bench Press', 'Pull-up', 'Bent Over Row', 'Standing Military Press', 'Dumbbell Curl', 'Dumbbell Skullcrusher', 'Leg Extension', 'Leg Curl', 'Calf Raise', 'Pec-deck Fly', 'Wide Grip Lat Pull-down', 'Dumbbell Row', 'Lateral Raise', 'Machine Preacher Curl', 'Cable Triceps Press-down'], [1, 1, 1, 8, null, 8, 7, 8, 8, 10, 10, 8, 15, 15, 15, 15, 15, 15])}
+            {this.renderList(exerciseNames, exerciseReps)}
           </View>
           <View style = {styles.complete}>
             <Button text = 'Complete Workout' onPress = {this.onWorkoutComplete} />
@@ -47,9 +51,9 @@ module.exports = React.createClass({
     var currentSeries = search.findLastElement(currentUser.series);
     //user shouldn't be able to start on more than one workout so the last element in the list is the current series the user is working on
     var weights = this.createWeightList();
-    var exercisesList = search.findObjects('Exercise', 'name', exerciseList.all);
-    var setsList = search.findObjects('intObject', 'value', [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
-    var repsList = search.findObjects('intObject', 'value', [1, 1, 1, 8, 4, 8, 7, 8, 8, 10, 10, 8, 15, 15, 15, 15, 15, 15]);
+    var exercisesList = search.findObjects('Exercise', 'name', exerciseNames);
+    var setsList = search.findObjects('intObject', 'value', exerciseSets);
+    var repsList = search.findObjects('intObject', 'value', exerciseReps);
     var weightList = search.findObjects('intObject', 'value', weights);
 
     realm.write(() => {
@@ -63,7 +67,7 @@ module.exports = React.createClass({
       })
       currentSeries.workouts.push(workout)
     });
-    create.multipleMaxes(exerciseList.all, weights);
+    create.multipleMaxes(exerciseNames, weights);
     this.props.navigator.pop();
   },
   renderList: function(exercises, reps){
@@ -104,7 +108,7 @@ module.exports = React.createClass({
   createWeightList: function(){
     var list = [];
     var that = this;
-    exerciseList.all.forEach(function(exercise){
+    exerciseNames.forEach(function(exercise){
       list.push(that.state.exerciseWeight[exercise])
     })
     return list;
