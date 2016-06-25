@@ -39,13 +39,13 @@ module.exports = React.createClass({
           Workouts
         </Text>
         <Button text = 'PH3' onPress = {this.onSeriesDetails} />
-        <Button text = 'Day 1' onPress = {this.onWorkoutDetails} />
+        <Button text = 'Day 0' onPress = {this.onWorkoutDetails} />
       </View>
     )
   },
   onWorkoutDetails: function(){
     this.props.navigator.push({
-      name: 'dayone',
+      name: 'dayzero',
     });
   },
   onSeriesDetails: function(){

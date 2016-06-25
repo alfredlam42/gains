@@ -15,10 +15,9 @@ var search = require('../../common/search');
 var exerciseList = require('./exerciseList');
 var create = require('../../common/create');
 
-
-var exerciseNames = exerciseList.upperBodyOne;
-var exerciseSets = [2, 4, 2, 2, 5, 5];
-var exerciseReps = [8, 0, 8, 7, 8, 8];
+var exerciseNames = exerciseList.bigThree
+var exerciseSets = [];
+var exerciseReps = [];
 var exerciseWeights = create.weightList(exerciseNames);
 
 module.exports = React.createClass({
@@ -28,6 +27,8 @@ module.exports = React.createClass({
     }
   },
   render: function(){
+    {exerciseSets = this.props.sets}
+    {exerciseReps = this.props.reps}
     return(
       <View style = {styles.container}>
         <ScrollView>
@@ -51,18 +52,18 @@ module.exports = React.createClass({
   onWorkoutComplete: function(){
     var currentUser = realm.objects('User')[0];
     var currentSeries = search.findLastElement(currentUser.series);
-    var exercisesList = search.findObjects('Exercise', 'name', exerciseNames);
-    var setsList = search.findObjects('intObject', 'value', exerciseSets);
-    var repsList = search.findObjects('intObject', 'value', exerciseReps);
+    var exerciseObjs = search.findObjects('Exercise', 'name', exerciseList.upperBodyOne);
+    var setsObjs = search.findObjects('intObject', 'value', exerciseSets);
+    var repsObjs = search.findObjects('intObject', 'value', exerciseReps);
     var weightList = search.findObjects('intObject', 'value', exerciseWeights);
 
     realm.write(() => {
       var workout = realm.create('Workout', {
         id: search.findSizeOfClass('Workout') + 1,
         day: this.props.day,
-        exercises: exercisesList,
-        set: setsList,
-        reps: repsList,
+        exercises: exerciseObjs,
+        set: setsObjs,
+        reps: repsObjs,
         weight: weightList,
       })
       currentSeries.workouts.push(workout)

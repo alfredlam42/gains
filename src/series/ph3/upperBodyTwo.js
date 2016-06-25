@@ -16,9 +16,9 @@ var exerciseList = require('./exerciseList');
 var create = require('../../common/create');
 
 
-var exerciseNames = exerciseList.upperBodyOne;
-var exerciseSets = [2, 4, 2, 2, 5, 5];
-var exerciseReps = [8, 0, 8, 7, 8, 8];
+var exerciseNames = exerciseList.upperBodyTwo;
+var exerciseSets = [2, 2, 2, 2, 5, 5];
+var exerciseReps = [15, 15, 15, 15, 15, 15];
 var exerciseWeights = create.weightList(exerciseNames);
 
 module.exports = React.createClass({
@@ -28,6 +28,8 @@ module.exports = React.createClass({
     }
   },
   render: function(){
+    {exerciseSets = create.prependToList(this.props.sets, exerciseSets)}
+    {exerciseReps = create.prependToList(this.props.reps, exerciseReps)}
     return(
       <View style = {styles.container}>
         <ScrollView>

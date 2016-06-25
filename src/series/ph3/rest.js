@@ -16,10 +16,7 @@ var exerciseList = require('./exerciseList');
 var create = require('../../common/create');
 
 
-var exerciseNames = exerciseList.upperBodyOne;
-var exerciseSets = [2, 4, 2, 2, 5, 5];
-var exerciseReps = [8, 0, 8, 7, 8, 8];
-var exerciseWeights = create.weightList(exerciseNames);
+var exerciseNames = exerciseList.upperBodyTwo;
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -33,12 +30,8 @@ module.exports = React.createClass({
         <ScrollView>
           <View style = {styles.instructions}>
             <Text>
-              Instructions for day 1.
+              Today is a rest day. Enjoy it.
             </Text>
-          </View>
-
-          <View style = {styles.exerciseBox}>
-            {this.renderList(exerciseNames, exerciseSets, exerciseReps, exerciseWeights)}
           </View>
 
           <View style = {styles.complete}>
@@ -52,52 +45,20 @@ module.exports = React.createClass({
     var currentUser = realm.objects('User')[0];
     var currentSeries = search.findLastElement(currentUser.series);
     var exercisesList = search.findObjects('Exercise', 'name', exerciseNames);
-    var setsList = search.findObjects('intObject', 'value', exerciseSets);
-    var repsList = search.findObjects('intObject', 'value', exerciseReps);
-    var weightList = search.findObjects('intObject', 'value', exerciseWeights);
 
     realm.write(() => {
       var workout = realm.create('Workout', {
         id: search.findSizeOfClass('Workout') + 1,
         day: this.props.day,
         exercises: exercisesList,
-        set: setsList,
-        reps: repsList,
-        weight: weightList,
+        set: null,
+        reps: null,
+        weight: null,
       })
       currentSeries.workouts.push(workout)
     })
     this.props.navigator.pop();
   },
-  renderList: function(exercises, sets, reps, weights){
-    var that = this;
-    return exercises.map(function(exercise, i){
-      return(
-        <View style = {styles.row} key = {i}>
-          <View style = {styles.exerciseColumn}>
-            <Text>
-              {exercise}
-            </Text>
-          </View>
-          <View style = {styles.numbersColumn}>
-            <Text>
-              {sets[i]}
-            </Text>
-          </View>
-          <View style = {styles.numbersColumn}>
-            <Text>
-              {reps[i]}
-            </Text>
-          </View>
-          <View style = {styles.numbersColumn}>
-            <Text>
-              {weights[i]}
-            </Text>
-          </View>
-        </View>
-      )
-    })
-  }
 })
 
 var styles = StyleSheet.create({

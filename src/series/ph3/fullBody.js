@@ -16,9 +16,9 @@ var exerciseList = require('./exerciseList');
 var create = require('../../common/create');
 
 
-var exerciseNames = exerciseList.upperBodyOne;
-var exerciseSets = [2, 4, 2, 2, 5, 5];
-var exerciseReps = [8, 0, 8, 7, 8, 8];
+var exerciseNames = exerciseList.fullBody;
+var exerciseSets = [2, 2, 4, 2, 3, 2, 2, 5, 5];
+var exerciseReps = [10, 10, 8, 8, 8, 8, 7, 8, 8];
 var exerciseWeights = create.weightList(exerciseNames);
 
 module.exports = React.createClass({

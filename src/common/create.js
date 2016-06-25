@@ -73,13 +73,17 @@ var create = {
   weightList: function(exerciseList){
     var list = [];
     var maxes = search.findObjects('Max', 'exercise', exerciseList);
-
+    var i = 0;
     maxes.forEach(function(max){
       list.push(max.maxWeight);
     })
 
     return list;
   },
+  prependToList: function(itemsToAdd, listToModify){
+    var newList = itemsToAdd.concat(listToModify)
+    return newList
+  }
 }
 
 module.exports = create;
