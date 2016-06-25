@@ -21,7 +21,7 @@ module.exports = React.createClass({
               <Text style={styles.headerText}>Current</Text>
           </View>
 
-          <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
+          <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress()} underlayColor="black">
             <View>
               {this.returnCurrentSeries()}
             </View>

@@ -13,7 +13,6 @@ var create = require('../common/create');
 
 module.exports = React.createClass({
   render: function(){
-    console.log(this.props.route.seriesDetail)
     return (
       <View style={styles.container}>
         <Text style={styles.seriesDetail}>{this.props.route.seriesDetail.name}</Text>
@@ -58,7 +57,7 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#29292B',
   },
   welcome: {
     fontSize: 20,
@@ -71,7 +70,8 @@ var styles = StyleSheet.create({
     marginBottom: 5,
   },
   seriesDetail: {
-    fontSize: 20,
-    fontWeight: 'bold'
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#E0DFE4'
   }
 });

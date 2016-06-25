@@ -34,10 +34,11 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 100,
-    backgroundColor: '#B3C4CC',
+    backgroundColor: '#29292B',
     marginBottom: 2
   },
   seriesName: {
-    fontSize: 24
+    fontSize: 24,
+    color: '#E0DFE4'
   }
 });
