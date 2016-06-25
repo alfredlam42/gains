@@ -46,9 +46,8 @@ var styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'center',
-    backgroundColor: '#F5FCFF'
   },
   listView: {
-    backgroundColor: '#F5FCFF'
-  }
+    backgroundColor: '#F0D23C'
+  },
 });

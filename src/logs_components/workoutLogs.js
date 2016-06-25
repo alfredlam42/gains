@@ -34,7 +34,7 @@ module.exports = React.createClass({
 
     if (workoutList.length === 0) {
       return <View style={styles.workoutWrapper}>
-        <Text>No History</Text>
+        <Text style={styles.workoutDayText}>No History</Text>
       </View>
     };
     var that = this;
@@ -55,28 +55,28 @@ module.exports = React.createClass({
   renderExerciseList: function(workout) {
     if (workout.exercises.length === 0) {return};
     return workout.exercises.map(function(exercise, i){
-      return <Text key={i}>Exercise: {exercise.name}</Text>
+      return <Text style={styles.textStyle} key={i}>Exercise: {exercise.name}</Text>
     });
   },
   renderSetList: function(workout) {
     if (workout.set.length === 0) {return};
 
     return workout.set.map(function(set, i){
-      return <Text key={i}>Set: {set.value}</Text>
+      return <Text style={styles.textStyle} key={i}>Set: {set.value}</Text>
     });
   },
   renderRepsList: function(workout) {
     if (workout.reps.length === 0) {return};
 
     return workout.reps.map(function(rep, i){
-      return <Text key={i}>Rep: {rep.value}</Text>
+      return <Text style={styles.textStyle} key={i}>Rep: {rep.value}</Text>
     });
   },
   renderWeightList: function(workout) {
     if (workout.weight.length === 0) {return};
 
     return workout.weight.map(function(weight, i){
-      return <Text key={i}>Weight: {weight.value}</Text>
+      return <Text style={styles.textStyle} key={i}>Weight: {weight.value}</Text>
     });
   }
 });
@@ -86,6 +86,10 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#29292B'
+  },
+  textStyle: {
+    color: '#E0DFE4'
   },
   backButton: {
     flex: 1,
