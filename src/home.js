@@ -45,7 +45,7 @@ module.exports = React.createClass({
   },
   onWorkoutDetails: function(){
     this.props.navigator.push({
-      name: 'dayzero',
+      name: 'dayone',
     });
   },
   onSeriesDetails: function(){
