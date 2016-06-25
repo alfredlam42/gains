@@ -21,7 +21,7 @@ module.exports = React.createClass({
               <Text style={styles.headerText}>Current</Text>
           </View>
 
-          <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress()} underlayColor="black">
+          <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
             <View>
               {this.returnCurrentSeries()}
             </View>
@@ -48,8 +48,14 @@ module.exports = React.createClass({
   renderPreviousSeries: function() {
     var user = realm.objects('User')[0];
     var seriesList = user.series;
+    var previousSeriesList = [];
+    seriesList.map(function(series){
+      previousSeriesList.push(series);
+    });
+    previousSeriesList.pop()
     var that = this;
-    return seriesList.map(function(series, i){
+
+    return previousSeriesList.map(function(series, i){
       return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => that.previousWorkoutPress(i)} underlayColor="black">
           <View style={styles.seriesDetail}>
             <Text style={styles.seriesPic}>PIC</Text>
