@@ -48,13 +48,14 @@ module.exports = React.createClass({
     realm.write(() => {
       var workout = realm.create('Workout', {
         id: search.findSizeOfClass('Workout') + 1,
-        day: this.props.day,
+        day: this.props.passProps.day,
         exercises: exercisesList,
         set: null,
         reps: null,
         weight: null,
       })
       currentSeries.workouts.push(workout)
+      currentSeries.currentDay = currentSeries.currentDay + 1;
     })
     this.props.navigator.pop();
   },

@@ -37,7 +37,7 @@ module.exports = React.createClass({
               selectedTab: 'profile',
             });
           }}>
-          <Profile changeState={this._changeState} />
+          <Profile changeState={this._changeState} navigator = {this.props.navigator}/>
         </TabBarIOS.Item>
 
         <TabBarIOS.Item

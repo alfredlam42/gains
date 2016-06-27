@@ -57,13 +57,14 @@ module.exports = React.createClass({
     realm.write(() => {
       var workout = realm.create('Workout', {
         id: search.findSizeOfClass('Workout') + 1,
-        day: 0,
+        day: this.props.passProps.day,
         exercises: exercisesList,
         set: setsList,
         reps: repsList,
         weight: weightList,
       })
       currentSeries.workouts.push(workout)
+      currentSeries.currentDay = currentSeries.currentDay + 1;
     });
     create.multipleMaxes(exerciseNames, weights);
     this.props.navigator.pop();

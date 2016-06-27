@@ -12,6 +12,7 @@ var {
 var Button = require('./common/button');
 var realm = require('./database/class');
 var search = require('./common/search');
+var schedule = require('./series/ph3/workoutSchedule');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -127,7 +128,9 @@ module.exports = React.createClass({
     if (series && series.completed === false){
       return(
         <View style={styles.workoutWrapper}>
-          <Text style={styles.pic}></Text>
+          <TouchableHighlight onPress={this.goToWorkout}>
+            <Text style={styles.pic}></Text>
+          </TouchableHighlight>
           <View style={styles.workoutDetails}>
             <Text style={styles.workoutInfo}>Name: {series.name}</Text>
             <Text style={styles.workoutInfo}>Day: {series.currentDay}</Text>
@@ -143,6 +146,37 @@ module.exports = React.createClass({
           </View>
         </View>
       )
+    }
+  },
+  goToWorkout: function(){
+    var user = realm.objects('User')[0];
+    var currentSeries = search.findLastElement(user.series) ? search.findLastElement(user.series) : null;
+    var currentDay = currentSeries.currentDay
+
+    if (currentDay % 7 == 0 || currentDay % 7 == 4 || currentDay == 26 || currentDay == 54 || currentDay == 89){
+      this.props.navigator.push({
+        name: 'rest',
+        passProps: {
+          day: currentDay,
+        }
+      })
+    }
+    else if (currentDay == 27 || currentDay == 55 || currentDay == 90){
+      this.props.navigator.push({
+        name: 'rest',
+        passProps: {
+          day: currentDay,
+        }
+      })
+    }
+    else{
+      this.props.navigator.push({
+        name: 'template',
+        passProps: {
+          day: currentDay,
+          info: schedule[currentDay],
+        }
+      })
     }
   },
   seriesButton: function() {

@@ -17,12 +17,20 @@ var Signup = require('./src/signup');
 var Profile = require('./src/profile');
 var Series = require('./src/series');
 var SeriesDetails = require('./src/series_components/seriesdetails');
+var Home = require('./src/home');
+var WorkoutTemplate = require('./src/series/ph3/workouts/template');
+var RestDay = require('./src/series/ph3/workouts/restDay');
+var TestDay = require('./src/series/ph3/workouts/testDay');
 
 var ROUTES = {
   tabbar: Tabbar,
   signup: Signup,
   profile: Profile,
   series: Series,
+  home: Home,
+  template: WorkoutTemplate,
+  rest: RestDay,
+  test: TestDay,
 }
 
 // realm.write(() => {

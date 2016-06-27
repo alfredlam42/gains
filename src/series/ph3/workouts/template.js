@@ -26,9 +26,9 @@ module.exports = React.createClass({
     }
   },
   render: function(){
-    {exerciseNames = this.props.info.exercises}
-    {exerciseSets = this.props.info.sets}
-    {exerciseReps = this.props.info.reps}
+    {exerciseNames = this.props.passProps.info.exercises}
+    {exerciseSets = this.props.passProps.info.sets}
+    {exerciseReps = this.props.passProps.info.reps}
     {exerciseWeights = create.weightList(exerciseNames)}
     return(
       <View style = {styles.container}>
@@ -61,14 +61,15 @@ module.exports = React.createClass({
     realm.write(() => {
       var workout = realm.create('Workout', {
         id: search.findSizeOfClass('Workout') + 1,
-        day: this.props.day,
+        day: this.props.passProps.day,
         exercises: exercisesList,
         set: setsList,
         reps: repsList,
         weight: weightList,
       })
       currentSeries.workouts.push(workout)
-    })
+      currentSeries.currentDay = currentSeries.currentDay + 1;
+    });
     this.props.navigator.pop();
   },
   renderList: function(exercises, sets, reps, weights){
