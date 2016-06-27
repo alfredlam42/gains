@@ -19,7 +19,7 @@ module.exports = React.createClass({
             text={'Back'}
             onPress={this.handlePress} />
         </View>
-        <ScrollView style={styles.list}>
+        <ScrollView contentContainerStyle={styles.contentContainer} style={styles.list}>
           {this.renderWorkoutList()}
         </ScrollView>
       </View>
@@ -29,10 +29,10 @@ module.exports = React.createClass({
     { this.props.navigator.pop(); }
   },
   renderWorkoutList: function() {
-    let currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
-    let workoutList = currentSeries.workouts;
+    var currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
+    var workoutList = currentSeries.workouts;
 
-    if (workoutList.length === 0) {
+    if (currentSeries.length <= 0) {
       return <View style={styles.workoutWrapper}>
         <Text style={styles.workoutDayText}>No History</Text>
       </View>
@@ -41,7 +41,7 @@ module.exports = React.createClass({
     return workoutList.map(function(workout, i){
       return <View style={styles.workoutWrapper}>
         <View style={styles.workoutDay}>
-          <Text style={styles.workoutDayText} key={i}>Workout day: {workout.day}</Text>
+          <Text style={[styles.workoutDayText, styles.textStyle]} key={i}>Workout day: {workout.day}</Text>
         </View>
         <View style={styles.exerciseList}>
           {that.renderExerciseList(workout)}
@@ -99,11 +99,15 @@ var styles = StyleSheet.create({
   list: {
     flex: 6
   },
+  contentContainer: {
+    paddingBottom: 100
+  },
   workoutWrapper: {
     flex: 1,
   },
   workoutDay: {
     borderBottomWidth: 2,
+    borderColor: '#F0D23C'
   },
   workoutDayText: {
     fontSize: 50
