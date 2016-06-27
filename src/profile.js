@@ -6,7 +6,8 @@ var {
   View,
   TouchableHighlight,
   StyleSheet,
-  TextInput
+  TextInput,
+  Image,
 } = ReactNative;
 
 var Button = require('./common/button');
@@ -129,7 +130,7 @@ module.exports = React.createClass({
       return(
         <View style={styles.workoutWrapper}>
           <TouchableHighlight onPress={this.goToWorkout}>
-            <Text style={styles.pic}></Text>
+            <Image style={styles.pic} source = {require('./common/img/ph3.jpg')}/>
           </TouchableHighlight>
           <View style={styles.workoutDetails}>
             <Text style={styles.workoutInfo}>Name: {series.name}</Text>
@@ -163,7 +164,7 @@ module.exports = React.createClass({
     }
     else if (currentDay == 27 || currentDay == 55 || currentDay == 90){
       this.props.navigator.push({
-        name: 'rest',
+        name: 'test',
         passProps: {
           day: currentDay,
         }
@@ -204,14 +205,12 @@ var styles = StyleSheet.create({
   profile: {
     flex: 3,
     justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: 'green',
     alignSelf: 'stretch',
     paddingLeft: 25
   },
   h2: {
     fontSize: 24,
-    textDecorationLine: 'underline',
+    fontWeight: 'bold',
     color: '#E0DFE4',
     marginBottom: 5
   },
@@ -225,17 +224,15 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     paddingLeft: 25,
     paddingTop: 30,
-    borderWidth: 3,
-    borderColor: 'yellow'
   },
   workoutWrapper: {
     flexDirection: 'row'
   },
   pic: {
+    borderWidth: 1,
+    borderColor: '#E0DFE4',
     width: 100,
     height: 100,
-    borderWidth: 3,
-    borderColor: 'green'
   },
   workoutDetails: {
     width: 200,
