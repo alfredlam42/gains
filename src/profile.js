@@ -154,7 +154,12 @@ module.exports = React.createClass({
     var currentSeries = search.findLastElement(user.series) ? search.findLastElement(user.series) : null;
     var currentDay = currentSeries.currentDay
 
-    if (currentDay % 7 == 0 || currentDay % 7 == 4 || currentDay == 26 || currentDay == 54 || currentDay == 89){
+    if (currentDay == 0){
+      his.props.navigator.push({
+        name: 'dayzero',
+      })
+    }
+    else if (currentDay % 7 == 0 || currentDay % 7 == 4 || currentDay == 26 || currentDay == 54 || currentDay == 89){
       this.props.navigator.push({
         name: 'rest',
         passProps: {
