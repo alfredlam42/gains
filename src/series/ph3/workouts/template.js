@@ -26,9 +26,9 @@ module.exports = React.createClass({
     }
   },
   render: function(){
-    {exerciseNames = this.props.exercises}
-    {exerciseSets = this.props.sets}
-    {exerciseReps = this.props.reps}
+    {exerciseNames = this.props.info.exercises}
+    {exerciseSets = this.props.info.sets}
+    {exerciseReps = this.props.info.reps}
     {exerciseWeights = create.weightList(exerciseNames)}
     return(
       <View style = {styles.container}>
