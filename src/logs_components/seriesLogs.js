@@ -16,7 +16,7 @@ module.exports = React.createClass({
       <View style={styles.container}>
 
         <Header />
-        <View style={styles.body}>
+        <ScrollView style={styles.body} contentContainerStyle={styles.bodyContent}>
           <View style={styles.header}>
               <Text style={styles.headerText}>Current</Text>
           </View>
@@ -31,10 +31,8 @@ module.exports = React.createClass({
               <Text style={styles.headerText}>Previous</Text>
           </View>
 
-          <ScrollView style={styles.previousSeries}>
-            {this.renderPreviousSeries()}
-          </ScrollView>
-        </View>
+          {this.renderPreviousSeries()}
+        </ScrollView>
       </View>
     )
   },
@@ -50,8 +48,14 @@ module.exports = React.createClass({
   renderPreviousSeries: function() {
     var user = realm.objects('User')[0];
     var seriesList = user.series;
+    var previousSeriesList = [];
+    seriesList.map(function(series){
+      previousSeriesList.push(series);
+    });
+    previousSeriesList.pop()
     var that = this;
-    return seriesList.map(function(series, i){
+
+    return previousSeriesList.map(function(series, i){
       return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => that.previousWorkoutPress(i)} underlayColor="black">
           <View style={styles.seriesDetail}>
             <Text style={styles.seriesPic}>PIC</Text>
@@ -86,6 +90,8 @@ var styles = StyleSheet.create({
   },
   body: {
     flex: 7,
+  },
+  bodyContent: {
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -105,7 +111,7 @@ var styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 40,
-    color: '#E0DFE4'
+    color: '#F0D23C'
   },
   seriesPic: {
     width: 100,
@@ -119,9 +125,8 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   seriesNameText: {
-    fontSize: 30
+    fontSize: 30,
+    color: '#E0DFE4',
+    textAlign: 'center'
   },
-  previousSeries: {
-    flex: 7,
-  }
 });

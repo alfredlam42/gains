@@ -19,7 +19,7 @@ module.exports = React.createClass({
             text={'Back'}
             onPress={this.handlePress} />
         </View>
-        <ScrollView style={styles.list}>
+        <ScrollView contentContainerStyle={styles.contentContainer} style={styles.list}>
           {this.renderWorkoutList()}
         </ScrollView>
       </View>
@@ -35,7 +35,7 @@ module.exports = React.createClass({
     return workoutList.map(function(workout, i){
       return <View style={styles.workoutWrapper}>
         <View style={styles.workoutDay}>
-          <Text style={styles.workoutDayText} key={i}>Workout day: {workout.day}</Text>
+          <Text style={[styles.workoutDayText, styles.textStyle]} key={i}>Workout day: {workout.day}</Text>
         </View>
         <View style={styles.exerciseList}>
           {that.renderExerciseList(workout)}
@@ -48,28 +48,28 @@ module.exports = React.createClass({
   },
   renderExerciseList: function(workout) {
     return workout.exercises.map(function(exercise, i){
-      return <Text key={i}>Exercise: {exercise.name}</Text>
+      return <Text style={styles.textStyle} key={i}>Exercise: {exercise.name}</Text>
     });
   },
   renderSetList: function(workout) {
     if (workout.set.length === 0) {return};
 
     return workout.set.map(function(set, i){
-      return <Text key={i}>Set: {set.value}</Text>
+      return <Text style={styles.textStyle} key={i}>Set: {set.value}</Text>
     });
   },
   renderRepsList: function(workout) {
     if (workout.reps.length === 0) {return};
 
     return workout.reps.map(function(rep, i){
-      return <Text key={i}>Rep: {rep.value}</Text>
+      return <Text style={styles.textStyle} key={i}>Rep: {rep.value}</Text>
     });
   },
   renderWeightList: function(workout) {
     if (workout.weight.length === 0) {return};
 
     return workout.weight.map(function(weight, i){
-      return <Text key={i}>Weight: {weight.value}</Text>
+      return <Text style={styles.textStyle} key={i}>Weight: {weight.value}</Text>
     });
   }
 });
@@ -79,6 +79,10 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#29292B'
+  },
+  textStyle: {
+    color: '#E0DFE4'
   },
   backButton: {
     flex: 1,
@@ -86,13 +90,17 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   list: {
-    flex: 6
+    flex: 6,
+  },
+  contentContainer: {
+    paddingBottom: 100
   },
   workoutWrapper: {
     flex: 1,
   },
   workoutDay: {
     borderBottomWidth: 2,
+    borderColor: '#F0D23C'
   },
   workoutDayText: {
     fontSize: 50
