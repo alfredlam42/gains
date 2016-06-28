@@ -21,6 +21,7 @@ var Home = require('./src/home');
 var WorkoutTemplate = require('./src/series/ph3/workouts/template');
 var RestDay = require('./src/series/ph3/workouts/restDay');
 var TestDay = require('./src/series/ph3/workouts/testDay');
+var DayZero = require('./src/series/ph3/workouts/day0');
 
 var ROUTES = {
   tabbar: Tabbar,
@@ -28,6 +29,7 @@ var ROUTES = {
   profile: Profile,
   series: Series,
   home: Home,
+  dayzero: DayZero,
   template: WorkoutTemplate,
   rest: RestDay,
   test: TestDay,
