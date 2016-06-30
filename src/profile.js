@@ -28,7 +28,7 @@ module.exports = React.createClass({
   },
   render: function() {
     var user = realm.objects('User')[0];
-    var currentSeries = search.findLastElement(user.series) ? search.findLastElement(user.series) : null;
+    var currentSeries = realm.objects('Series').filtered('active = true')[0];
 
     return (
       <View style={styles.container}>
@@ -126,7 +126,7 @@ module.exports = React.createClass({
     }
   },
   renderCurrentSeries: function(series){
-    if (series && series.completed === false){
+    if (series && series.active === true){
       return(
         <View style={styles.workoutWrapper}>
           <TouchableHighlight onPress={this.goToWorkout}>
