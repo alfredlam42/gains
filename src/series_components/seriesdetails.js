@@ -37,7 +37,7 @@ module.exports = React.createClass({
 
     // create.multipleExercise(this.props.passProps.exercises); //or where the list of exercises come from   --- this code is breaking not sure what this is for (Gabby)
     // create.multipleIntObjects();
-    {this.props.navigator.pop()}; //or navigate it to whatever page
+    {this.props.navigator.immediatelyResetRouteStack([{ name: 'seriesList' }])}; //or navigate it to whatever page
   },
   onBackButtonPress: function() {
     {this.props.navigator.pop()}
