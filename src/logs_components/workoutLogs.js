@@ -29,10 +29,10 @@ module.exports = React.createClass({
     { this.props.navigator.pop(); }
   },
   renderWorkoutList: function() {
-    var currentSeries = this.props.route.currentSeries
-    var workoutList = currentSeries.workouts;
+    var seriesHistory = this.props.route.series
+    var workoutList = seriesHistory.workouts;
 
-    if (currentSeries.length <= 0) {
+    if (seriesHistory.length <= 0) {
       return <View style={styles.workoutWrapper}>
         <Text style={styles.workoutDayText}>No History</Text>
       </View>

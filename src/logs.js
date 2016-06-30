@@ -10,12 +10,10 @@ var {
 var realm = require('./database/class');
 var SeriesLogs = require('./logs_components/seriesLogs');
 var WorkoutLogs = require('./logs_components/workoutLogs');
-var PreviousWorkoutLogs = require('./logs_components/previousWorkoutLogs');
 
 var ROUTES = {
   seriesLogs: SeriesLogs,
   workoutLogs: WorkoutLogs,
-  previousWorkoutLogs: PreviousWorkoutLogs
 };
 
 module.exports = React.createClass({
