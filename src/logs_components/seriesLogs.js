@@ -37,7 +37,7 @@ module.exports = React.createClass({
     )
   },
   currentWorkoutPress: function() {
-    { this.props.navigator.push({ name: 'workoutLogs' }); }
+    { this.props.navigator.push({ name: 'workoutLogs', currentSeries: realm.objects('Series').filtered('active = true')[0] }); }
   },
   previousWorkoutPress: function(key) {
     {this.props.navigator.push({

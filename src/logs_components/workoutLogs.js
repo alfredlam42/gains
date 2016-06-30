@@ -29,7 +29,7 @@ module.exports = React.createClass({
     { this.props.navigator.pop(); }
   },
   renderWorkoutList: function() {
-    var currentSeries = realm.objects('Series')[realm.objects('Series').length -1];
+    var currentSeries = this.props.route.currentSeries
     var workoutList = currentSeries.workouts;
 
     if (currentSeries.length <= 0) {
