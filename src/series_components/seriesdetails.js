@@ -72,6 +72,7 @@ var styles = StyleSheet.create({
   seriesDetail: {
     fontSize: 40,
     fontWeight: 'bold',
-    color: '#E0DFE4'
+    color: '#E0DFE4',
+    textAlign: 'center'
   }
 });
