@@ -65,9 +65,8 @@ module.exports = React.createClass({
     });
   },
   returnCurrentSeries: function() {
-    var mostRecentSeriesInd = realm.objects('Series').length - 1
-    var currentSeries = realm.objects('Series')[mostRecentSeriesInd]
-    if (currentSeries && currentSeries.completed == false){
+    var currentSeries = realm.objects('Series').filtered('active = true')[0]
+    if (currentSeries && currentSeries.active === true){
       return (
         <View style={styles.seriesDetail}>
           <Text style={styles.seriesPic}>PIC</Text>
