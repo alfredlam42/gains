@@ -11,7 +11,7 @@ module.exports = React.createClass({
     return (
       <View style={styles.container}>
         <View style={styles.logo}>
-          <Text>Header / logo goes here</Text>
+          <Text style={styles.gains}>GAINS</Text>
         </View>
       </View>
     );
@@ -27,7 +27,10 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: 'blue'
   },
+  gains: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+  }
 });

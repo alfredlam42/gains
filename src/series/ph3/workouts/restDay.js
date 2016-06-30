@@ -10,6 +10,8 @@ var {
 } = ReactNative;
 
 var Button = require('../../../common/button');
+var Header = require('../../../common/header');
+
 var realm = require('../../../database/class');
 var search = require('../../../common/search');
 var create = require('../../../common/create');
@@ -26,17 +28,25 @@ module.exports = React.createClass({
   render: function(){
     return(
       <View style = {styles.container}>
-        <ScrollView>
+        <Header />
+        <View style = {styles.body}>
+          <Text style = {styles.day}>
+            Day {this.props.passProps.day}
+          </Text>
           <View style = {styles.instructions}>
-            <Text>
+            <Text style = {styles.text}>
               Today is a rest day. Enjoy it.
+            </Text>
+            <Text></Text>
+            <Text style = {styles.text}>
+              Rest is an important part of training. It lets your body recover from all the stress you put on it from the previous workouts and allows for muscles to grow.
             </Text>
           </View>
 
           <View style = {styles.complete}>
             <Button text = 'Complete Workout' onPress = {this.onWorkoutComplete} />
           </View>
-        </ScrollView>
+        </View>
       </View>
     )
   },
@@ -48,13 +58,14 @@ module.exports = React.createClass({
     realm.write(() => {
       var workout = realm.create('Workout', {
         id: search.findSizeOfClass('Workout') + 1,
-        day: this.props.day,
+        day: this.props.passProps.day,
         exercises: exercisesList,
         set: null,
         reps: null,
         weight: null,
       })
       currentSeries.workouts.push(workout)
+      currentSeries.currentDay = currentSeries.currentDay + 1;
     })
     this.props.navigator.pop();
   },
@@ -64,74 +75,33 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#29292B'
   },
-  input: {
-    padding: 4,
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    margin: 5,
-    width: 200,
-    alignSelf: 'center'
+  body: {
+    flex: 7,
   },
-  label: {
-    fontSize: 18
-  },
-  errorMessage: {
-    color: 'red'
+  day: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   instructions: {
-    alignItems: 'center',
     alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'red',
   },
-  exerciseBox: {
-    flex: 1,
-    justifyContent: 'center',
+  text: {
+    fontSize: 16,
+    color: '#E0DFE4',
+    paddingLeft: 10,
+    paddingRight: 10,
     alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'blue',
   },
   complete: {
-    flex: 1,
     justifyContent: 'center',
     alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'green',
-  },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    // borderWidth: 1,
-    borderColor: 'red',
-  },
-  exerciseColumn: {
-    flex: 5,
-    // borderWidth: 1,
-    borderColor: 'red',
-  },
-  numbersColumn: {
-    flex: 1,
-    // borderWidth: 1,
-    borderColor: 'red',
-  },
-  weight: {
-    fontSize: 14,
-    height: 16,
-    borderColor: 'gray',
-    borderWidth: 1,
-  },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    // borderWidth: 1,
-    borderColor: 'green',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 })

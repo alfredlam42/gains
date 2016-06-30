@@ -10,6 +10,8 @@ var {
 } = ReactNative;
 
 var Button = require('../../../common/button');
+var Header = require('../../../common/header');
+
 var realm = require('../../../database/class');
 var search = require('../../../common/search');
 var create = require('../../../common/create');
@@ -26,20 +28,40 @@ module.exports = React.createClass({
     }
   },
   render: function(){
-    {exerciseNames = this.props.exercises}
-    {exerciseSets = this.props.sets}
-    {exerciseReps = this.props.reps}
+    {exerciseNames = this.props.passProps.info.exercises}
+    {exerciseSets = this.props.passProps.info.sets}
+    {exerciseReps = this.props.passProps.info.reps}
     {exerciseWeights = create.weightList(exerciseNames)}
     return(
       <View style = {styles.container}>
-        <ScrollView>
-          <View style = {styles.instructions}>
-            <Text>
-              Instructions for day 1.
-            </Text>
-          </View>
-
+        <Header />
+        <ScrollView style={styles.body}>
+          <Text style = {styles.day}>
+            Day {this.props.passProps.day}
+          </Text>
           <View style = {styles.exerciseBox}>
+            <View style = {styles.row}>
+              <View style = {styles.exerciseColumn}>
+                <Text style={styles.exerciseNameHeader}>
+                  Exercise
+                </Text>
+              </View>
+              <View style = {styles.numbersColumn}>
+                <Text style={styles.exerciseNumberHeader}>
+                  Sets
+                </Text>
+              </View>
+              <View style = {styles.numbersColumn}>
+                <Text style={styles.exerciseNumberHeader}>
+                  Reps
+                </Text>
+              </View>
+              <View style = {styles.numbersColumn}>
+                <Text style={styles.exerciseNumberHeader}>
+                  Weight
+                </Text>
+              </View>
+            </View>
             {this.renderList(exerciseNames, exerciseSets, exerciseReps, exerciseWeights)}
           </View>
 
@@ -61,14 +83,15 @@ module.exports = React.createClass({
     realm.write(() => {
       var workout = realm.create('Workout', {
         id: search.findSizeOfClass('Workout') + 1,
-        day: this.props.day,
+        day: this.props.passProps.day,
         exercises: exercisesList,
         set: setsList,
         reps: repsList,
         weight: weightList,
       })
       currentSeries.workouts.push(workout)
-    })
+      currentSeries.currentDay = currentSeries.currentDay + 1;
+    });
     this.props.navigator.pop();
   },
   renderList: function(exercises, sets, reps, weights){
@@ -77,22 +100,22 @@ module.exports = React.createClass({
       return(
         <View style = {styles.row} key = {i}>
           <View style = {styles.exerciseColumn}>
-            <Text>
+            <Text style={styles.exerciseName}>
               {exercise}
             </Text>
           </View>
           <View style = {styles.numbersColumn}>
-            <Text>
+            <Text style={styles.exerciseNumber}>
               {sets[i]}
             </Text>
           </View>
           <View style = {styles.numbersColumn}>
-            <Text>
+            <Text style={styles.exerciseNumber}>
               {reps[i]}
             </Text>
           </View>
           <View style = {styles.numbersColumn}>
-            <Text>
+            <Text style={styles.exerciseNumber}>
               {weights[i]}
             </Text>
           </View>
@@ -106,23 +129,18 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#29292B'
   },
-  input: {
-    padding: 4,
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    margin: 5,
-    width: 200,
-    alignSelf: 'center'
+  body: {
+    flex: 7,
   },
-  label: {
-    fontSize: 18
-  },
-  errorMessage: {
-    color: 'red'
+  day: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   instructions: {
     alignItems: 'center',
@@ -130,50 +148,57 @@ var styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: 'red',
   },
+  text: {
+    fontSize: 16,
+    color: '#E0DFE4',
+    paddingLeft: 10,
+    paddingRight: 10,
+    alignSelf: 'stretch',
+  },
   exerciseBox: {
     flex: 1,
     justifyContent: 'center',
     alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'blue',
-  },
-  complete: {
-    flex: 1,
-    justifyContent: 'center',
-    alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'green',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   row: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    // borderWidth: 1,
-    borderColor: 'red',
+  },
+  exerciseNameHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+  },
+  exerciseName: {
+    fontSize: 16,
+    color: '#E0DFE4',
+  },
+  exerciseNumberHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+    textAlign: 'center'
+  },
+  exerciseNumber: {
+    fontSize: 16,
+    color: '#E0DFE4',
+    textAlign: 'center',
   },
   exerciseColumn: {
-    flex: 5,
-    // borderWidth: 1,
-    borderColor: 'red',
+    flex: 2.75,
   },
   numbersColumn: {
     flex: 1,
-    // borderWidth: 1,
-    borderColor: 'red',
   },
-  weight: {
-    fontSize: 14,
-    height: 16,
-    borderColor: 'gray',
-    borderWidth: 1,
-  },
-  row: {
+  complete: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
-    // borderWidth: 1,
-    borderColor: 'green',
+    alignSelf: 'stretch',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 })

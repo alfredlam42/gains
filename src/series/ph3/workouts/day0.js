@@ -10,6 +10,8 @@ var {
 } = ReactNative;
 
 var Button = require('../../../common/button');
+var Header = require('../../../common/header');
+
 var realm = require('../../../database/class');
 var search = require('../../../common/search');
 var create = require('../../../common/create');
@@ -28,14 +30,53 @@ module.exports = React.createClass({
   render: function(){
     return(
       <View style = {styles.container}>
-        <ScrollView>
+        <Header />
+        <ScrollView style = {styles.body}>
+          <Text style = {styles.day}>
+            Day 0
+          </Text>
           <View style = {styles.instructions}>
-            <Text>
-              Instructions for day 0
+            <Text style = {styles.text}>
+              Before you begin this series, we need to figure out the maximum weights you can lift for these exercises so the series can be effective.
             </Text>
+            <Text></Text>
+            <Text style = {styles.text}>
+              If you have never seen these exercises before it is recommended you go watch some videos online. While watching these videos, it is also important that you watch the form of the instructor and try to keep to it as best as you can.
+            </Text>
+            <Text></Text>
+            <Text style = {styles.text}>
+              As I just mentioned, form is always more important than being able to lift heavier weights. If you go heavier and heavier with poor form, there will be a good chance of injury so it is important to always prioritize form and technique. Also as you're lifting being able to recognize when your form falls aparts is an important skill to have.
+            </Text>
+            <Text></Text>
+            <Text style = {styles.text}>
+              Take as much time as you need to complete these exercises with good form. Good luck.
+            </Text>
+            <Text></Text>
           </View>
 
           <View style = {styles.exerciseBox}>
+          <View style = {styles.row}>
+              <View style = {styles.exerciseColumn}>
+                <Text style={styles.exerciseNameHeader}>
+                  Exercise
+                </Text>
+              </View>
+              <View style = {styles.numbersColumn}>
+                <Text style={styles.exerciseNumberHeader}>
+                  Sets
+                </Text>
+              </View>
+              <View style = {styles.numbersColumn}>
+                <Text style={styles.exerciseNumberHeader}>
+                  Reps
+                </Text>
+              </View>
+              <View style = {styles.numbersColumn}>
+                <Text style={styles.exerciseNumberHeader}>
+                  Weight
+                </Text>
+              </View>
+            </View>
             {this.renderList(exerciseNames, exerciseReps)}
           </View>
           <View style = {styles.complete}>
@@ -77,17 +118,17 @@ module.exports = React.createClass({
       return(
         <View style = {styles.row} key = {i}>
           <View style = {styles.exerciseColumn}>
-            <Text>
+            <Text style = {styles.exerciseName}>
               {exercise}
             </Text>
           </View>
           <View style = {styles.numbersColumn}>
-            <Text>
+            <Text style = {styles.exerciseNumber}>
               1
             </Text>
           </View>
           <View style = {styles.numbersColumn}>
-            <Text>
+            <Text style = {styles.exerciseNumber}>
               {reps[i]}
             </Text>
           </View>
@@ -119,74 +160,80 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#29292B'
   },
-  input: {
-    padding: 4,
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    margin: 5,
-    width: 200,
-    alignSelf: 'center'
+  body: {
+    flex: 7,
   },
-  label: {
-    fontSize: 18
-  },
-  errorMessage: {
-    color: 'red'
+  day: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   instructions: {
     alignItems: 'center',
     alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'red',
+  },
+  text: {
+    fontSize: 16,
+    color: '#E0DFE4',
+    paddingLeft: 10,
+    paddingRight: 10,
+    alignSelf: 'stretch',
   },
   exerciseBox: {
     flex: 1,
     justifyContent: 'center',
     alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'blue',
-  },
-  complete: {
-    flex: 1,
-    justifyContent: 'center',
-    alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'green',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   row: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    // borderWidth: 1,
-    borderColor: 'red',
+  },
+  exerciseNameHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+  },
+  exerciseName: {
+    fontSize: 16,
+    color: '#E0DFE4',
+  },
+  exerciseNumberHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+    textAlign: 'center'
+  },
+  exerciseNumber: {
+    fontSize: 16,
+    color: '#E0DFE4',
+    textAlign: 'center',
   },
   exerciseColumn: {
-    flex: 5,
-    // borderWidth: 1,
-    borderColor: 'red',
+    flex: 2.75,
   },
   numbersColumn: {
     flex: 1,
-    // borderWidth: 1,
-    borderColor: 'red',
   },
   weight: {
-    fontSize: 14,
-    height: 16,
+    fontSize: 16,
+    height: 17,
     borderColor: 'gray',
     borderWidth: 1,
+    color: '#E0DFE4',
   },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+  complete: {
     justifyContent: 'center',
-    // borderWidth: 1,
-    borderColor: 'green',
+    alignSelf: 'stretch',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 })

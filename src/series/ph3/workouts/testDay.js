@@ -10,6 +10,8 @@ var {
 } = ReactNative;
 
 var Button = require('../../../common/button');
+var Header = require('../../../common/header');
+
 var realm = require('../../../database/class');
 var search = require('../../../common/search');
 var create = require('../../../common/create');
@@ -26,14 +28,49 @@ module.exports = React.createClass({
   render: function(){
     return(
       <View style = {styles.container}>
-        <ScrollView>
+        <Header />
+        <ScrollView style = {styles.body}>
+          <Text style = {styles.day}>
+            Day {this.props.passProps.day}
+          </Text>
           <View style = {styles.instructions}>
-            <Text>
-              Instructions for day 0
+            <Text style = {styles.text}>
+              Today is the day to see how much improvements you've made this pass month. Don't be nervous and trust in the training that you've been doing.
             </Text>
+            <Text></Text>
+            <Text style = {styles.text}>
+              Remember, don't try to hit your max right from the start. Make sure you take your time to warm up and slowly build up the weight. Take as much rest as you need in between each warm up set while building to your max.
+            </Text>
+            <Text></Text>
+            <Text style = {styles.text}>
+              Good luck!
+            </Text>
+            <Text></Text>
           </View>
 
           <View style = {styles.exerciseBox}>
+            <View style = {styles.row}>
+              <View style = {styles.exerciseColumn}>
+                <Text style={styles.exerciseNameHeader}>
+                  Exercise
+                </Text>
+              </View>
+              <View style = {styles.numbersColumn}>
+                <Text style={styles.exerciseNumberHeader}>
+                  Sets
+                </Text>
+              </View>
+              <View style = {styles.numbersColumn}>
+                <Text style={styles.exerciseNumberHeader}>
+                  Reps
+                </Text>
+              </View>
+              <View style = {styles.numbersColumn}>
+                <Text style={styles.exerciseNumberHeader}>
+                  Weight
+                </Text>
+              </View>
+            </View>
             {this.renderList(exerciseNames)}
           </View>
           <View style = {styles.complete}>
@@ -47,7 +84,6 @@ module.exports = React.createClass({
   onWorkoutComplete: function(){
     var currentUser = realm.objects('User')[0];
     var currentSeries = search.findLastElement(currentUser.series);
-    //user shouldn't be able to start on more than one workout so the last element in the list is the current series the user is working on
     var weights = this.createWeightList();
     var exercisesList = search.findObjects('Exercise', 'name', exerciseNames);
     var setsList = search.findObjects('intObject', 'value', [1, 1, 1]);
@@ -57,13 +93,14 @@ module.exports = React.createClass({
     realm.write(() => {
       var workout = realm.create('Workout', {
         id: search.findSizeOfClass('Workout') + 1,
-        day: 0,
+        day: this.props.passProps.day,
         exercises: exercisesList,
         set: setsList,
         reps: repsList,
         weight: weightList,
       })
       currentSeries.workouts.push(workout)
+      currentSeries.currentDay = currentSeries.currentDay + 1;
     });
     create.multipleMaxes(exerciseNames, weights);
     this.props.navigator.pop();
@@ -75,17 +112,17 @@ module.exports = React.createClass({
       return(
         <View style = {styles.row} key = {i}>
           <View style = {styles.exerciseColumn}>
-            <Text>
+            <Text style = {styles.exerciseName}>
               {exercise}
             </Text>
           </View>
           <View style = {styles.numbersColumn}>
-            <Text>
+            <Text style = {styles.exerciseNumber}>
               1
             </Text>
           </View>
           <View style = {styles.numbersColumn}>
-            <Text>
+            <Text style = {styles.exerciseNumber}>
               1
             </Text>
           </View>
@@ -117,74 +154,80 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#29292B'
   },
-  input: {
-    padding: 4,
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    margin: 5,
-    width: 200,
-    alignSelf: 'center'
+  body: {
+    flex: 7,
   },
-  label: {
-    fontSize: 18
-  },
-  errorMessage: {
-    color: 'red'
+  day: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   instructions: {
     alignItems: 'center',
     alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'red',
+  },
+  text: {
+    fontSize: 16,
+    color: '#E0DFE4',
+    paddingLeft: 10,
+    paddingRight: 10,
+    alignSelf: 'stretch',
   },
   exerciseBox: {
     flex: 1,
     justifyContent: 'center',
     alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'blue',
-  },
-  complete: {
-    flex: 1,
-    justifyContent: 'center',
-    alignSelf: 'stretch',
-    borderWidth: 3,
-    borderColor: 'green',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   row: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    // borderWidth: 1,
-    borderColor: 'red',
+  },
+  exerciseNameHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+  },
+  exerciseName: {
+    fontSize: 16,
+    color: '#E0DFE4',
+  },
+  exerciseNumberHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E0DFE4',
+    textAlign: 'center'
+  },
+  exerciseNumber: {
+    fontSize: 16,
+    color: '#E0DFE4',
+    textAlign: 'center',
   },
   exerciseColumn: {
-    flex: 5,
-    // borderWidth: 1,
-    borderColor: 'red',
+    flex: 2.75,
   },
   numbersColumn: {
     flex: 1,
-    // borderWidth: 1,
-    borderColor: 'red',
   },
   weight: {
-    fontSize: 14,
-    height: 16,
+    fontSize: 16,
+    height: 17,
     borderColor: 'gray',
     borderWidth: 1,
+    color: '#E0DFE4',
   },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+  complete: {
     justifyContent: 'center',
-    // borderWidth: 1,
-    borderColor: 'green',
+    alignSelf: 'stretch',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 })
