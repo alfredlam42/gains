@@ -29,8 +29,8 @@ module.exports = React.createClass({
     { this.props.navigator.pop(); }
   },
   renderWorkoutList: function() {
-    let previousSeries = realm.objects('Series')[this.props.index + 1];
-    let workoutList = previousSeries.workouts;
+    var previousSeries = this.props.route.previousSeries;
+    var workoutList = previousSeries.workouts;
     var that = this;
     return workoutList.map(function(workout, i){
       return <View style={styles.workoutWrapper}>
