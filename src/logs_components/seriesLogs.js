@@ -46,13 +46,7 @@ module.exports = React.createClass({
     });}
   },
   renderPreviousSeries: function() {
-    var user = realm.objects('User')[0];
-    var seriesList = user.series;
-    var previousSeriesList = [];
-    seriesList.map(function(series){
-      previousSeriesList.push(series);
-    });
-    previousSeriesList.pop()
+    var previousSeriesList = realm.objects('Series').filtered('completed = true');
     var that = this;
 
     return previousSeriesList.map(function(series, i){
