@@ -1,16 +1,10 @@
-var React = require('react-native');
-var {
-  AppRegistry,
-  MapView,
-  View,
-  Text,
-  StyleSheet
-} = React;
+var ReactNative = require('react-native');
 const Realm = require('realm');
 
 class intObject{}
 intObject.schema = {
   name: 'intObject',
+  primaryKey: 'value',
   properties: {
     value: 'int',
   }
@@ -38,18 +32,30 @@ Series.schema = {
   properties: {
     id: 'int',
     name: 'string',
-    categories: {type: 'list', objectType: 'Category'},
     maxes: {type: 'list', objectType: 'Max'},
     workouts: {type: 'list', objectType: 'Workout'},
+    currentDay: 'int',
+    completed: {type: 'bool', default: false},
+    active: {type: 'bool', default: false}
   },
+};
+
+class seriesDisplay {}
+seriesDisplay.schema = {
+  name: 'seriesDisplay',
+  primaryKey: 'name',
+  properties: {
+    name: 'string',
+    exercises: {type: 'list', objectType: 'Exercise'},
+    category: {type: 'list', objectType: 'Category'}
+  }
 };
 
 class Category {}
 Category.schema = {
   name: 'Category',
-  primaryKey: 'id',
+  primaryKey: 'name',
   properties: {
-    id: 'int',
     name: 'string',
   }
 };
@@ -57,10 +63,9 @@ Category.schema = {
 class Max {}
 Max.schema = {
   name: 'Max',
-  primaryKey: 'id',
+  primaryKey: 'exercise',
   properties: {
-    id: 'int',
-    exercise: 'Exercise',
+    exercise: 'string',
     maxWeight: 'int',
   }
 };
@@ -68,9 +73,8 @@ Max.schema = {
 class Exercise {}
 Exercise.schema = {
   name: 'Exercise',
-  primaryKey: 'id',
+  primaryKey: 'name',
   properties: {
-    id: 'int',
     name: 'string',
   }
 };
@@ -81,7 +85,6 @@ Workout.schema = {
   primaryKey: 'id',
   properties: {
     id: 'int',
-    week: 'int',
     day: 'int',
     exercises: {type: 'list', objectType: 'Exercise'},
     set: {type: 'list', objectType: 'intObject'},
@@ -91,8 +94,8 @@ Workout.schema = {
 };
 
 var realm = new Realm({
-  schema: [intObject, User, Series, Category, Max, Exercise, Workout],
-  schemaVersion: 1,
+  schema: [intObject, User, Series, seriesDisplay, Category, Max, Exercise, Workout],
+  schemaVersion: 8
 });
 
 module.exports = realm;
