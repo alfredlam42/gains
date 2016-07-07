@@ -155,7 +155,7 @@ module.exports = React.createClass({
     var currentDay = currentSeries.currentDay
 
     if (currentDay == 0){
-      his.props.navigator.push({
+      this.props.navigator.push({
         name: 'dayzero',
       })
     }

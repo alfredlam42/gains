@@ -31,6 +31,9 @@ module.exports = React.createClass({
     return(
       <View style = {styles.container}>
         <Header />
+        <View style={styles.backButton}>
+          <Button text ={'Back'} onPress = {this.handlePress} />
+        </View>
         <ScrollView style = {styles.body}>
           <Text style = {styles.day}>
             Day 0
@@ -45,7 +48,7 @@ module.exports = React.createClass({
             </Text>
             <Text></Text>
             <Text style = {styles.text}>
-              As I just mentioned, form is always more important than being able to lift heavier weights. If you go heavier and heavier with poor form, there will be a good chance of injury so it is important to always prioritize form and technique. Also as you're lifting being able to recognize when your form falls aparts is an important skill to have.
+              As I just mentioned, form is always more important than being able to lift heavier weights. If you go heavier and heavier with poor form, there will be a good chance of injury so it is important to always prioritize form and technique. Also as you are lifting being able to recognize when your form falls aparts is an important skill to have.
             </Text>
             <Text></Text>
             <Text style = {styles.text}>
@@ -162,6 +165,10 @@ var styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center',
     backgroundColor: '#29292B'
+  },
+  backButton: {
+    paddingRight: 250,
+    paddingLeft: 10
   },
   body: {
     flex: 7,
