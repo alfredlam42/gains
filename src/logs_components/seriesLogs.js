@@ -12,6 +12,7 @@ var realm = require('../database/class');
 
 module.exports = React.createClass({
   render: function(){
+    var currentSeries = realm.objects('Series').filtered('active = true')[0];
     return (
       <View style={styles.container}>
 
@@ -21,7 +22,7 @@ module.exports = React.createClass({
               <Text style={styles.headerText}>Current</Text>
           </View>
 
-          <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
+          <TouchableHighlight style={styles.seriesWrapper} onPress={() => this.workoutPress(currentSeries)} underlayColor="black">
             <View>
               {this.returnCurrentSeries()}
             </View>
@@ -36,27 +37,18 @@ module.exports = React.createClass({
       </View>
     )
   },
-  currentWorkoutPress: function() {
-    { this.props.navigator.push({ name: 'workoutLogs' }); }
-  },
-  previousWorkoutPress: function(key) {
-    {this.props.navigator.push({
-      name: 'previousWorkoutLogs',
+  workoutPress: function(series, key) {
+    { this.props.navigator.push({ name: 'workoutLogs',
+      series: series,
       key: key
-    });}
+    }); }
   },
   renderPreviousSeries: function() {
-    var user = realm.objects('User')[0];
-    var seriesList = user.series;
-    var previousSeriesList = [];
-    seriesList.map(function(series){
-      previousSeriesList.push(series);
-    });
-    previousSeriesList.pop()
+    var previousSeriesList = realm.objects('Series').filtered('completed = true');
     var that = this;
 
     return previousSeriesList.map(function(series, i){
-      return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => that.previousWorkoutPress(i)} underlayColor="black">
+      return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => that.workoutPress(series, i)} underlayColor="black">
           <View style={styles.seriesDetail}>
             <Text style={styles.seriesPic}>PIC</Text>
             <Text style={styles.seriesNameText}>{series.name}</Text>
@@ -65,9 +57,8 @@ module.exports = React.createClass({
     });
   },
   returnCurrentSeries: function() {
-    var mostRecentSeriesInd = realm.objects('Series').length - 1
-    var currentSeries = realm.objects('Series')[mostRecentSeriesInd]
-    if (currentSeries && currentSeries.completed == false){
+    var currentSeries = realm.objects('Series').filtered('active = true')[0]
+    if (currentSeries && currentSeries.active === true){
       return (
         <View style={styles.seriesDetail}>
           <Text style={styles.seriesPic}>PIC</Text>
@@ -99,19 +90,23 @@ var styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: 'blue',
     alignSelf: 'stretch'
   },
   seriesWrapper: {
     flex: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 2,
+    paddingTop: 10
+  },
+  header: {
+    borderBottomWidth: 5,
+    alignSelf: 'stretch',
+    borderColor: '#F0D23C'
   },
   headerText: {
     fontSize: 40,
-    color: '#F0D23C'
+    color: '#F0D23C',
+    textAlign: 'center'
   },
   seriesPic: {
     width: 100,
