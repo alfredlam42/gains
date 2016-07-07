@@ -126,7 +126,7 @@ module.exports = React.createClass({
     }
   },
   renderCurrentSeries: function(series){
-    if (series && series.active === true){
+    if (series){
       return(
         <View style={styles.workoutWrapper}>
           <TouchableHighlight onPress={this.goToWorkout}>
