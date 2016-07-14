@@ -48,6 +48,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
   },
   listView: {
-    backgroundColor: '#F0D23C'
+    backgroundColor: '#F0D23C',
+    paddingTop: 20
   },
 });

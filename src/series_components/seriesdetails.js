@@ -32,20 +32,12 @@ module.exports = React.createClass({
     });
 
     realm.write(() => {
-      newSeries = realm.create('Series', {
-        id: search.findSizeOfClass('Series') + 1,
-        name: this.props.route.seriesDetail.name,
-        maxes: null,
-        workouts: null,
-        currentDay: 1,
-        completed: false,
-        active: true
-      });
-      currentUser.series.push(newSeries);
+      this.props.route.seriesDetail.active = true;
     });
-    create.multipleExercise(this.props.passProps.exercises); //or where the list of exercises come from   --- this code is breaking not sure what this is for (Gabby)
-    create.multipleIntObjects();
-    {this.props.navigator.pop()}; //or navigate it to whatever page
+
+    // create.multipleExercise(this.props.passProps.exercises); //or where the list of exercises come from   --- this code is breaking not sure what this is for (Gabby)
+    // create.multipleIntObjects();
+    {this.props.navigator.immediatelyResetRouteStack([{ name: 'seriesList' }])}; //or navigate it to whatever page
   },
   onBackButtonPress: function() {
     {this.props.navigator.pop()}
@@ -72,6 +64,7 @@ var styles = StyleSheet.create({
   seriesDetail: {
     fontSize: 40,
     fontWeight: 'bold',
-    color: '#E0DFE4'
+    color: '#E0DFE4',
+    textAlign: 'center'
   }
 });

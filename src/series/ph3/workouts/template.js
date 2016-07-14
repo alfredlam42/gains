@@ -35,6 +35,9 @@ module.exports = React.createClass({
     return(
       <View style = {styles.container}>
         <Header />
+        <View style={styles.backButton}>
+          <Button text ={'Back'} onPress = {this.handlePress} />
+        </View>
         <ScrollView style={styles.body}>
           <Text style = {styles.day}>
             Day {this.props.passProps.day}
@@ -71,6 +74,9 @@ module.exports = React.createClass({
         </ScrollView>
       </View>
     )
+  },
+  handlePress: function() {
+    { this.props.navigator.pop(); }
   },
   onWorkoutComplete: function(){
     var currentUser = realm.objects('User')[0];
@@ -131,6 +137,10 @@ var styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center',
     backgroundColor: '#29292B'
+  },
+  backButton: {
+    paddingRight: 250,
+    paddingLeft: 10
   },
   body: {
     flex: 7,
