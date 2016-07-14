@@ -126,7 +126,7 @@ module.exports = React.createClass({
     }
   },
   renderCurrentSeries: function(series){
-    if (series && series.active === true){
+    if (series){
       return(
         <View style={styles.workoutWrapper}>
           <TouchableHighlight onPress={this.goToWorkout}>
@@ -155,7 +155,7 @@ module.exports = React.createClass({
     var currentDay = currentSeries.currentDay
 
     if (currentDay == 0){
-      his.props.navigator.push({
+      this.props.navigator.push({
         name: 'dayzero',
       })
     }

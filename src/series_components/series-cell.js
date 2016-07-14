@@ -14,7 +14,7 @@ module.exports = React.createClass({
   render: function() {
     var styleWrapper = styles.seriesWrapper
     var styleText = styles.seriesName
-    if (this.props.series.active === true) {
+    if (this.props.series.active) {
       styleWrapper = styles.seriesActiveWrapper;
       styleText = styles.seriesActiveName;
     }
