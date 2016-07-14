@@ -92,7 +92,7 @@ module.exports = React.createClass({
   },
   onWorkoutComplete: function(){
     var currentUser = realm.objects('User')[0];
-    var currentSeries = search.findLastElement(currentUser.series);
+    var currentSeries = realm.objects('Series').filtered('active = true')[0];
     //user shouldn't be able to start on more than one workout so the last element in the list is the current series the user is working on
     var weights = this.createWeightList();
     var exercisesList = search.findObjects('Exercise', 'name', exerciseNames);
@@ -156,7 +156,10 @@ module.exports = React.createClass({
       list.push(that.state.exerciseWeight[exercise])
     })
     return list;
-  }
+  },
+  pressBack: function() {
+    { this.props.navigator.pop(); }
+  },
 });
 
 var styles = StyleSheet.create({

@@ -151,7 +151,7 @@ module.exports = React.createClass({
   },
   goToWorkout: function(){
     var user = realm.objects('User')[0];
-    var currentSeries = search.findLastElement(user.series) ? search.findLastElement(user.series) : null;
+    var currentSeries = realm.objects('Series').filtered('active = true')[0];
     var currentDay = currentSeries.currentDay
 
     if (currentDay == 0){
