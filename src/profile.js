@@ -133,8 +133,8 @@ module.exports = React.createClass({
             <Image style={styles.pic} source = {require('./common/img/ph3.jpg')}/>
           </TouchableHighlight>
           <View style={styles.workoutDetails}>
-            <Text style={styles.workoutInfo}>Name: {series.name}</Text>
-            <Text style={styles.workoutInfo}>Day: {series.currentDay}</Text>
+            <Text style={styles.workoutInfoName}>{series.name}</Text>
+            <Text style={styles.workoutInfo}>Day {series.currentDay}</Text>
           </View>
         </View>
       )
@@ -242,8 +242,13 @@ var styles = StyleSheet.create({
   workoutDetails: {
     width: 200,
     height: 100,
-    justifyContent: 'center',
-    paddingLeft: 5
+    justifyContent: 'flex-start',
+    paddingLeft: 5,
+  },
+  workoutInfoName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E0DFE4'
   },
   workoutInfo: {
     fontSize: 18,
