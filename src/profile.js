@@ -15,6 +15,7 @@ var realm = require('./database/class');
 var search = require('./common/search');
 var schedule = require('./series/ph3/workoutSchedule');
 
+
 module.exports = React.createClass({
   getInitialState: function() {
     var user = realm.objects('User')[0];
@@ -130,7 +131,7 @@ module.exports = React.createClass({
       return(
         <View style={styles.workoutWrapper}>
           <TouchableHighlight onPress={this.goToWorkout}>
-            <Image style={styles.pic} source = {require('./common/img/ph3.jpg')}/>
+            <Image style={styles.pic} source = {{uri: series.picture}}/>
           </TouchableHighlight>
           <View style={styles.workoutDetails}>
             <Text style={styles.workoutInfoName}>{series.name}</Text>

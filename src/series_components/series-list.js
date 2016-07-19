@@ -11,7 +11,7 @@ var {
 var realm = require('../database/class');
 var SeriesCell = require('./series-cell');
 
-var allSeries = realm.objects('Series');
+var allSeries = realm.objects('seriesDisplay');
 
 module.exports = React.createClass({
   getInitialState: function() {

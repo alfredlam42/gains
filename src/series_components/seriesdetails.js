@@ -32,11 +32,18 @@ module.exports = React.createClass({
     });
 
     realm.write(() => {
-      this.props.route.seriesDetail.active = true;
+      realm.create('Series', {
+        id: search.findSizeOfClass('Series') + 1,
+        name: this.props.route.seriesDetail.name,
+        maxes: null,
+        workouts: null,
+        currentDay: 0,
+        completed: false,
+        active: true,
+        picture: 'https://static.pexels.com/photos/17840/pexels-photo.jpg',
+      })
     });
 
-    // create.multipleExercise(this.props.passProps.exercises); //or where the list of exercises come from   --- this code is breaking not sure what this is for (Gabby)
-    // create.multipleIntObjects();
     {this.props.navigator.immediatelyResetRouteStack([{ name: 'seriesList' }])}; //or navigate it to whatever page
   },
   onBackButtonPress: function() {
