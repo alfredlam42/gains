@@ -93,7 +93,6 @@ module.exports = React.createClass({
   onWorkoutComplete: function(){
     var currentUser = realm.objects('User')[0];
     var currentSeries = realm.objects('Series').filtered('active = true')[0];
-    //user shouldn't be able to start on more than one workout so the last element in the list is the current series the user is working on
     var weights = this.createWeightList();
     var exercisesList = search.findObjects('Exercise', 'name', exerciseNames);
     var setsList = search.findObjects('intObject', 'value', exerciseSets);
@@ -110,6 +109,7 @@ module.exports = React.createClass({
         weight: weightList,
       })
       currentSeries.workouts.push(workout)
+      currentSeries.currentDay = currentSeries.currentDay + 1;
     });
     create.multipleMaxes(exerciseNames, weights);
     this.props.navigator.pop();
