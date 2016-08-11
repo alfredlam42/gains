@@ -24,6 +24,7 @@ module.exports = React.createClass({
   onSelectSeries: function(){
     var newSeries = null;
     var currentUser = search.findInt('User', 'id', '1');
+    var workout = null;
 
     currentUser.series.map(function(series){
       realm.write(() => {
@@ -32,7 +33,7 @@ module.exports = React.createClass({
     });
 
     realm.write(() => {
-      realm.create('Series', {
+      workout = realm.create('Series', {
         id: search.findSizeOfClass('Series') + 1,
         name: this.props.route.seriesDetail.name,
         maxes: null,
@@ -42,6 +43,7 @@ module.exports = React.createClass({
         active: true,
         picture: 'https://static.pexels.com/photos/17840/pexels-photo.jpg',
       })
+      currentUser.series.push(workout);
     });
 
     {this.props.navigator.immediatelyResetRouteStack([{ name: 'seriesList' }])}; //or navigate it to whatever page

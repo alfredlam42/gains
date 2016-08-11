@@ -32,7 +32,7 @@ module.exports = React.createClass({
       <View style = {styles.container}>
         <Header />
         <View style={styles.backButton}>
-          <Button text ={'Back'} onPress = {this.handlePress} />
+          <Button text ={'Back'} onPress = {this.pressBack} />
         </View>
         <ScrollView style = {styles.body}>
           <Text style = {styles.day}>

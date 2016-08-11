@@ -30,7 +30,6 @@ module.exports = React.createClass({
   render: function() {
     var user = realm.objects('User')[0];
     var currentSeries = realm.objects('Series').filtered('active = true')[0];
-
     return (
       <View style={styles.container}>
         <Header />
@@ -147,6 +146,7 @@ module.exports = React.createClass({
       )
     }
   },
+  //need to rewrite code so it works for different series
   goToWorkout: function(){
     var user = realm.objects('User')[0];
     var currentSeries = realm.objects('Series').filtered('active = true')[0];
@@ -184,9 +184,7 @@ module.exports = React.createClass({
     }
   },
   renderButton: function(){
-    var button;
-    var user = realm.objects('User')[0];
-    if (user.series){
+    if (realm.objects('Series').filtered('active = true').length > 0){
       return <Button
               text="Today's Workout"
               style={styles.button}
