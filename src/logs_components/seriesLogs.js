@@ -4,6 +4,7 @@ var Header = require('../common/header');
 var {
   View,
   Text,
+  Image,
   StyleSheet,
   TouchableHighlight,
   ScrollView
@@ -23,9 +24,7 @@ module.exports = React.createClass({
           </View>
 
           <TouchableHighlight style={styles.seriesWrapper} onPress={() => this.workoutPress(currentSeries)} underlayColor="black">
-            <View>
-              {this.returnCurrentSeries()}
-            </View>
+              {this.renderCurrentSeries()}
           </TouchableHighlight>
 
           <View style={styles.header}>
@@ -44,25 +43,31 @@ module.exports = React.createClass({
     }); }
   },
   renderPreviousSeries: function() {
-    var previousSeriesList = realm.objects('Series').filtered('completed = true');
+    var previousSeriesList = realm.objects('Series').filtered('active = false');
     var that = this;
 
     return previousSeriesList.map(function(series, i){
       return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => that.workoutPress(series, i)} underlayColor="black">
           <View style={styles.seriesDetail}>
-            <Text style={styles.seriesPic}>PIC</Text>
-            <Text style={styles.seriesNameText}>{series.name}</Text>
+            <Image style={styles.seriesPic} source={{uri: series.picture}}/>
+            <View style={styles.workoutDetails}>
+              <Text style={styles.workoutInfoName}>{series.name}</Text>
+              <Text style={styles.workoutInfo}>Days Completed: {series.currentDay}</Text>
+            </View>
           </View>
         </TouchableHighlight>
     });
   },
-  returnCurrentSeries: function() {
-    var currentSeries = realm.objects('Series').filtered('active = true')[0]
+  renderCurrentSeries: function() {
+    var currentSeries = realm.objects('Series').filtered('active = true')[0];
     if (currentSeries && currentSeries.active === true){
       return (
         <View style={styles.seriesDetail}>
-          <Text style={styles.seriesPic}>PIC</Text>
-          <Text style={styles.seriesNameText}>{currentSeries.name}</Text>
+          <Image style={styles.seriesPic} source={{uri: currentSeries.picture}}/>
+          <View style={styles.workoutDetails}>
+            <Text style={styles.workoutInfoName}>{currentSeries.name}</Text>
+            <Text style={styles.workoutInfo}>Days Completed: {currentSeries.currentDay}</Text>
+          </View>
         </View>
       )
     }
@@ -75,8 +80,6 @@ module.exports = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#29292B',
   },
   body: {
@@ -93,10 +96,10 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   seriesWrapper: {
-    flex: 7,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 10
+    flex: 4,
+    alignSelf: 'stretch',
+    paddingLeft: 25,
+    paddingTop: 30,
   },
   header: {
     borderBottomWidth: 5,
@@ -109,19 +112,32 @@ var styles = StyleSheet.create({
     textAlign: 'center'
   },
   seriesPic: {
+    borderWidth: 1,
+    borderColor: '#E0DFE4',
     width: 100,
     height: 100,
-    borderWidth: 3,
-    borderColor: 'green',
-    marginRight: 10
   },
   seriesDetail: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row'
   },
   seriesNameText: {
     fontSize: 30,
     color: '#E0DFE4',
     textAlign: 'center'
+  },
+  workoutDetails: {
+    width: 200,
+    height: 100,
+    justifyContent: 'flex-start',
+    paddingLeft: 5,
+  },
+  workoutInfoName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E0DFE4'
+  },
+  workoutInfo: {
+    fontSize: 18,
+    color: '#E0DFE4'
   },
 });
