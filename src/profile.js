@@ -15,6 +15,7 @@ var realm = require('./database/class');
 var search = require('./common/search');
 var schedule = require('./series/ph3/workoutSchedule');
 
+
 module.exports = React.createClass({
   getInitialState: function() {
     var user = realm.objects('User')[0];
@@ -29,7 +30,6 @@ module.exports = React.createClass({
   render: function() {
     var user = realm.objects('User')[0];
     var currentSeries = realm.objects('Series').filtered('active = true')[0];
-
     return (
       <View style={styles.container}>
         <Header />
@@ -39,10 +39,7 @@ module.exports = React.createClass({
           <View style={styles.seriesWrapper}>
             <Text style={styles.h2}>Current Series</Text>
             {this.renderCurrentSeries(currentSeries)}
-            <Button
-              text={this.seriesButton()}
-              style={styles.button}
-              onPress={() => this.props.changeState()} />
+            {this.renderButton()}
           </View>
         </View>
       </View>
@@ -130,11 +127,11 @@ module.exports = React.createClass({
       return(
         <View style={styles.workoutWrapper}>
           <TouchableHighlight onPress={this.goToWorkout}>
-            <Image style={styles.pic} source = {require('./common/img/ph3.jpg')}/>
+            <Image style={styles.pic} source = {{uri: series.picture}}/>
           </TouchableHighlight>
           <View style={styles.workoutDetails}>
-            <Text style={styles.workoutInfo}>Name: {series.name}</Text>
-            <Text style={styles.workoutInfo}>Day: {series.currentDay}</Text>
+            <Text style={styles.workoutInfoName}>{series.name}</Text>
+            <Text style={styles.workoutInfo}>Day {series.currentDay}</Text>
           </View>
         </View>
       )
@@ -149,9 +146,10 @@ module.exports = React.createClass({
       )
     }
   },
+  //need to rewrite code so it works for different series
   goToWorkout: function(){
     var user = realm.objects('User')[0];
-    var currentSeries = search.findLastElement(user.series) ? search.findLastElement(user.series) : null;
+    var currentSeries = realm.objects('Series').filtered('active = true')[0];
     var currentDay = currentSeries.currentDay
 
     if (currentDay == 0){
@@ -185,10 +183,18 @@ module.exports = React.createClass({
       })
     }
   },
-  seriesButton: function() {
-    var user = realm.objects('User')[0];
-    var buttonText = user.series ? 'Edit Series' : 'Start a Series';
-    return buttonText;
+  renderButton: function(){
+    if (realm.objects('Series').filtered('active = true').length > 0){
+      return <Button
+              text="Today's Workout"
+              style={styles.button}
+              onPress={() => this.goToWorkout()} />
+    } else {
+      return <Button
+              text='Start a Series'
+              style={styles.button}
+              onPress={() => this.props.changeState()} />
+    }
   },
   convertInchesToHeight: function(height) {
     var inches = height % 12;
@@ -242,8 +248,13 @@ var styles = StyleSheet.create({
   workoutDetails: {
     width: 200,
     height: 100,
-    justifyContent: 'center',
-    paddingLeft: 5
+    justifyContent: 'flex-start',
+    paddingLeft: 5,
+  },
+  workoutInfoName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E0DFE4'
   },
   workoutInfo: {
     fontSize: 18,

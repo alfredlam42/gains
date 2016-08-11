@@ -36,9 +36,9 @@ var ROUTES = {
 }
 
 // realm.write(() => {
-  // realm.delete(realm.objects('User'));
-  // realm.delete(realm.objects('Series'));
-  // }
+//   realm.delete(realm.objects('User'));
+//   realm.delete(realm.objects('Series'));
+//   }
 // )
 
 //Component
