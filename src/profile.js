@@ -40,10 +40,7 @@ module.exports = React.createClass({
           <View style={styles.seriesWrapper}>
             <Text style={styles.h2}>Current Series</Text>
             {this.renderCurrentSeries(currentSeries)}
-            <Button
-              text={this.seriesButton()}
-              style={styles.button}
-              onPress={() => this.props.changeState()} />
+            {this.renderButton()}
           </View>
         </View>
       </View>
@@ -186,10 +183,20 @@ module.exports = React.createClass({
       })
     }
   },
-  seriesButton: function() {
+  renderButton: function(){
+    var button;
     var user = realm.objects('User')[0];
-    var buttonText = user.series ? 'Edit Series' : 'Start a Series';
-    return buttonText;
+    if (user.series){
+      return <Button
+              text="Today's Workout"
+              style={styles.button}
+              onPress={() => this.goToWorkout()} />
+    } else {
+      return <Button
+              text='Start a Series'
+              style={styles.button}
+              onPress={() => this.props.changeState()} />
+    }
   },
   convertInchesToHeight: function(height) {
     var inches = height % 12;
