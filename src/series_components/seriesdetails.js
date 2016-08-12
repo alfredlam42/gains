@@ -14,6 +14,7 @@ var create = require('../common/create');
 
 module.exports = React.createClass({
   render: function(){
+    console.log(this.props);
     return (
       <View style={styles.container}>
         <Header navigator={this.props.navigator}/>
@@ -58,8 +59,8 @@ module.exports = React.createClass({
       })
       currentUser.series.push(workout);
     });
-
-    {this.props.navigator.immediatelyResetRouteStack([{ name: 'seriesList' }])}; //or navigate it to whatever page
+    {this.props.changeState()}
+    {this.props.navigator.immediatelyResetRouteStack([{ name: 'seriesList' }])};
   },
   onBackButtonPress: function() {
     {this.props.navigator.pop()}
