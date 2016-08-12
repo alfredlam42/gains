@@ -8,7 +8,7 @@ var search = require('../common/search');
 //create a list of exercises for each workout series even if exercise is already in another series
 var ph3Exercises = [
   'Bench Press',
-  'Bent Over Barbell Row',
+  'Bent Over Row',
   'Cable Triceps Press-down',
   'Calf Raise',
   'Deadlift',
@@ -17,13 +17,14 @@ var ph3Exercises = [
   'Dumbbell Skullcrusher',
   'Incline Dumbbell Bench Press',
   'Lateral Raise',
+  'Leg Extension',
   'Leg Curl',
   'Machine Preacher Curl',
   'Pec-deck Fly',
   'Rest',
   'Squat',
   'Standing Military Press',
-  'Weighted Pull-up',
+  'Pull-up',
   'Wide Grip Lat Pull-down',
 ];
 
@@ -36,6 +37,7 @@ var categories = [
 //keep adding more here to seed database
 var seed = {
   seedDatabase: function(){
+    create.multipleIntObjects();
     create.multipleExercises(ph3Exercises);
     create.multipleCategories(categories);
     create.seriesDisplay('PH3', ph3Exercises, ['Hypertrophy']);

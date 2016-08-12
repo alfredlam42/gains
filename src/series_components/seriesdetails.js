@@ -7,6 +7,7 @@ var {
   Navigator
 } = ReactNative;
 var Button = require('../common/button');
+var Header = require('../common/header');
 var realm = require('../database/class');
 var search = require('../common/search');
 var create = require('../common/create');
@@ -15,15 +16,19 @@ module.exports = React.createClass({
   render: function(){
     return (
       <View style={styles.container}>
-        <Text style={styles.seriesDetail}>{this.props.route.seriesDetail.name}</Text>
-        <Button text='Start This Series' onPress = {this.onSelectSeries} />
-        <Button text='Back' onPress = {this.onBackButtonPress} />
+        <Header navigator={this.props.navigator}/>
+        <View style={styles.seriesInfo}>
+          <Text style={styles.seriesDetail}>{this.props.route.seriesDetail.name}</Text>
+          <Button text='Start This Series' onPress = {this.onSelectSeries} />
+          <Button text='Back' onPress = {this.onBackButtonPress} />
+        </View>
       </View>
     )
   },
   onSelectSeries: function(){
     var newSeries = null;
     var currentUser = search.findInt('User', 'id', '1');
+    var workout = null;
 
     currentUser.series.map(function(series){
       realm.write(() => {
@@ -32,11 +37,19 @@ module.exports = React.createClass({
     });
 
     realm.write(() => {
-      this.props.route.seriesDetail.active = true;
+      workout = realm.create('Series', {
+        id: search.findSizeOfClass('Series') + 1,
+        name: this.props.route.seriesDetail.name,
+        maxes: null,
+        workouts: null,
+        currentDay: 0,
+        completed: false,
+        active: true,
+        picture: 'https://static.pexels.com/photos/17840/pexels-photo.jpg',
+      })
+      currentUser.series.push(workout);
     });
 
-    // create.multipleExercise(this.props.passProps.exercises); //or where the list of exercises come from   --- this code is breaking not sure what this is for (Gabby)
-    // create.multipleIntObjects();
     {this.props.navigator.immediatelyResetRouteStack([{ name: 'seriesList' }])}; //or navigate it to whatever page
   },
   onBackButtonPress: function() {
@@ -66,5 +79,8 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#E0DFE4',
     textAlign: 'center'
+  },
+  seriesInfo: {
+    flex: 7,
   }
 });
