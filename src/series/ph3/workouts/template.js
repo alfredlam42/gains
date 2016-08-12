@@ -101,7 +101,6 @@ module.exports = React.createClass({
     this.props.navigator.pop();
   },
   renderList: function(exercises, sets, reps, weights){
-    var that = this;
     return exercises.map(function(exercise, i){
       return(
         <View style = {styles.row} key = {i}>
@@ -110,16 +109,19 @@ module.exports = React.createClass({
               {exercise}
             </Text>
           </View>
+
           <View style = {styles.numbersColumn}>
             <Text style={styles.exerciseNumber}>
               {sets[i]}
             </Text>
           </View>
+
           <View style = {styles.numbersColumn}>
             <Text style={styles.exerciseNumber}>
               {reps[i]}
             </Text>
           </View>
+
           <View style = {styles.numbersColumn}>
             <Text style={styles.exerciseNumber}>
               {weights[i]}
@@ -129,7 +131,7 @@ module.exports = React.createClass({
       )
     })
   }
-})
+});
 
 var styles = StyleSheet.create({
   container: {

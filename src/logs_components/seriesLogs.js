@@ -36,18 +36,15 @@ module.exports = React.createClass({
       </View>
     )
   },
-  workoutPress: function(series, key) {
-    { this.props.navigator.push({ name: 'workoutLogs',
-      series: series,
-      key: key
-    }); }
+  workoutPress: function(series) {
+    this.props.navigator.push({name: 'workoutLogs', series: series});
   },
   renderPreviousSeries: function() {
     var previousSeriesList = realm.objects('Series').filtered('active = false');
     var that = this;
 
     return previousSeriesList.map(function(series, i){
-      return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => that.workoutPress(series, i)} underlayColor="black">
+      return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => that.workoutPress(series)} underlayColor="black">
           <View style={styles.seriesDetail}>
             <Image style={styles.seriesPic} source={{uri: series.picture}}/>
             <View style={styles.workoutDetails}>

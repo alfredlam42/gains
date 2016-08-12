@@ -103,6 +103,9 @@ module.exports = React.createClass({
         weight: weightList,
       })
       currentSeries.workouts.push(workout)
+      if (currentSeries.currentDay === 90){
+        currentSeries.active = false;
+      }
       currentSeries.currentDay = currentSeries.currentDay + 1;
     });
     create.multipleMaxes(exerciseNames, weights);
