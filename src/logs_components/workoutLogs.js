@@ -9,20 +9,26 @@ var {
 } = ReactNative;
 var realm = require('../database/class');
 var Button = require('../common/button');
+var Header = require('../common/header');
+
 
 module.exports = React.createClass({
   render: function() {
     return (
-      <View style={styles.container}>
-        <View style={styles.backButton}>
-          <Button
-            text={'Back'}
-            onPress={this.handlePress} />
-        </View>
 
-        <ScrollView contentContainerStyle={styles.contentContainer} style={styles.list}>
-          {this.renderWorkoutList()}
-        </ScrollView>
+      <View style={styles.container}>
+        <Header />
+        <View style={styles.workoutLog}>
+          <View style={styles.backButton}>
+            <Button
+              text={'Back'}
+              onPress={this.handlePress} />
+          </View>
+
+          <ScrollView contentContainerStyle={styles.contentContainer} style={styles.list}>
+            {this.renderWorkoutList()}
+          </ScrollView>
+        </View>
       </View>
     )
   },
@@ -190,4 +196,7 @@ var styles = StyleSheet.create({
   numbersColumn: {
     flex: 1,
   },
+  workoutLog: {
+    flex: 7,
+  }
 });

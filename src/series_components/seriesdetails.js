@@ -7,6 +7,7 @@ var {
   Navigator
 } = ReactNative;
 var Button = require('../common/button');
+var Header = require('../common/header');
 var realm = require('../database/class');
 var search = require('../common/search');
 var create = require('../common/create');
@@ -15,9 +16,12 @@ module.exports = React.createClass({
   render: function(){
     return (
       <View style={styles.container}>
-        <Text style={styles.seriesDetail}>{this.props.route.seriesDetail.name}</Text>
-        <Button text='Start This Series' onPress = {this.onSelectSeries} />
-        <Button text='Back' onPress = {this.onBackButtonPress} />
+        <Header navigator={this.props.navigator}/>
+        <View style={styles.seriesInfo}>
+          <Text style={styles.seriesDetail}>{this.props.route.seriesDetail.name}</Text>
+          <Button text='Start This Series' onPress = {this.onSelectSeries} />
+          <Button text='Back' onPress = {this.onBackButtonPress} />
+        </View>
       </View>
     )
   },
@@ -75,5 +79,8 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#E0DFE4',
     textAlign: 'center'
+  },
+  seriesInfo: {
+    flex: 7,
   }
 });
