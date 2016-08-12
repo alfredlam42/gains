@@ -49,9 +49,9 @@ var Gains = React.createClass({
   },
   render: function() {
     var route = realm.objects('User').length > 0 ? 'tabbar' : 'signup';
-    // seed.seedDatabase();
+    seed.seedDatabase();
     // dummy.seedDummyData();
-    // dummy.deleteClass("User");
+    // dummy.deleteAll();
 
     return (
       <Navigator

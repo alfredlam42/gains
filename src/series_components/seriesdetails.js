@@ -18,9 +18,18 @@ module.exports = React.createClass({
       <View style={styles.container}>
         <Header navigator={this.props.navigator}/>
         <View style={styles.seriesInfo}>
-          <Text style={styles.seriesDetail}>{this.props.route.seriesDetail.name}</Text>
-          <Button text='Start This Series' onPress = {this.onSelectSeries} />
-          <Button text='Back' onPress = {this.onBackButtonPress} />
+          <View>
+            <Text style={styles.name}>{this.props.route.seriesDetail.name}</Text>
+          </View>
+
+          <View style={styles.descriptionContainer}>
+            <Text style={styles.description}>{this.props.route.seriesDetail.description}</Text>
+          </View>
+
+          <View style={styles.buttons}>
+            <Button text='Start This Series' onPress = {this.onSelectSeries} />
+            <Button text='Back' onPress = {this.onBackButtonPress} />
+          </View>
         </View>
       </View>
     )
@@ -61,7 +70,7 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch',
     backgroundColor: '#29292B',
   },
   welcome: {
@@ -74,13 +83,25 @@ var styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-  seriesDetail: {
-    fontSize: 40,
+  name: {
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#E0DFE4',
     textAlign: 'center'
   },
   seriesInfo: {
     flex: 7,
+  },
+  buttons: {
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  descriptionContainer: {
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  description: {
+    color: '#E0DFE4',
+    fontSize: 16,
   }
 });

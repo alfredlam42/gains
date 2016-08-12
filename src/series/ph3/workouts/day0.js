@@ -183,21 +183,14 @@ var styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
-  instructions: {
-    alignItems: 'center',
-    alignSelf: 'stretch',
-  },
   text: {
     fontSize: 16,
     color: '#E0DFE4',
     paddingLeft: 10,
     paddingRight: 10,
-    alignSelf: 'stretch',
   },
   exerciseBox: {
     flex: 1,
-    justifyContent: 'center',
-    alignSelf: 'stretch',
     paddingLeft: 10,
     paddingRight: 10,
   },
@@ -241,8 +234,6 @@ var styles = StyleSheet.create({
     color: '#E0DFE4',
   },
   complete: {
-    justifyContent: 'center',
-    alignSelf: 'stretch',
     paddingLeft: 10,
     paddingRight: 10,
   },

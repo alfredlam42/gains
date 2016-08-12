@@ -138,6 +138,7 @@ var dummy = {
       realm.delete(realm.objects('Max'));
       realm.delete(realm.objects('Exercise'));
       realm.delete(realm.objects('Workout'));
+      realm.delete(realm.objects('intObject'));
     })
   },
   deleteClass: function(className){

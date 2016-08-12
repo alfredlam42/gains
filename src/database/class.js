@@ -47,8 +47,8 @@ seriesDisplay.schema = {
   primaryKey: 'name',
   properties: {
     name: 'string',
-    exercises: {type: 'list', objectType: 'Exercise'},
-    category: {type: 'list', objectType: 'Category'}
+    category: {type: 'list', objectType: 'Category'},
+    description: 'string',
   }
 };
 
@@ -96,7 +96,7 @@ Workout.schema = {
 
 var realm = new Realm({
   schema: [intObject, User, Series, seriesDisplay, Category, Max, Exercise, Workout],
-  schemaVersion: 13
+  schemaVersion: 15
 });
 
 module.exports = realm;

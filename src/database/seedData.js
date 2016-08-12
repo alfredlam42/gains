@@ -5,8 +5,15 @@ var realm = require('./class');
 var create = require('../common/create');
 var search = require('../common/search');
 
-//create a list of exercises for each workout series even if exercise is already in another series
-var ph3Exercises = [
+var series = {
+  ph3: {
+    name: 'PH3',
+    categories: ['Hypertrophy'],
+    description: 'The PH3 workout series is for more advanced lifters, people who have been working out for a while.\n\nThe main focus of this workout series is hypertrophy (muscle growth), which also leads to an increase in strength.\n\nDuration: 13 weeks\n\nSplit: 3 days - rest - 2 days - rest',
+  }
+}
+//continue adding new exercises to this list
+var exercises = [
   'Bench Press',
   'Bent Over Row',
   'Cable Triceps Press-down',
@@ -30,17 +37,17 @@ var ph3Exercises = [
 
 //keep adding to categories and alphabetize them for easier search
 var categories = [
-  'Hypertrophy',
   'Endurance',
+  'Hypertrophy',
 ];
 
 //keep adding more here to seed database
 var seed = {
   seedDatabase: function(){
     create.multipleIntObjects();
-    create.multipleExercises(ph3Exercises);
+    create.multipleExercises(exercises);
     create.multipleCategories(categories);
-    create.seriesDisplay('PH3', ph3Exercises, ['Hypertrophy']);
+    create.seriesDisplay(series.ph3.name, series.ph3.categories, series.ph3.description);
   }
 }
 
