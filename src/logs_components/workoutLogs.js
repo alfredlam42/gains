@@ -37,8 +37,8 @@ module.exports = React.createClass({
 
     if (workoutList.length <= 0) {
       return (
-        <View style={styles.workoutWrapper}>
-          <Text style={styles.workoutDayText}>No History</Text>
+        <View style={[styles.workoutWrapper, styles.exerciseList]}>
+          <Text style={styles.exerciseName}>No workouts completed yet.</Text>
         </View>
       )
     } else {

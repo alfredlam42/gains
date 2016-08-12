@@ -14,6 +14,7 @@ var realm = require('../database/class');
 module.exports = React.createClass({
   render: function(){
     var currentSeries = realm.objects('Series').filtered('active = true')[0];
+
     return (
       <View style={styles.container}>
 
@@ -27,14 +28,21 @@ module.exports = React.createClass({
               {this.renderCurrentSeries()}
           </TouchableHighlight>
 
-          <View style={styles.header}>
-              <Text style={styles.headerText}>Previous</Text>
-          </View>
-
+          {this.showPrevious()}
           {this.renderPreviousSeries()}
         </ScrollView>
       </View>
     )
+  },
+  showPrevious: function() {
+    var previousSeries = realm.objects('Series').filtered('active = false');
+    if (previousSeries.length > 0){
+      return (
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Previous</Text>
+        </View>
+      )
+    }
   },
   workoutPress: function(series) {
     this.props.navigator.push({name: 'workoutLogs', series: series});
