@@ -25,12 +25,12 @@ var create = {
       })
     }
   },
-  seriesDisplay: function(name, exerciseList, categoryList){
+  seriesDisplay: function(name, categoryList, description){
     realm.write(() => {
       realm.create('seriesDisplay', {
         name: name,
-        exercises: search.findObjects('Exercise', 'name', exerciseList),
         category: search.findObjects('Category', 'name', categoryList),
+        description: description,
       }, true)
     })
   },

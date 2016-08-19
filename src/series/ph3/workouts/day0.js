@@ -32,7 +32,7 @@ module.exports = React.createClass({
       <View style = {styles.container}>
         <Header />
         <View style={styles.backButton}>
-          <Button text ={'Back'} onPress = {this.handlePress} />
+          <Button text ={'Back'} onPress = {this.pressBack} />
         </View>
         <ScrollView style = {styles.body}>
           <Text style = {styles.day}>
@@ -92,8 +92,7 @@ module.exports = React.createClass({
   },
   onWorkoutComplete: function(){
     var currentUser = realm.objects('User')[0];
-    var currentSeries = search.findLastElement(currentUser.series);
-    //user shouldn't be able to start on more than one workout so the last element in the list is the current series the user is working on
+    var currentSeries = realm.objects('Series').filtered('active = true')[0];
     var weights = this.createWeightList();
     var exercisesList = search.findObjects('Exercise', 'name', exerciseNames);
     var setsList = search.findObjects('intObject', 'value', exerciseSets);
@@ -110,6 +109,7 @@ module.exports = React.createClass({
         weight: weightList,
       })
       currentSeries.workouts.push(workout)
+      currentSeries.currentDay = currentSeries.currentDay + 1;
     });
     create.multipleMaxes(exerciseNames, weights);
     this.props.navigator.pop();
@@ -156,7 +156,10 @@ module.exports = React.createClass({
       list.push(that.state.exerciseWeight[exercise])
     })
     return list;
-  }
+  },
+  pressBack: function() {
+    { this.props.navigator.pop(); }
+  },
 });
 
 var styles = StyleSheet.create({
@@ -180,21 +183,14 @@ var styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
-  instructions: {
-    alignItems: 'center',
-    alignSelf: 'stretch',
-  },
   text: {
     fontSize: 16,
     color: '#E0DFE4',
     paddingLeft: 10,
     paddingRight: 10,
-    alignSelf: 'stretch',
   },
   exerciseBox: {
     flex: 1,
-    justifyContent: 'center',
-    alignSelf: 'stretch',
     paddingLeft: 10,
     paddingRight: 10,
   },
@@ -238,8 +234,6 @@ var styles = StyleSheet.create({
     color: '#E0DFE4',
   },
   complete: {
-    justifyContent: 'center',
-    alignSelf: 'stretch',
     paddingLeft: 10,
     paddingRight: 10,
   },
