@@ -4,6 +4,7 @@ var Header = require('../common/header');
 var {
   View,
   Text,
+  Image,
   StyleSheet,
   TouchableHighlight,
   ScrollView
@@ -12,62 +13,66 @@ var realm = require('../database/class');
 
 module.exports = React.createClass({
   render: function(){
+    var currentSeries = realm.objects('Series').filtered('active = true')[0];
+
     return (
       <View style={styles.container}>
 
         <Header />
-        <View style={styles.body}>
+        <ScrollView style={styles.body} contentContainerStyle={styles.bodyContent}>
           <View style={styles.header}>
               <Text style={styles.headerText}>Current</Text>
           </View>
 
-          <TouchableHighlight style={styles.seriesWrapper} onPress={this.currentWorkoutPress} underlayColor="black">
-            <View>
-              {this.returnCurrentSeries()}
-            </View>
+          <TouchableHighlight style={styles.seriesWrapper} onPress={() => this.workoutPress(currentSeries)} underlayColor="black">
+              {this.renderCurrentSeries()}
           </TouchableHighlight>
 
-          <View style={styles.header}>
-              <Text style={styles.headerText}>Previous</Text>
-          </View>
-
-          <ScrollView style={styles.previousSeries}>
-            {this.renderPreviousSeries()}
-          </ScrollView>
-        </View>
+          {this.showPrevious()}
+          {this.renderPreviousSeries()}
+        </ScrollView>
       </View>
     )
   },
-  currentWorkoutPress: function() {
-    { this.props.navigator.push({ name: 'workoutLogs' }); }
+  showPrevious: function() {
+    var previousSeries = realm.objects('Series').filtered('active = false');
+    if (previousSeries.length > 0){
+      return (
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Previous</Text>
+        </View>
+      )
+    }
   },
-  previousWorkoutPress: function(key) {
-    {this.props.navigator.push({
-      name: 'previousWorkoutLogs',
-      key: key
-    });}
+  workoutPress: function(series) {
+    this.props.navigator.push({name: 'workoutLogs', series: series});
   },
   renderPreviousSeries: function() {
-    var user = realm.objects('User')[0];
-    var seriesList = user.series;
+    var previousSeriesList = realm.objects('Series').filtered('active = false');
     var that = this;
-    return seriesList.map(function(series, i){
-      return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => that.previousWorkoutPress(i)} underlayColor="black">
+
+    return previousSeriesList.map(function(series, i){
+      return <TouchableHighlight key={i} style={styles.seriesWrapper} onPress={() => that.workoutPress(series)} underlayColor="black">
           <View style={styles.seriesDetail}>
-            <Text style={styles.seriesPic}>PIC</Text>
-            <Text style={styles.seriesNameText}>{series.name}</Text>
+            <Image style={styles.seriesPic} source={{uri: series.picture}}/>
+            <View style={styles.workoutDetails}>
+              <Text style={styles.workoutInfoName}>{series.name}</Text>
+              <Text style={styles.workoutInfo}>Days Completed: {series.currentDay}</Text>
+            </View>
           </View>
         </TouchableHighlight>
     });
   },
-  returnCurrentSeries: function() {
-    var mostRecentSeriesInd = realm.objects('Series').length - 1
-    var currentSeries = realm.objects('Series')[mostRecentSeriesInd]
-    if (currentSeries && currentSeries.completed == false){
+  renderCurrentSeries: function() {
+    var currentSeries = realm.objects('Series').filtered('active = true')[0];
+    if (currentSeries && currentSeries.active === true){
       return (
         <View style={styles.seriesDetail}>
-          <Text style={styles.seriesPic}>PIC</Text>
-          <Text style={styles.seriesNameText}>{currentSeries.name}</Text>
+          <Image style={styles.seriesPic} source={{uri: currentSeries.picture}}/>
+          <View style={styles.workoutDetails}>
+            <Text style={styles.workoutInfoName}>{currentSeries.name}</Text>
+            <Text style={styles.workoutInfo}>Days Completed: {currentSeries.currentDay}</Text>
+          </View>
         </View>
       )
     }
@@ -80,12 +85,12 @@ module.exports = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#29292B',
   },
   body: {
     flex: 7,
+  },
+  bodyContent: {
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -93,35 +98,51 @@ var styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: 'blue',
     alignSelf: 'stretch'
   },
   seriesWrapper: {
-    flex: 7,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
+    flex: 4,
+    alignSelf: 'stretch',
+    paddingLeft: 25,
+    paddingTop: 30,
+  },
+  header: {
+    borderBottomWidth: 5,
+    alignSelf: 'stretch',
+    borderColor: '#F0D23C'
   },
   headerText: {
     fontSize: 40,
-    color: '#E0DFE4'
+    color: '#F0D23C',
+    textAlign: 'center'
   },
   seriesPic: {
+    borderWidth: 1,
+    borderColor: '#E0DFE4',
     width: 100,
     height: 100,
-    borderWidth: 3,
-    borderColor: 'green',
-    marginRight: 10
   },
   seriesDetail: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row'
   },
   seriesNameText: {
-    fontSize: 30
+    fontSize: 30,
+    color: '#E0DFE4',
+    textAlign: 'center'
   },
-  previousSeries: {
-    flex: 7,
-  }
+  workoutDetails: {
+    width: 200,
+    height: 100,
+    justifyContent: 'flex-start',
+    paddingLeft: 5,
+  },
+  workoutInfoName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E0DFE4'
+  },
+  workoutInfo: {
+    fontSize: 18,
+    color: '#E0DFE4'
+  },
 });

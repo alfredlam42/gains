@@ -36,6 +36,7 @@ var dummy = {
         workouts: null,
         currentDay: 0,
         completed: true,
+        picture: 'https://static.pexels.com/photos/17840/pexels-photo.jpg',
       });
       var dummySeries2 = realm.create('Series', {
         id: search.findSizeOfClass('Series') + 1,
@@ -44,6 +45,7 @@ var dummy = {
         workouts: null,
         currentDay: 0,
         completed: true,
+        picture: 'https://static.pexels.com/photos/17840/pexels-photo.jpg',
       });
       var dummySeries3 = realm.create('Series', {
         id: search.findSizeOfClass('Series') + 1,
@@ -52,6 +54,7 @@ var dummy = {
         workouts: null,
         currentDay: 0,
         completed: true,
+        picture: 'https://static.pexels.com/photos/17840/pexels-photo.jpg',
       });
       var dummySeries4 = realm.create('Series', {
         id: search.findSizeOfClass('Series') + 1,
@@ -60,6 +63,7 @@ var dummy = {
         workouts: null,
         currentDay: 0,
         completed: false,
+        picture: 'https://static.pexels.com/photos/17840/pexels-photo.jpg',
       });
       var dummyWorkout1 = realm.create('Workout', {
         id: search.findSizeOfClass('Workout') + 1,
@@ -134,6 +138,7 @@ var dummy = {
       realm.delete(realm.objects('Max'));
       realm.delete(realm.objects('Exercise'));
       realm.delete(realm.objects('Workout'));
+      realm.delete(realm.objects('intObject'));
     })
   },
   deleteClass: function(className){

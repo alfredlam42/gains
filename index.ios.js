@@ -17,16 +17,27 @@ var Signup = require('./src/signup');
 var Profile = require('./src/profile');
 var Series = require('./src/series');
 var SeriesDetails = require('./src/series_components/seriesdetails');
+var Home = require('./src/home');
+var WorkoutTemplate = require('./src/series/ph3/workouts/template');
+var RestDay = require('./src/series/ph3/workouts/restDay');
+var TestDay = require('./src/series/ph3/workouts/testDay');
+var DayZero = require('./src/series/ph3/workouts/day0');
 
 var ROUTES = {
   tabbar: Tabbar,
   signup: Signup,
   profile: Profile,
   series: Series,
+  home: Home,
+  dayzero: DayZero,
+  template: WorkoutTemplate,
+  rest: RestDay,
+  test: TestDay,
 }
 
 // realm.write(() => {
 //   realm.delete(realm.objects('User'));
+//   realm.delete(realm.objects('Series'));
 //   }
 // )
 
@@ -38,9 +49,9 @@ var Gains = React.createClass({
   },
   render: function() {
     var route = realm.objects('User').length > 0 ? 'tabbar' : 'signup';
-    // seed.seedDatabase();
+    seed.seedDatabase();
     // dummy.seedDummyData();
-    // dummy.deleteClass("User");
+    // dummy.deleteAll();
 
     return (
       <Navigator

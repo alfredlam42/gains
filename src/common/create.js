@@ -25,12 +25,12 @@ var create = {
       })
     }
   },
-  seriesDisplay: function(name, exerciseList, categoryList){
+  seriesDisplay: function(name, categoryList, description){
     realm.write(() => {
       realm.create('seriesDisplay', {
         name: name,
-        exercises: search.findObjects('Exercise', 'name', exerciseList),
         category: search.findObjects('Category', 'name', categoryList),
+        description: description,
       }, true)
     })
   },
@@ -52,13 +52,37 @@ var create = {
       })
     };
     //creates the numbers used for reps and sets
-    for (varI = 0; i <= 15; i++){
+    for (var i = 0; i <= 15; i++){
       realm.write(() => {
         realm.create('intObject', {
           value: i
         }, true)
       })
     };
+  },
+  multipleMaxes: function(exerciseList, weightList){
+    for(var i = 0; i < exerciseList.length; i++){
+      realm.write(() => {
+        realm.create('Max', {
+          exercise: exerciseList[i],
+          maxWeight: parseInt(weightList[i]),
+        }, true)
+      })
+    }
+  },
+  weightList: function(exerciseList){
+    var list = [];
+    var maxes = search.findObjects('Max', 'exercise', exerciseList);
+    var i = 0;
+    maxes.forEach(function(max){
+      list.push(max.maxWeight);
+    })
+
+    return list;
+  },
+  prependToList: function(itemsToAdd, listToModify){
+    var newList = itemsToAdd.concat(listToModify)
+    return newList
   }
 }
 

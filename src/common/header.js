@@ -3,7 +3,9 @@ var ReactNative = require('react-native');
 var {
   Text,
   StyleSheet,
-  View
+  View,
+  TouchableHighlight,
+  Image,
 } = ReactNative;
 
 module.exports = React.createClass({
@@ -11,23 +13,33 @@ module.exports = React.createClass({
     return (
       <View style={styles.container}>
         <View style={styles.logo}>
-          <Text>Header / logo goes here</Text>
+          <Text style={styles.gains}>GAINS</Text>
         </View>
       </View>
     );
-  }
+  },
+  onBackButtonPress: function() {
+    {this.props.navigator.pop()}
+  },
 });
 
 var styles = StyleSheet.create({
   container: {
       flex: 1,
-      alignSelf: 'stretch'
+      alignSelf: 'stretch',
+      backgroundColor: '#F0D23C'
   },
   logo: {
     flex: 1,
+    marginTop: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: 'blue'
   },
+
+  gains: {
+    flex: 1,
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#29292B',
+  }
 });

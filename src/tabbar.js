@@ -28,6 +28,7 @@ module.exports = React.createClass({
         tintColor="white"
         barTintColor="#000080"
         selectedTab={this.state.selectedTab}>
+
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'profile'}
           title="Profile"
@@ -37,7 +38,7 @@ module.exports = React.createClass({
               selectedTab: 'profile',
             });
           }}>
-          <Profile changeState={this._changeState} />
+          <Profile changeState={this.selectSeries} navigator = {this.props.navigator}/>
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
@@ -49,7 +50,7 @@ module.exports = React.createClass({
               selectedTab: 'series',
             });
           }}>
-          <Series />
+          <Series changeState={this.selectProfileTab} />
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
@@ -66,11 +67,16 @@ module.exports = React.createClass({
       </TabBarIOS>
     )
   },
-  _changeState: function() {
+  selectSeriesTab: function() {
     this.setState({
      selectedTab: 'series'
     });
-  }
+  },
+  selectProfileTab: function() {
+    this.setState({
+      selectedTab: 'profile'
+    });
+  },
 });
 
 var styles = StyleSheet.create({
